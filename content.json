@@ -1,7 +1,9 @@
 jsonpCallback([
+    "debug": true,
+    "m_order": ["custom","book","art","software","domain","website","video"],
+    "m_data": [
     {
         "title": "电子书",
-        "css": "background:linear-gradient(#566AC9,#0A38C2); color:#FFF;",
         "list": [
             {
                 "title": "九评共产党",
@@ -42,4 +44,3 @@ jsonpCallback([
         ]
     }
 ])
-    
