@@ -6,41 +6,10 @@ jsonpCallback([
         "title": "电子书",
         "list": [
             {
-                "title": "九评共产党",
-                "url": "book_html/9ping.html"              
-            },
-            {
-                "title": "风雨天地行",
-                "url": "book_html/fytdx.html"              
-            },
-            {
-                "title": "你我有缘画册",
-                "url": "book_html/huace.html"              
-            },
-            {
-                "title": "解体党文化",
-                "url": "book_html/jtdwh.html"              
-            },
-            {
-                "title": "江泽民其人",
-                "url": "book_html/jzmqr.html"              
-            },
-            {
-                "title": "“死刑犯”撑不起中国器官移植市场上的蘑菇云",
-                "url": "book_html/murder.html"              
-            },
-            {
-                "title": "世纪伪案 惊天骗局",
-                "url": "book_html/pj.html"              
-            },
-            {
-                "title": "退党手册",
-                "url": "book_html/tdsc.html"              
-            },
-            {
                 "title": "共产主义的终极目的",
                 "url": "book_html/zjmd.html"              
             }        
         ]
     }
+    ]
 ])
