@@ -1,0 +1,29 @@
+body{margin:0 0 1px 0}
+body,input,button{font-family:Î¢ÈíÑÅºÚ}
+img{border:0;margin:0;vertical-align:bottom}
+a{text-decoration:none}
+a:hover,a:visited{color:#800080}
+a.w,a.w:hover,a.w:visited{color:white;display:block}
+.menu{background:#5480da;line-height:2em;text-align:center;font-size:1em}
+.btn,.tui{border-radius:0.25em;background:#128deb;line-height:1.4em;text-align:center;font-size:1em;color:white;padding:0.5em;cursor:pointer}
+.btn,.edw{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}
+.tui{line-height:1em;margin:0 0 1em;padding:0.5em 1em;display:inline-block;*display:inline;*zoom:1}
+.chk{-webkit-transform:scale(1.2)}
+
+.menuitem{padding:8px 8px 8px 10px;font-size:1.2em;border-bottom:1px solid #e5e5e5}
+.edw{width:280px;cursor:default;display:none}
+.edw .easyDialog_content{background:white;border-radius:5px;border:3px solid #128deb}
+.edw .easyDialog_title{line-height:1em;overflow:hidden;color:white;padding:12px;font-size:1.2em;margin-top:-1px;background:#4787ed}
+.edw .close_btn{font-size:1.2em;font-weight:700;color:#aaa;float:right;cursor:pointer}
+.edw .close_btn:hover{color:white}
+.edw .easyDialog_text{padding:10px}
+.edw .easyDialog_footer{padding:0 10px;*zoom:1}
+.edw .easyDialog_footer:after{content:'';display:block;height:0;overflow:hidden;visibility:hidden;clear:both}
+.edw .btn_highlight,.edw .btn_normal{border:1px solid;float:right;font-size:1em;padding:0 12px;height:28px;margin:8px 0;border-radius:3px;cursor:pointer}
+.edw .btn_highlight{background:#4787ed;border-color:#3079ed;color:white}
+.edw .btn_normal{margin-left:10px;border-color:#c3c3c3;background:#ececec;color:#333}
+
+.toastify{padding:0 5px 10px 10px;color:#fff;display:inline-block;box-shadow:0 3px 6px -1px rgba(0,0,0,.12),0 10px 36px -4px rgba(77,96,232,.3);background:#2196f3;opacity:0;transition:all .4s cubic-bezier(.215,.61,.355,1);border-radius:5px;cursor:pointer;text-decoration:none;max-width:75%;z-index:2147483647}
+.toastify.on{opacity:1}
+.toast-close{opacity:.5;padding:10px 5px 0 0;text-align:right;line-height:.8em}
+.toastify-center{position:absolute;left:50%;top:50%;width:auto;height:auto;min-width:5%;min-height:5%;transform:translateX(-50%) translateY(-50%);font-size:1.15em;line-height:1.3em}

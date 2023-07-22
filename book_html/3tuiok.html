@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>真相－三退</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="full-screen" content="yes">
+<meta name="x5-full-screen" content="yes">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script src="menu.js"></script>	
+<br>
+<div style="margin:0 2px">
+<b>
+<font color=blue>谢谢！我们将复查您提交的三退数据，并帮您在海外大纪元网站登记有效的三退，请您记住今天的日期。</font><br><br>
+<font color=green>
+<script>
+<!--
+function djb(s)
+{
+	var n = 5381;
+	for (var i=s.length-1; i>=0; --i) {n += (n << 5) + s.charCodeAt(i);if (n > 0xffffff) n &= 0xffffff;}
+	return n;
+}
+
+function chk()
+{
+	var p=location.search;
+	if (p.indexOf('?data=')==0)
+	{
+		var n=p.lastIndexOf('&v=');
+		if (n > 0)
+		{
+			var s=p.substring(6, n);
+			if (djb(s)==parseInt(p.substr(n+3))) return decodeURIComponent(s).replace(/;/g, '<br>');
+		}
+	}
+	return '数据无效！';
+}
+document.write(chk());
+
+var MAXNUM = 100;
+String.prototype.trim=function() {return this.replace(/^\s+|\s+$/g, "");}
+function submitMsg()
+{
+	var s = taMsg.value.trim();
+	var n = s.length;
+	if (n == 0) {alert("请输入留言！");return;}
+	if (n > MAXNUM) {alert("留言不能超过 "+MAXNUM+" 字！");return;}
+	if (!confirm("提交留言：\n\n"+s)) return;
+	s = encodeURIComponent(s.replace(/\n/g, " "));
+	window.location.href = "msgok.html?data="+s+"&v="+djb(s);
+}
+
+function charNum() {spChar.innerHTML=taMsg.value.trim().length + "/" + MAXNUM;}
+//-->
+</script>
+</font>
+</b>
+<br><br>
+<font color=brown>为使数据准确，请勿重复三退。如果要帮他人三退，务必征得本人的同意。如果要补充说明，请给我们留言。</font>
+<br><br>
+<button style="font-size:1.05em;margin-bottom:0.1em" onclick="submitMsg();" title="提交留言">留言</button> &nbsp; <span id="spChar" style="font-weight:bold"></span><br>
+<textarea id=taMsg rows=5 style="font-size:1em;font-family:微软雅黑;overflow-y:auto;width:98%;margin:3px 0;border:solid 1px #808080" oninput="charNum();" onpropertychange="charNum();"></textarea><br>
+<br>
+<img src="images/tuidang.png">
+</div>
+</body>
+</html>

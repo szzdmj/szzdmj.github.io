@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>真相－三退</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="full-screen" content="yes">
+<meta name="x5-full-screen" content="yes">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script src="menu.js"></script>	
+<br>
+<div style="margin:0 2px">
+<b>
+<font color=blue>谢谢您的反馈！</font><br><br>
+<font color=green>
+<script>
+<!--
+function djb(s)
+{
+	var n = 5381;
+	for (var i=s.length-1; i>=0; --i) {n += (n << 5) + s.charCodeAt(i);if (n > 0xffffff) n &= 0xffffff;}
+	return n;
+}
+
+function chk()
+{
+	var p=location.search;
+	if (p.indexOf('?data=')==0)
+	{
+		var n=p.lastIndexOf('&v=');
+		if (n > 0)
+		{
+			var s=p.substring(6, n);
+			if (djb(s)==parseInt(p.substr(n+3))) return decodeURIComponent(s);
+		}
+	}
+	return '数据无效！';
+}
+document.write(chk());
+//-->
+</script>
+</font>
+</b>
+<br><br>
+</div>
+</body>
+</html>
