@@ -156,8 +156,6 @@ div.d{height:30px;margin-bottom:5px}
 
 </pre>
 
-<div style="display:none"><span id="node" rel="/U53da" style="margin:-1.4em 0 1.4em;display:block">当前网址</span></div>
-
 <a href="" id=aFile></a>
 
 <script>
@@ -186,12 +184,22 @@ div.d{height:30px;margin-bottom:5px}
 	var g_bPopTui = 0;	/* 自动弹出三退提示框（设为 1 时）*/
 	var g_sToast = "欢迎访问！<br>请将本网页收藏到书签，以后可从书签打开本站。";
 	var g_bWeb = 0;	/* 自动加载（弹出）网址 */
-	var g_sURL = !g_bHTTP || window.location.href.indexOf("szmj0.github.io") > 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
+	var g_sURL =  !g_bHTTP || window.location.href.indexOf("szmj0.github.io") > 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
+	var g_sPF = [];
 
 	var g_bDL = 'download' in document.createElement('a') && navigator.userAgent.indexOf('Lenovo') < 0;
 
 	function getDL(s, bPF) {return g_bDL && !bPF ? (s ? "title='' download='"+s+"'" : "download") : "";}
-	function addPF2(s) { if (s.substr(0,4).toLowerCase() == "http") addPF(s); else addPF(g_sURL + s); }
+	function addPF1(s, n) {
+		s = s.substr(0,4).toLowerCase() == "http" ? s : g_sURL + s;
+		for (var i=g_sPF.length-1; i>=0; --i) if (g_sPF[i].url == s) return;
+		g_sPF.push({"url":s, "priority":n});
+	}
+	function addPF2() {
+		g_sPF.sort(function(a, b){return a.priority-b.priority});
+		var n = g_sPF.length;
+		for (var i=0; i<n; ++i) addPF(g_sPF[i].url);
+	}
 
 	XBack = {};
 	(function(XBack) {
@@ -292,7 +300,7 @@ div.d{height:30px;margin-bottom:5px}
 			} else
 			if (g_sURL != "" && g_bCanPF)
 			{
-				s = s.replace(/<img src="/g, '<img src="'+g_sURL);
+				/*s = s.replace(/<img src="/g, '<img src="'+g_sURL);*/
 				if (s.indexOf("media/zjmd.html") > 0) s = s.replace(/media\/zjmd.html/g, g_sURL+'media/zjmd.html');
 			}
 			k = t.indexOf('|');
@@ -314,23 +322,27 @@ div.d{height:30px;margin-bottom:5px}
 		if (g_nInit == 1) showItem(-1); else if (g_nInit == 2) showHelp();
 		if (g_bCanPF)
 		{
+			/*
 			var re = new RegExp('<img src="([^"]+)"', "g");
-			for (i=g_nInit>0?0:1; i<g_nTotal; ++i) do {var r=re.exec(g_sArticle[g_nOrd[i]-1]["content"]);if (r) addPF2(r[1]);} while (r);
-			var PF = ["media/zjmd.html","images/lotus.png","images/tuidang.png","images/tuidang.jpg","images/list2.png","images/banner.jpg"];
-			var bBanner = banner.width == 0;
-			for (i=PF.length-(bBanner?1:2); i>=0; --i) addPF2(PF[i]);
+			for (i=g_nInit>0?0:1; i<g_nTotal; ++i) do {var r=re.exec(g_sArticle[g_nOrd[i]-1]["content"]);if (r) addPF1(r[1],2);} while (r);
+			*/
+			var PF = ["media/zjmd.html","images/list2.png"/*,"images/lotus.png","images/tuidang.png","images/tuidang.jpg","images/banner.jpg"*/];
+			for (i=PF.length-1; i>=0; --i) addPF1(PF[i], PF[i].indexOf(".html") > 0 ? 5 : 1);
+			/*
 			t = imgNum.src;
 			t = t.substr(t.indexOf("images/"));
-			addPF2(t);
+			addPF1(t, 1);
 			if (g_sURL != "")
 			{
-				if (bBanner) banner.src = g_sURL + "images/banner.jpg";
+				imgNum.src = g_sURL + t;
+				banner.src = g_sURL + "images/banner.jpg";
 				lotus_png.src = g_sURL + "images/lotus.png";
 				tuidang_png.src = g_sURL + "images/tuidang.png";
 				tuidang_jpg.src = g_sURL + "images/tuidang.jpg";
-				imgNum.src = g_sURL + t;
 			}
+			*/
 		}
+		setTimeout(function(){addPF2();}, 100);
 	}
 
 	function download()
@@ -351,7 +363,7 @@ div.d{height:30px;margin-bottom:5px}
 			s += "<br><br><a href='media/"+g_sFile+"' "+getDL(g_sFile,g_bAuto==2)+">"+g_sFile+"</a>";
 			easyDialog.open({container:{header:"提示", content:s, noText:"关闭", noFn:true}});
 			setCookie("download");
-			if (g_bAuto == 2) addPF2("media/"+g_sFile); else
+			if (g_bAuto == 2) addPF1("media/"+g_sFile, 6); else
 			if (g_bAuto == 1 && navigator.userAgent.indexOf("like Mac OS X") < 0)
 			{
 				aFile.href = "media/"+g_sFile;
@@ -395,11 +407,8 @@ div.d{height:30px;margin-bottom:5px}
 		setBQ(true);
 	}
 	
-	var g_node = null;
 	function showHelp() {
 		spContent.innerHTML = g_sHelp;
-		if (g_node == null) g_node = $('#node').remove();
-		g_node.appendTo('#spContent');
 		aPrev.style.visibility = "hidden";
 		aNext.style.visibility = "visible";
 		spIndex.innerHTML = "";
@@ -417,8 +426,10 @@ div.d{height:30px;margin-bottom:5px}
 </script>
 </div>
 
-<div id=d6 style="display:none"><br>
-<div style="height:10px"></div>
+<div id=d6 style="display:none">
+<div style="height:2px"></div>
+<div style="display:none" align=center><span id="node" rel="/U53da" style="color:blue">当前网址</span></div>
+<div style="height:8px"></div>
 
 <!--#region szmjweb+player.txt -->
 <style>
@@ -518,10 +529,10 @@ div.d{height:30px;margin-bottom:5px}
     <div id="content"></div>
 </div>
 
-<img src="" class="hidden" id="c" rel="" nov="1" pwa="0" jsonp="kiC7K">
+<img src="" class="hidden" id="c" rel="http://d12ogqhrsnt8ma.cloudfront.net" nov="1" pwa="0" jsonp="ios:C6V8Z,!ios:kiC7K">
 <div id="custom">
     {
-        "b_order": ["custom","dongtaiwang_top","dongtaiwang_ytb","epochtimes","ntdtv","mhwin","secretchina","soundofhope","software","domain","book","art","website","video"],
+        "b_order": ["dongtaiwang_top","epochtimes","secretchina","mhwin","soundofhope","ntdtv","dongtaiwang_ytb","video","art","website","custom","book","software","domain"],
         "b_data": []
     }
 </div>
@@ -669,7 +680,7 @@ function FoundMedia(media){
 function FoundSite(site){
     /*site形如 http://域名 或 https://域名，尾部不带/*/
     window.szsite = site;
-    if (g_bWeb) window.open(site + '/1/');
+    if (g_bWeb) window.open(site + '/1/');  
 }
 /*回调函数--当没找到有效节点时触发。如果存在此函数，就在找不到节点时执行此函数，否则就显示默认的提示信息。*/
 function NotFoundSite(){
@@ -679,6 +690,7 @@ function NotFoundSite(){
 function ShowLoading(show){
     /*show为1表示显示進度条，0表示隐藏進度条*/
     if (show == 1) preload.innerHTML = "<div align=center><br><font color=green><b>正在加载新闻内容…</b></font><br><br></div>";
+    else {node.innerText = window.szsite ? "点击分享本平台短网址和二维码" : "&nbsp;";$('#node').parent().show();}
 }
 /*回调函数--当找到三退表单网址时*/
 function FoundTui(url) {
@@ -686,8 +698,7 @@ function FoundTui(url) {
     $('#tuicont iframe').attr('src', url);
     $('#tuicont').show();
     /*把web版加载的翻墙软件和电子书两个内容块儿移动到畅游浏览的软件栏目下*/
-	$('#n_software,#n_book').remove().appendTo('#d2');
-    
+	$('#n_software,#n_book').remove().appendTo('#d2');    
 }
 
 /*回调函数--显示内容前*/
@@ -696,6 +707,13 @@ function BeforeShowContent(html){
 }
 /*加载播放列表（img#c[jsonp]里的每个jsonp格式文档页面id在加载后都会执行对应的回调）*/
 function jsonpCallback_kiC7K(json) {
+    if(json && json.length>0){
+    		$('#d4b').show();
+        $('#d4b').addClass('player2')
+        loadPlaylistFromNet(json);
+    }
+}
+function jsonpCallback_C6V8Z(json) {
     if(json && json.length>0){
     		$('#d4b').show();
         $('#d4b').addClass('player2')
@@ -774,7 +792,7 @@ function jsonpCallback_kiC7K(json) {
 			sTitle = bPF? sTitle+"&nbsp; <svg viewBox='0 0 48 48' class=dl><use xlink:href=#download></use></svg>" : sTitle;
 			s += '<tr bgcolor=#f9f9f9><td>'+sTitle+'</td><td align=center style="width:3em;padding:7px">' +
 				'<a '+getDL(si['zw'], bPF && !bHTML)+' href="'+g_sURL+'media/'+si['file']+'">下载</a></td></tr>';
-			if (bPF) addPF2("media/"+si['file']);
+			if (bPF) addPF1("media/"+si['file'], bHTML ? 5 : 6);
 		}
 		document.write(s+'</table></div>');
 	}
@@ -883,7 +901,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		for (var i=0; i<n; ++i)
 		{
 			var si = g_aList2[i];
-			if (g_bPF && si['pf']==1) {t=si['file'].split(',');var k=t.length;for (j=0; j<k; ++j) addPF2("media/"+t[j]);}
+			if (g_bPF && si['pf']==1) {t=si['file'].split(',');var k=t.length;for (j=0; j<k; ++j) addPF1("media/"+t[j], j>0 ? 4 : 3);}
 			var t = si['file'].trim().replace(/@/g, si['title']);
 			si['file'] = t;
 			var sDir = si['dir'] = '';
@@ -991,7 +1009,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 			s += '<tr><td><div class=btn1 style="line-height:1.2em;" onclick="playItem('+j+');">&nbsp;'+(j+1)+'&nbsp;</div></td><td>'+si['title']+
 				'</div></td><td><nobr>'+(bMP3 ? '<svg class=audio><use xlink:href="#audio"></use></svg> ':'<svg class=video viewBox="0 0 512 512"><use xlink:href="#video"></use></svg> ')+'&nbsp;<a href="'+f+'" ' +getDL(si['zw'],bPF)+ '>下载</a></nobr></td></tr>';
 			p += '<nobr><a href="javascript:playItem('+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(j+1)+'. '+si['title']+'</a></nobr>';
-			if (bPF) addPF2(f);
+			if (bPF) addPF1(f, 7);
 			++j;
 		}
 		divMenu2.innerHTML = p;
