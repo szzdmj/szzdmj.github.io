@@ -3,7 +3,6 @@ var g_bPF = 1;
 // 修改下载的文件名和说明，每个文件一行。file 为源文件名，zw 为中文文件名（可省略），title 为文件说明，pf 为预取。相关文件都放在 media 目录
 var g_aList1 = [
 	{type:"软件"},
-	{file:"zhenxiang.zip",zw:"真相.zip",title:"打包下载：包括翻墙软件、电子书、图片等。zip 格式"},
 	{file:"lithium.apk",zw:"锂 EPUB 阅读器 - 安卓版.apk",title:"阅读软件：锂 EPUB 阅读器安卓版，可看 EPUB 格式电子书"},
 	{type:"电子书"},
 	{file:"9ping.html",zw:"九评共产党.html",title:"《九评共产党》HTML 格式",pf:1},
@@ -33,13 +32,9 @@ var g_aList2 = [
 
 // 修改视频的文件名，中文文件名（可省略）和说明，每个文件一行。要不使用一行，可在行首加 //
 var g_aList3 = [
-	{file:"zgbszg.mp4",zw:"中共不是中国退出中共才有未来.mp4",title:"中共不是中国 退出中共才有未来"},
-	{file:"zf-dsp.mp4",zw:"是自焚还是骗局.mp4",title:"是自焚还是骗局？"},
-	{file:"425.mp4",zw:"四二五上访真相.mp4",title:"“四·二五”上访真相"},
-	{file:"jx1400li-dsp.mp4",zw:"解析1400例.mp4",title:"解析“1400例”"},
+	{file:"bjfyj425.mp4",zw:"四二五上访真相.mp4",title:"“四·二五”上访真相"},
 	{file:"tmzg.mp4",zw:"天灭中共.mp4",title:"天灭中共（2亿）"},
 	{file:"weihuo.mp4",zw:"伪火 - 天安门自焚事件真相.mp4",title:"伪火:“天安门自焚”真相"},
-	{file:"hcym.mp4",zw:"红朝阴谋 - 这个星球上从未有过的邪恶.mp4",title:"红朝阴谋 - 这个星球上从未有过的邪恶"},	
 	{file:"hzxc.mp3",zw:"活摘现场持枪警卫证词.mp3",title:"活摘现场持枪警卫证词（音频）"},
 	{file:"bxls.mp3",zw:"薄熙来说：江主席下的命令.mp3",title:"薄熙来说：江主席下的命令（音频）"},
 	{file:"lccs.mp3",zw:"李长春说：周永康具体管这个事.mp3",title:"李长春说：周永康具体管这个事（音频）"},
