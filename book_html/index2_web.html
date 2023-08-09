@@ -10,7 +10,7 @@
 <meta name="full-screen" content="yes">
 <meta name="x5-full-screen" content="yes">
 <style>
-.menu,.menu2,.btn1,.btn2,.ns,.edw,.tab + label{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}
+.menu,.menu2,.btn1,#divBtns,.ns,.edw,.tab + label{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}
 .btn1,.tui{border-radius:0.25em;background:#128deb;line-height:1.4em;text-align:center;font-size:1em;color:white;padding:0.5em;cursor:pointer}
 .tui{line-height:1em;margin:0 0 1em;padding:0.5em 1em;display:inline-block;*display:inline;*zoom:1}
 .chk{-webkit-transform:scale(1.2)}
@@ -36,12 +36,13 @@
 body{margin:0;overscroll-behavior-y:contain}
 body,input,button{font-family:微软雅黑}
 img{border:0;margin:0;vertical-align:bottom}
-.pl{width:40px;height:40px;cursor:pointer;margin:0 10px}
+.pl{height:90%;cursor:pointer;margin:0 10px}
 .pl:active,.pl:hover{filter:invert(0) drop-shadow(0 0 6px blue);opacity:0.8}
 #divMenu1 a,#divMenu2 a{text-decoration:none}
 a{text-decoration:none}
 a:hover,a:visited{color:#800080}
 a:hover{text-decoration:underline}
+#divMenu3 a{padding:8px 0 8px 10px}
 .menu,.menu2{background:#5480da;text-align:center;font-size:20px;color:white}
 .menu:active,.menu:hover{background:#74a0fa;cursor:pointer}
 .btn1{border-radius:0.25em;background:#42c0fb;line-height:1.4em;text-align:center;font-size:1em;color:white;padding:0.5em;cursor:pointer;min-width:1.5em}
@@ -81,16 +82,18 @@ div.d{height:30px;margin-bottom:5px}
 .icon{fill:#ea4335;vertical-align:top}
 .shadow0{box-shadow:5px 5px 10px #888}
 
-.tab-wrap{border-radius: 6px;margin:10px 0 0;box-shadow:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);background-color: #f0f0f0}
+@media screen and (orientation: landscape) and (min-width: 778px)  {#d4{margin:0 auto;width:768px}}
+
+.tab-wrap{border-radius: 6px;margin:10px 0 0;box-shadow:0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);background-color:#f0f0f0}
 .tab-wrap:hover{box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19)}
-.tab,.tab + label{display:none}
+.tab{display:none}
 .tab + label {
 	box-shadow: 0 -1px 0 #eee inset;
 	border-radius: 6px 6px 0 0;
 	border:1px solid #ccc;
 	border-bottom:0;
 	cursor: pointer;
-	display: block;
+	display: none;
 	color: #333;
 	font-weight:bold;
 	text-align: center;
@@ -101,13 +104,15 @@ div.d{height:30px;margin-bottom:5px}
 	margin-bottom:5px;
 }
 .tab + label:hover{filter:invert(0) drop-shadow(0 0 5px gold)}
-.tab:checked + label{background-color:#f0f0f0;box-shadow:0 -1px 0 #fff inset;cursor: default}
+.tab:checked + label{background-color:#f0f0f0;box-shadow:0 -1px 0 #fff inset;cursor:default}
 .tab:checked + label:hover{filter:drop-shadow(0 0 0)}
 </style>
 </head>
 <body bgcolor=#f0f0f0 onload="initArticle();">
 <div id=divSpace style="height:2.5em;margin-top:0.5em"></div>
 <script src="data.js"></script>
+
+<div id=divMenu3 class=dm style="position:fixed;top:0;z-index:999;display:none"  tabindex=-1 onscroll="return false;"></div>
 
 <div id=divBack style="position:fixed;top:2.5em;z-index:1000;display:none" onclick="showPicList();" title="返回图片目录">
 <svg id=svgBack class="ic ic2" viewBox="0 0 447.976 447.976" style="padding-left:8px;width:40px;height:40px;cursor:pointer"><g transform="rotate(180 223.988 223.988)">
@@ -119,7 +124,7 @@ div.d{height:30px;margin-bottom:5px}
 <div id=divMenu1 class=dm style="display:none" tabindex=0 onscroll="return false;"></div><div id=divMenu2 class=dm style="display:none" tabindex=0 onscroll="return false;"></div></div>
 
 <table id=tbMenu cellspacing=0 cellpadding=0 width=100% bgcolor=#8490ea style="height:2.5em;position:fixed;top:0;z-index:1000;table-layout:fixed;box-shadow:2px 2px 5px #aaa"><tr>
-<td id=td0 class=menu2 width=20% style="display:none;text-align:left"><img src="images/lighthouse.png" onclick="scroll2(0);" style="height:2.2em;padding:0 0.5em;vertical-align:middle;cursor:pointer"><span style="vertical-align:middle;font-family:隶书;font-size:2em;color:#f8f8f8"><nobr>畅游浏览</nobr></span></td>
+<td id=td0 class=menu2 width=20% style="display:none;text-align:left;overflow: hidden"><nobr><img src="images/lighthouse.png" onclick="scroll2(0);" style="height:2.2em;padding:0 0.5em;vertical-align:middle;cursor:pointer"><span style="vertical-align:middle;font-family:隶书;font-size:2em;color:#f8f8f8">畅游浏览</span></nobr></td>
 <td id=td1 class=menu onclick="javascript:jmp(d1);"><svg class=hd>
   <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
   <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
@@ -203,6 +208,7 @@ div.d{height:30px;margin-bottom:5px}
 	var g_bPopTui = 0;	/* 自动弹出三退提示框（设为 1 时）*/
 	var g_sToast = "欢迎访问！<br>请将本网页收藏到书签，以后可从书签打开本站。";
 	var g_bWeb = 0;	/* 自动加载（弹出）网址 */
+	var g_bList = 1;	/* 详细播放列表  */
 	var g_sURL =  !g_bHTTP || window.location.href.indexOf("szmj0.github.io") > 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
 	var g_sPF = [];
 
@@ -212,6 +218,7 @@ div.d{height:30px;margin-bottom:5px}
 	function addPF1(s, n) {
 		s = s.substr(0,4).toLowerCase() == "http" ? s : g_sURL + s;
 		for (var i=g_sPF.length-1; i>=0; --i) if (g_sPF[i].url == s) return;
+		if (s.indexOf(".htm") > 0) s = s + "?htm";
 		g_sPF.push({"url":s, "priority":n});
 	}
 	function addPF2() {
@@ -272,6 +279,11 @@ div.d{height:30px;margin-bottom:5px}
 		if (g_nWiFi < 1) alert("该功能当前不可用！"); else
 		if (b) doTui1(); else doTui();
 	}
+	
+	function appendPara(s) {
+		 return g_sURL == "" ? s : s+"?htm";
+	}
+	
 	function initArticle() {
 		checkWiFi();
 		document.body.bgColor = g_sBGColor;
@@ -282,18 +294,24 @@ div.d{height:30px;margin-bottom:5px}
 		}
 		
 		aZoom.style.display = bLand ? "" : "none";
-		if (bLand)
+		if (bLand) {
 			zoom(false);
-		else {
+		} else {
 			for (i=1;i<7;++i) {
 				var td = eval('td'+i);
 				td.style.fontSize = "18px";
 				td.innerHTML= td.innerText;
 			}
 			bq.style.padding = "0.6em 10px";
-			divFile.style.height = "1.6em";
+			divSpace.style.marginTop = "0";
+			divFile.style.height = "2.25em";
+			divFile.style.fontSize = "1em";
+			divFile.style.lineHeight = "1.05em";
+			divFile.style.paddingTop = g_bAndroid ? "0.15em" : "0.1em";
+			if (g_bAndroid) btnMenu.style.padding = "0 8px";
+			divBtns.style.height = "40px";
 		}
-		fp.style.height = Math.floor(window.innerWidth * (bLand ? 0.6 : 1) * 9 / 16) + "px";
+		fp.style.height = Math.floor((bLand ? 768 : window.innerWidth) * 9 / 16) + "px";
 		d1.style.display = "";
 		if ((g_nBorder & (bLand ? 1 : 2)) == 0)
 		{
@@ -322,12 +340,12 @@ div.d{height:30px;margin-bottom:5px}
 			if (g_sURL != "" && g_bCanPF)
 			{
 				/*s = s.replace(/<img src="/g, '<img src="'+g_sURL);*/
-				if (s.indexOf("media/zjmd.html") > 0) s = s.replace(/media\/zjmd.html/g, g_sURL+'media/zjmd.html');
+				if (s.indexOf("media/zjmd.html") > 0) s = s.replace(/media\/zjmd.html/g, g_sURL+appendPara('media/zjmd.html'));
 			}
 			k = t.indexOf('|');
 			if (k >= 0) t = t.substr(0, k);
 
-			if (g_bTui) sTui = '<div align=center><div class=tui onclick="do3Tui();">'+(sTui=='' ? g_sTui : sTui)+'</div></div>';
+			if (g_bTui && g_nWiFi >= 0) sTui = '<div align=center><div class=tui onclick="do3Tui();">'+(sTui=='' ? g_sTui : sTui)+'</div></div>';
 			if (s.indexOf('<') < 0) s = "　　" + s.replace(/[\r\n]\s*/g, "<div class=em></div>　　")+ '<br><br>';
 			s = t.length > 0 ? "<h3 style='color:#03c' align=center>" +t+ "</h3>" + s : "<br>" + s;
 			if (b) k = i; else for (j=g_nTotal-1; j>=0; --j) if (g_nOrd[j]==i+1) {k = j;break;}
@@ -464,7 +482,7 @@ div.d{height:30px;margin-bottom:5px}
     #custom{display:none;}
     .player2 .btn11{border-radius: 0.25em; background: #128deb; line-height: 1.4em; text-align: center; font-size: 1em; color: white;margin:0 5px;padding: 0.4em;cursor: pointer;-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;-khtml-user-select: none;user-select: none;}
     .player2 .btn11:active, .player2 .btn11:hover{filter:invert(0) drop-shadow(0 0 5px #00c)}
-    .player2 #divList{display:inline-block;width:100%; overflow-y:auto;overflow-x:hidden;max-height:475px;padding:0;margin-top:10px;}
+    .player2 #divList{display:inline-block;width:100%;overflow-y:auto;overflow-x:hidden;max-height:475px;padding:0;margin-top:10px;}
     .player2 #tbList{border:1px solid #c0c0c0; padding:0 5px 10px;table-layout:fixed}
     .player2 #tbList td.sepr {border-bottom: 1px solid #c0c0c0;}
     .player2 #tbList tr.t, .player2 #tbList td.t {height: 38px;padding-top: 5px; }
@@ -567,20 +585,28 @@ var g_bLocal = true,
       g_CurrBtn = null;
 
 function setLocal(b) {
+	if (g_bLocal == b) return;
 	g_bLocal = b;
 	if (b) {
         	if (g_CurrBtn) g_CurrBtn.style.color = "white";
 	   	g_nIndex = null;
       	g_CurrBtn = null;
+      	showMenu3();
 	} else {
 		if (g_nPI >= 0) g_aTD[g_nPI].style.color = "white";
 		g_nPI = -1;
 	}
 }
+
+function showMenu3() {
+	divMenu3.style.display = !g_bLocal && d4.style.display=="" && isLand() ? "" : "none";
+}
+
 /*实现在线播放器*/
 function loadPlaylistFromNet(json){
     var g_aList0 = [],
-		g_nHLS = 0,	g_nIndex2 = 0;
+		g_nHLS = 0,
+		g_nIndex2 = 0,
 		tbList = document.getElementById("tbList");
 		
     function setSrc(row, col) {
@@ -589,14 +615,17 @@ function loadPlaylistFromNet(json){
         }
         g_CurrBtn = document.getElementById('btn-' + row + '-' + col);
         g_CurrBtn.style.color = "orange";
-        var s = g_aList0[row]['file'][col];
+        var item=g_aList0[row], s = item['file'][col];
         if(window.szsite && s.substr(0, 1)=='/'){
             s = window.szsite + s;
         }
-        var tt = g_aList0[row]['title'], b = Array.isArray(tt), t = b ? tt[0] : tt;
-        divFile.innerHTML = (row + 1) + '. ' + t + (g_aList0[row]['num'] > 1 ? '-'+(col+1) : "") + (b&&col<tt.length?"："+tt[col+1]:"");
+        var t = item['title'], tt = item['subtitle'], b = typeof(tt) != "undefined";
+        divFile.innerHTML = (row+1) + '. ' + t + (item['file'].length > 1 ? '-'+(col+1)+(b&&col<tt.length?": <nobr>"+tt[col]+"</nobr>":"") : "");
+        var obj = document.getElementById('aIndex' + g_nIndex2);
+        if (obj) obj.style.color = "black";
         g_nIndex2 = col;
-        g_nHLS = ((s.match(/^https?:/) && s.charAt(0) == 'H') || s.match(/\.m3u8$/)) ? 1 : 0;
+        document.getElementById('aIndex' + col).style.color = "#e46910";
+        g_nHLS = s.match(/^Https?:|\.m3u8$/) ? 1 : 0;
         vp.src = s;
     }
     function play2() {
@@ -607,21 +636,27 @@ function loadPlaylistFromNet(json){
         }
     }
 	window.play2 = play2;    
+    
     function playlistPrev() {
-		if (g_nIndex2 > 0) {
-			setSrc(g_nIndex, g_nIndex2-1);
+    		var f = g_aList0[g_nIndex]['file'], n = f.length;
+    		for (var i=g_nIndex2-1; i>=0; --i)	if (f[i] != "") break;    		    	
+		if (i >= 0) {
+			setSrc(g_nIndex, i);
 			vpPlay2();
 		} else
 		if (g_nIndex > 0) {
 		    setIndex(g_nIndex - 1);
-		    setSrc(g_nIndex, g_aList0[g_nIndex]['num']-1);
+		    setSrc(g_nIndex, g_aList0[g_nIndex]['file'].length-1);
 		    vpPlay2();
 		}
     }
 	window.playlistPrev = playlistPrev;
+    
     function playlistNext() {
-    		if (g_nIndex2 < g_aList0[g_nIndex]['num']-1) {
-    			setSrc(g_nIndex, g_nIndex2+1);
+    		var f = g_aList0[g_nIndex]['file'], n = f.length;
+    		for (var i=g_nIndex2+1; i<n; ++i)	if (f[i] != "") break;    		
+    		if (i < n) {
+    			setSrc(g_nIndex, i);
     			vpPlay2();
     		} else
         if (g_nIndex < g_aList0.length - 1) {
@@ -631,44 +666,88 @@ function loadPlaylistFromNet(json){
         }
     }
 	window.playlistNext = playlistNext;
-    function playlistItem(i, j) {
-    	   setLocal(false);
-        setIndex(i);
-        setSrc(i, j);
-        vpPlay2();
-    }
+	
+	function playlistItem(i, j) {
+		setLocal(false);
+		setSubtitle(i);
+		if (g_nIndex == i && g_nIndex2 == j) {
+			if (!isPlaying()) vpPlay2();
+		} else {
+			setIndex(i);
+			setSrc(i, j);
+			vpPlay2();
+		}
+	}
 	window.playlistItem = playlistItem;
-    function setIndex(n) {
-        g_nIndex = n;
-        if (n < 0) divFile.innerHTML =  "&nbsp;";
+
+	function setIndex(n) {
+		showMenu3();
+		if (g_nIndex == n) return;
+		g_nIndex = n;
+		if (n < 0) divFile.innerHTML =  "&nbsp;";
+		var item=g_aList0[n], f = item['file'], tt = item['subtitle'], b = typeof(tt) != "undefined", s = "";	
+		if (b) {
+			var k = tt.length;
+			for (var j=0; j<f.length; ++j)
+			{
+				if (f[j] == "") continue;
+				s += '<nobr><a id=aIndex'+j+' href="javascript:playlistItem('+n+','+j+');">'+(j+1)+(b&&j<k?". "+tt[j]:"")+'</a></nobr>';
+			}
+		}
+		divMenu3.innerHTML = s;
+	}
+    
+    function setSubtitle(i, j) {
+    		var obj = document.getElementById("subtitle"+i);
+    		if (obj) obj.innerText = typeof(j)=="undefined" ? "" : "-"+(j+1)+': '+g_aList0[i]['subtitle'][j];
     }
-    function setSubtitle(o, s) {
-    		o.innerText = s ? s : "";
-    }
+    window.setSubtitle = setSubtitle;
+    
     function init() {
         var tbody = '', n = g_aList0.length, p = '';
         for (var i = 0; i < n; i++) {
-            var item = g_aList0[i], tt = item['title'], f = item['file'], b = Array.isArray(tt);
-            var m = f.length, bMP3 = f[0].substr(-1) == "3", t = b ? tt[0] : tt, k = tt.length-1;
-            tbody += (i>0?'<tr height=10><td class="sepr" colspan=5></td></tr>':'')+'<tr><td colspan=5 class="t">'+(i+1)+'. '+t+(b&&m>1?"<span id=subtitle"+i+"></span>":"") +'</td></tr><tr>';
-            g_aList0[i]['num'] = m;
-            for (var j = 0; j < m; j++) {
-                tbody += '<td><div'+(m>1&&b&&j<k?" onmouseenter='subtitle"+i+'.innerText="-'+(j+1)+'：'+tt[j+1]+'"'+";' onmouseleave='subtitle"+i+'.innerText="";'+"'":"")+' class="btn11" id="btn-'+i+'-'+j+'" onclick="playlistItem('+i+','+j+');">'+(j+1)+'</div></td>';
-                if ((j+1) % 5 == 0 && j < m-1) tbody += '</tr><tr>';
-                p += '<nobr><a href="javascript:playlistItem('+i+','+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(i+1)+'. '+t+(m>1?"-"+(j+1)+(b&&j<k?"："+tt[j+1]:""):"")+'</a></nobr>';
-            }
-            tbody += '</tr>';
+            var item = g_aList0[i], t = item['title'], f = item['file'], tt=item['subtitle'],  b = typeof(tt) != "undefined";
+            var m = f.length, bMP3 = f[0].substr(-1) == "3", k = b ? tt.length : 0;
+            if (g_bList) {
+				tbody += (i>0?'<tr height=10><td class="sepr" colspan=5></td></tr>':'')+'<tr><td colspan=5 class="t">'+(i+1)+'. '+t+'</td></tr>';
+				for (var j = 0; j < m; j++) {
+				    if (b && f[j] == "") continue;
+					if (b || j == 0) tbody += '<tr>';
+					tbody += '<td><div class="btn11" id="btn-'+i+'-'+j+'" onclick="playlistItem('+i+','+j+');">'+(j+1)+'</div></td>';
+					if (b) {
+				    	if (m>1&&b&&j<k) tbody += '<td colspan=4>'+tt[j]+'</td>';
+				    	tbody += '</tr>';
+					} else {
+				    	if ((j+1) % 5 == 0)  tbody += j < m-1 ? '</tr><tr>' : '</tr>';
+					}
+					p += '<nobr><a href="javascript:playlistItem('+i+','+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(i+1)+'. '+t+(m>1?"-"+(j+1)+(b&&j<k?": "+tt[j]:""):"")+'</a></nobr>';
+				}
+            } else {
+				tbody += (i>0?'<tr height=10><td class="sepr" colspan=5></td></tr>':'')+'<tr><td colspan=5 class="t">'+(i+1)+'. '+t+(b&&m>1?"<span id=subtitle"+i+"></span>":"")+'</td></tr><tr>';
+				for (var j = 0; j < m; j++) {
+					var f1 = "'setSubtitle("+i+','+j+");';", f2 = "'setSubtitle("+i+");'";
+					if (b && f[j] == "")
+						tbody += '<td>';
+					else {			                	
+						tbody += '<td><div'+(m>1&&b&&j<k?" onmouseenter="+f1+" onmouseleave="+f2+" ontouchstart="+f1+" ontouchend="+f2:"")+' class="btn11" id="btn-'+i+'-'+j+'" onclick="playlistItem('+i+','+j+');">'+(j+1)+'</div></td>';
+						p += '<nobr><a href="javascript:playlistItem('+i+','+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(i+1)+'. '+t+(m>1?"-"+(j+1)+(b&&j<k?": "+tt[j]:""):"")+'</a></nobr>';
+					}
+					if ((j+1) % 5 == 0 && j < m-1) tbody += '</tr><tr>';                
+				}
+				tbody += '</tr>';
+			}
         }
         g_sMenu2 = p;
         onPlaylistchanged();
         tbList.innerHTML = tbody;
+        setLocal(false);
+        setIndex(0);        
         if (!!(document.createElement('video').canPlayType)) {
             setSrc(0, 0);
             vp.onended = onPlayEnded;
         }
-        setLocal(false);        
-        setIndex(0);
     }
+    
     function vpPlay2() {
         if (g_nHLS == 1 && Hls.isSupported()) {
             var hls = new Hls();
@@ -683,6 +762,7 @@ function loadPlaylistFromNet(json){
         }
         scroll2(0);
     }
+    
     (function(json) {
     	if (typeof(json.length) == "undefined") return;
         divFile.innerHTML = "&nbsp;";
@@ -734,8 +814,8 @@ function BeforeShowContent(html){
 /*加载播放列表（img#c[jsonp]里的每个jsonp格式文档页面id在加载后都会执行对应的回调）*/
 function jsonpCallback_kiC7K(json) {
     if(json && json.length>0){
-    		label1.style.display = "";
-    		label2.style.display = "";
+    		label1.style.display = "block";
+    		label2.style.display = "block";
     		tab2.checked = true;
         loadPlaylistFromNet(json);
     }
@@ -779,16 +859,6 @@ function jsonpCallback_C6V8Z(json) {
 
 <script>
 
-	function getURL(s, bLand) {
-		return bLand?s:s.substr(s.indexOf(':')+3);
-	}
-
-	function getName(s) {
-		var n = s.lastIndexOf('/');
-		if (n < 0) return s;
-		return s.substr(n+1) + '<br><font style="font-size:9pt;color:#888"><' + s.substr(0, n) + '></font>';
-	}
-
 	function initDL() {
 		var s = '', n = g_aList1.length;
 		var bLand = isLand();
@@ -810,11 +880,11 @@ function jsonpCallback_C6V8Z(json) {
 			t = si['file'];
 			var j = t.lastIndexOf('.');
 			t = t.substr(j+1);
-			var bHTML = t == 'html' || t == 'htm';
-			if (bHTML) sTitle = '<a href="'+g_sURL+'media/'+si['file']+'" target=_blank>'+sTitle+'</a>';
+			var bHTML = t == 'html' || t == 'htm', f = bHTML ? appendPara(si['file']) : si['file'];
+			if (bHTML) sTitle = '<a href="'+g_sURL+'media/'+f+'" target=_blank>'+sTitle+'</a>';
 			sTitle = bPF? sTitle+"&nbsp; <svg viewBox='0 0 48 48' class=dl><use xlink:href=#download></use></svg>" : sTitle;
 			s += '<tr bgcolor=#f9f9f9><td>'+sTitle+'</td><td align=center style="width:3em;padding:7px">' +
-				'<a '+getDL(si['zw'], bPF && !bHTML)+' href="'+g_sURL+'media/'+si['file']+'">下载</a></td></tr>';
+				'<a '+getDL(si['zw'], bPF && !bHTML)+' href="'+g_sURL+'media/'+f+'">下载</a></td></tr>';
 			if (bPF) addPF1("media/"+si['file'], bHTML ? 5 : 6);
 		}
 		document.write(s+'</table></div>');
@@ -951,9 +1021,9 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 </div>
 
 <div id=d4 style="display:none" align=center>
-<div id=divFile style="height:1.5em;color:#b1a797;font-weight:bold;font-size:1.1em;padding-top:0.1em">&nbsp;</div>
+<div id=divFile style="height:1.702em;color:#b1a797;font-weight:bold;font-size:1.1em;display:table-cell;vertical-align:middle">&nbsp;</div>
 <figure id=fp style="margin:0 0 5px;padding:0"><video id=vp style="width:100%;height:100%;object-fit:contain;outline:none" controls="controls" playsinline webkit-playsinline></video></figure>
-<div class=btn2 style="box-shadow:5px 5px 5px #888;padding-top:3px;background-color:#f5f5f5">
+<div id=divBtns style="box-shadow:5px 5px 5px #888;padding-top:3px;background-color:#f5f5f5;height:44px">
 <svg onclick="g_bLocal?play():play2();" viewBox="0 0 48 48" class=pl><title>播放/暂停</title><circle fill=#42c0fb cx="24" cy="24" r="24"/><polygon fill=#fff points="17,36 17,12 35,24 "/></svg>
 <svg onclick="g_bLocal?playPrev():playlistPrev();" viewBox="0 0 475.558 475.558" class=pl><title>上个</title><g id=prev><circle fill=#42c0fb cx="237.779" cy="237.779" r="237.779"/><path fill=#fff d="M214.181,240.332c29.429-29.425,58.857-58.853,88.278-88.278 c25.666-25.663-14.316-65.341-40.039-39.615c-36.029,36.029-72.055,72.055-108.084,108.084	c-10.888,10.885-10.588,29.023,0.214,39.829c36.029,36.029,72.055,72.058,108.084,108.087 c25.666,25.666,65.345-14.316,39.615-40.043C272.888,299.039,243.535,269.686,214.181,240.332z"/></g></svg>
 <svg onclick="g_bLocal?playNext():playlistNext();" viewBox="0 0 475.558 475.558" class=pl><title>下个</title><use xlink:href="#prev" transform="rotate(180 237.779 237.779)"></use></svg>
@@ -1080,7 +1150,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 	
 </script>
 
-<br><br>
+<br>
 </div>
 
 <script src="3tui.js"></script>
@@ -1144,11 +1214,30 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 			d.style.display = "none";
 			eval('td'+i).style.color = o == d ? "gold" : "white";
 		}
+		
 		divDDM.style.display = o == d3 || (o == d4 && g_aList3.length != 0) ? "" : "none";
 		divBack.style.display = o == d3 && divPic.style.display == "" ? "" : "none";
-		o.style.display = "";		
+		o.style.display = "";	
 		scroll2(0);
+
+		showMenu3();
+		if (o == d4) onWinResize();
 	}
+
+	function onWinResize(){
+		if (divMenu3.style.display == "") {
+			var n = d4.offsetLeft + d4.offsetWidth + 10;
+			divMenu3.style.left = n + "px";
+			divMenu3.style.width = (window.innerWidth-n-15) + "px";
+			divMenu3.style.top = fp.offsetTop + "px";
+			divMenu3.style.maxHeight = (window.innerHeight-fp.offsetTop) + "px";
+		}
+	}
+	
+	try{
+		window.addEventListener("resize",onWinResize,false);
+		vp.addEventListener("resize",onWinResize, false);
+	}catch{}
 	
 	jmp(d1);
 	download();
