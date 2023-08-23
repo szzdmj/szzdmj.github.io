@@ -32,10 +32,17 @@ var g_aList2 = [
 
 // 修改视频的文件名，中文文件名（可省略）和说明，每个文件一行。要不使用一行，可在行首加 //
 var g_aList3 = [
+	{file:"mhsf-trailer-1400_720-final.mp4",zw:"明慧十方1分钟：被重复了千遍的“1400例”.mp4",title:"明慧十方1分钟：被重复了千遍的“1400例”"},
+	{file:"mhsf-trailer-fldf-hcsj_720-final.mp4",zw:"明慧十方1分钟：法轮大法洪传世界.mp4",title:"明慧十方1分钟：法轮大法洪传世界"},
+	{file:"mhsf-trailer-is-expose-persecution-political_720-final.mp4",zw:"明慧十方1分钟：法轮功反迫害是搞政治吗.mp4",title:"明慧十方1分钟：法轮功反迫害是搞政治吗？"},	
+	{file:"stjy-360p.mp4",zw:"美禁止党员移民　主动三退可解忧.mp4",title:"美禁止党员移民　主动三退可解忧"},
+	{file:"guanguimin.mp4",zw:"歌唱家关贵敏的人生奇迹.mp4",title:"歌唱家关贵敏的人生奇迹"},
+	{file:"huangxiaomin.mp4",zw:"奥运泳坛明星黄晓敏经历的人生巨变.mp4",title:"奥运泳坛明星黄晓敏经历的人生巨变"},
 	{file:"bjfyj425.mp4",zw:"四二五上访真相.mp4",title:"“四·二五”上访真相"},
 	{file:"tmzg.mp4",zw:"天灭中共.mp4",title:"天灭中共（2亿）"},
 	{file:"weihuo.mp4",zw:"伪火 - 天安门自焚事件真相.mp4",title:"伪火:“天安门自焚”真相"},
-	{file:"hzxc.mp3",zw:"活摘现场持枪警卫证词.mp3",title:"活摘现场持枪警卫证词（音频）"},
+	{file:"seynj_384_0632_32k.mp3",zw:"认真阅读《为什么会有人类》亲人得福报.mp3",title:"认真阅读《为什么会有人类》亲人得福报（音频）"},
+	{file:"tyjy_434_20201108_1600-r.mp3",zw:"天机：找到真相 幸福就离你不远.mp3",title:"天机：找到真相 幸福就离你不远（音频）"},	{file:"hzxc.mp3",zw:"活摘现场持枪警卫证词.mp3",title:"活摘现场持枪警卫证词（音频）"},
 	{file:"bxls.mp3",zw:"薄熙来说：江主席下的命令.mp3",title:"薄熙来说：江主席下的命令（音频）"},
 	{file:"lccs.mp3",zw:"李长春说：周永康具体管这个事.mp3",title:"李长春说：周永康具体管这个事（音频）"},
 	{file:"jzzjfy.mp3",zw:"锦州中级法院刑一厅警察说.mp3",title:"锦州中级法院刑一厅警察说（音频）"},
