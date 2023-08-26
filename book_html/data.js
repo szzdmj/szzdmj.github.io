@@ -33,7 +33,7 @@ var g_aList2 = [
 // 修改视频的文件名，中文文件名（可省略）和说明，每个文件一行。要不使用一行，可在行首加 //
 var g_aList3 = [
 	{file:"mhsf-trailer-1400_720-final.mp4",zw:"明慧十方1分钟：被重复了千遍的“1400例”.mp4",title:"明慧十方1分钟：被重复了千遍的“1400例”"},
-	{file:"mhsf-trailer-fldf-hcsj_720-final.mp4",zw:"明慧十方1分钟：法轮大法洪传世界.mp4",title:"明慧十方1分钟：法轮大法洪传世界"},
+	{file:"mhsf-trailer-fldf-hcsj_480-v2-final.mp4",zw:"明慧十方1分钟：法轮大法洪传世界.mp4",title:"明慧十方1分钟：法轮大法洪传世界"},
 	{file:"mhsf-trailer-is-expose-persecution-political_720-final.mp4",zw:"明慧十方1分钟：法轮功反迫害是搞政治吗.mp4",title:"明慧十方1分钟：法轮功反迫害是搞政治吗？"},	
 	{file:"stjy-360p.mp4",zw:"美禁止党员移民　主动三退可解忧.mp4",title:"美禁止党员移民　主动三退可解忧"},
 	{file:"guanguimin.mp4",zw:"歌唱家关贵敏的人生奇迹.mp4",title:"歌唱家关贵敏的人生奇迹"},
