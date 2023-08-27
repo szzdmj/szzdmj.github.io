@@ -42,10 +42,10 @@ var g_aList3 = [
 	{file:"tmzg.mp4",zw:"天灭中共.mp4",title:"天灭中共（2亿）"},
 	{file:"weihuo.mp4",zw:"伪火 - 天安门自焚事件真相.mp4",title:"伪火:“天安门自焚”真相"},
 	{file:"seynj_384_0632_32k.mp3",zw:"认真阅读《为什么会有人类》亲人得福报.mp3",title:"认真阅读《为什么会有人类》亲人得福报（音频）"},
-	{file:"tyjy_434_20201108_1600-r.mp3",zw:"天机：找到真相 幸福就离你不远.mp3",title:"天机：找到真相 幸福就离你不远（音频）"},	{file:"hzxc.mp3",zw:"活摘现场持枪警卫证词.mp3",title:"活摘现场持枪警卫证词（音频）"},
-	{file:"bxls.mp3",zw:"薄熙来说：江主席下的命令.mp3",title:"薄熙来说：江主席下的命令（音频）"},
-	{file:"lccs.mp3",zw:"李长春说：周永康具体管这个事.mp3",title:"李长春说：周永康具体管这个事（音频）"},
-	{file:"jzzjfy.mp3",zw:"锦州中级法院刑一厅警察说.mp3",title:"锦州中级法院刑一厅警察说（音频）"},
+	{file:"tyjy_434_20201108_1600-r.mp3",zw:"天机：找到真相 幸福就离你不远.mp3",title:"天机：找到真相 幸福就离你不远"},	{file:"hzxc.mp3",zw:"活摘现场持枪警卫证词.mp3",title:"活摘现场持枪警卫证词"},
+	{file:"bxls.mp3",zw:"薄熙来说：江主席下的命令.mp3",title:"薄熙来说：江主席下的命令"},
+	{file:"lccs.mp3",zw:"李长春说：周永康具体管这个事.mp3",title:"李长春说：周永康具体管这个事"},
+	{file:"jzzjfy.mp3",zw:"锦州中级法院刑一厅警察说.mp3",title:"锦州中级法院刑一厅警察说"},
 ];
 
 var relList=document.createElement('link').relList,g_bCanPF=relList&&relList.supports?relList.supports("prefetch"):false;if (!g_bCanPF) g_bPF=0;
