@@ -185,7 +185,7 @@ function sendTui()
     		if (xhr.readyState != 4) return;
     		if (xhr.status == 200)
     		{
-			var s = "<b><font color=blue>谢谢！我们将复查您提交的三退数据，并帮您在海外大纪元网站登记有效的三退，请您记住今天的日期。</font><br><br><font color=green>" + s.replace(/;/g, '<br>') + "</font><br><br>";
+			var s = "<b><font color=blue>谢谢！我们将复查您提交的三退数据，并帮您在海外大纪元网站登记有效的三退，请您记住今天的日期。</font><br><br><font color=green>" + g_sTuiData.replace(/;/g, '<br>') + "</font><br><br>";
 			if (typeof(g_sFile) != "undefined" && g_sFile != "")
 			{
 				s += "请点击下载以下文件，了解更多真相：<br><a href='media/"+g_sFile+"' onclick='easyDialog.close();' "+getDL(g_sFile)+">"+g_sFile+"</a>";
