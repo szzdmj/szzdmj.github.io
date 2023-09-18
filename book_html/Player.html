@@ -40,6 +40,8 @@ video#vp{width:100%;height:100%;object-fit:contain;outline:none;background-color
 #tbList td.sepr{border-bottom:2px solid #e2e2ba}
 #tbList tr.t,#tbList td.t{height:38px;padding-top:5px}
 #poster{animation: fadeIn 5s;-webkit-animation: fadeIn 5s;-moz-animation: fadeIn 5s;-o-animation: fadeIn 5s;-ms-animation: fadeIn 5s}
+.btn9{background:#e8e8e8;display:inline-block;cursor:pointer;border:2px solid #ccc;padding:3px 12px;border-radius:4px}
+.btn9:hover{background:#f6dc88}
 
 /* 竖屏设置 */
 @media screen and (orientation: portrait) {#divPlayerContainer,#divList{margin: 0 0 10px}}
@@ -127,25 +129,36 @@ function FoundSite(site){
     /*site形如 http://域名 或 https://域名，尾部不带/*/
     window.szsite = site;
 }
+
+function loadPlaylist() {
+	var s = localStorage.getItem("szcache_playlist");
+	if (s != null) {
+		window.szsite = localStorage.getItem("szcache_szsite");
+		jsonpCallback(JSON.parse(s));
+	}
+}
+
 /*回调函数--当没找到有效节点时触发。如果存在此函数，就在找不到节点时执行此函数，否则就显示默认的提示信息。*/
 function NotFoundSite(){
-    /*可以在此显示自定义的提示*/
-    poster.style.display = "none";
-    divFile.innerText = g_nIndex == null ? "失败，请刷新页面重试或稍后再试" : "播放列表下载失败";
+	/*可以在此显示自定义的提示*/
+	poster.style.display = "none";
+	var b = g_bSavePlaylist && localStorage.getItem("szcache_playlist") != null;
+	divFile.innerHTML = g_nIndex == null ? "失败，请 &nbsp;<div class=btn9 onclick='loadWeb2();' title='点击重试'>重试</div>&nbsp; "
+		+(b?" <div class=btn9 onclick='loadPlaylist();' title='装入上次下载的播放列表'>旧表</div>&nbsp; ":"")+"或稍后再试" : "播放列表下载失败";
 }
 /*回调函数--当显示或隐藏進度条时触发*/
 function ShowLoading(show){
     /*show为1表示显示進度条，0表示隐藏進度条*/
-    if (show == 1) divFile.innerText = "正在下载播放列表，请稍候…";
+    if (show) divFile.innerText = "正在下载播放列表，请稍候…";
 }
 /*回调函数--显示内容前*/
 function BeforeShowContent(html){}
 /*加载播放列表（img#c[jsonp]里的每个jsonp格式文档页面id在加载后都会执行对应的回调）*/
 function jsonpCallback_kiC7K(json) {
-	jsonpCallback(json);
+	jsonpCallback(json, true);
 }
 function jsonpCallback_C6V8Z(json) {
-	jsonpCallback(json);
+	jsonpCallback(json, true);
 }
 </script>
 
@@ -155,6 +168,7 @@ function jsonpCallback_C6V8Z(json) {
 	var g_bAndroid = sUA.indexOf("Android") >= 0 || sUA.indexOf("Adr") >= 0;
 	var g_bApple = /macintosh|mac os x/i.test(sUA);
 	var g_bFireFox = sUA.indexOf("Firefox") > -1;
+	var g_bSavePlaylist = 1 && typeof(Storage) !== "undefined";
 
 	XBack = {};
 	(function(XBack) {
@@ -211,6 +225,10 @@ function jsonpCallback_C6V8Z(json) {
 			if (b) disableScroll(); else enableScroll();
 		} else
 			divMenu3.style.display = isLand() ? "" : "none";
+	}
+
+	function loadWeb2() {
+		if (navigator.onLine) loadWeb(); else alert("当前未连接网络！");
 	}
 
 	function setSrc(row, col) {
@@ -398,16 +416,20 @@ function jsonpCallback_C6V8Z(json) {
 			window.addEventListener("resize", onWinResize, false);
 			vp.addEventListener("resize", onWinResize, false);
 			onWinResize();
-		} catch {}
+		} catch(e){}
 	})();
 
-	function jsonpCallback(json) {
+	function jsonpCallback(json, b) {
 		if (typeof(json.length) == "undefined") return;
 		divFile.innerHTML = "&nbsp;";
 		poster.style.display = "none";
 		if (json.length > 0) {
 			g_nIndex = null;
 			g_aList = json;
+			if (g_bSavePlaylist && b) {
+				localStorage.setItem("szcache_szsite", window.szsite);
+				localStorage.setItem("szcache_playlist", JSON.stringify(json));
+			}
 			init();
 			onWinResize();
 		}
