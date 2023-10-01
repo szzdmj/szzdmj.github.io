@@ -205,7 +205,8 @@ div.d{height:30px;margin-bottom:5px}
 	var sUA = navigator.userAgent;
 	var g_bAndroid = sUA.indexOf("Android") >= 0 || sUA.indexOf("Adr") >= 0;
 	var g_bApple = /macintosh|mac os x/i.test(sUA);
-	var g_bFireFox = sUA.indexOf("Firefox") > -1 || (sUA.indexOf("Trident") > -1 && sUA.indexOf("rv:11.0") > -1);
+	var g_bIE11 = sUA.indexOf("Trident") > -1 && sUA.indexOf("rv:11.0") > -1;
+	var g_bFireFox = sUA.indexOf("Firefox") > -1 || g_bIE11;
 	var g_bIE = sUA.indexOf("MSIE") > -1 || (Object.getOwnPropertyDescriptor && Object.getOwnPropertyDescriptor(window, "ActiveXObject")) || ("ActiveXObject" in window);
 	var g_bHTTP = window.location.href.substr(0,4).toLowerCase() == "http";
 
@@ -217,7 +218,6 @@ div.d{height:30px;margin-bottom:5px}
 	var g_bPopTui = 0;	/* 自动弹出三退提示框（设为 1 时）*/
 	var g_sToast = "欢迎访问！<br>请将本网页收藏到书签，以后可从书签打开本站。";
 	var g_bWeb = 0;	/* 自动加载（弹出）网址 */
-	var g_bList = 1;	/* 详细播放列表  */
 	var g_sURL =  !g_bHTTP || window.location.href.indexOf("org/?") < 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
 	var g_sPF = [];
 
@@ -271,9 +271,14 @@ div.d{height:30px;margin-bottom:5px}
 			}
 		}
 		*/
-		if (n == 0) {
-			if (getPIndex() == 0) jmp(d6);
-		}
+		var i = getPIndex();
+		jmp(i > 0 ? eval('d'+i) : n==0 ? d6 : d1);
+	}
+	
+	function getPIndex() {
+		var s = location.href;
+		for (var i=2; i<7; ++i) if (s.indexOf('#p'+i)>=0) return i;
+		return 0;
 	}
 	
 	function checkWiFi() {
@@ -305,7 +310,6 @@ div.d{height:30px;margin-bottom:5px}
 	}
 	
 	function initArticle() {
-		checkWiFi();
 		document.body.bgColor = g_sBGColor;
 		var bLand = isLand();
 		if (!g_bAndroid && bLand) {
@@ -336,6 +340,7 @@ div.d{height:30px;margin-bottom:5px}
 			for (i=arr.length-1;i>=0;--i) arr[i].style.width = "36px";			
 			tbList.style.padding = "0 5px 10px";
 		}
+		divGJ.style.bottom = g_bIE11 ? "1px" : "5px";
 		var n = window.innerWidth;
 		if (!window.CSS || !CSS.supports("aspect-ratio:16/9")) fp.style.height = Math.floor((bLand ? (n >1680 ? 1000 : n*0.6) : n) * 9 / 16) + "px";
 		d1.style.display = "";
@@ -408,14 +413,8 @@ div.d{height:30px;margin-bottom:5px}
 			*/
 		}
 		setTimeout(function(){addPF2();onWinResize();}, 100);
-		n = getPIndex();
-		if (n > 0) jmp(eval('d'+n));			
-	}
+		checkWiFi();
 
-	function getPIndex() {
-		var s = location.href;
-		for (var i=2; i<7; ++i) if (s.indexOf('#p'+i)>=0) return i;
-		return 0;
 	}
 
 	function download()
@@ -633,6 +632,7 @@ function loadWeb(){"use strict";!function(){for(var e=a0_0x52dc,t=a0_0x2b51();;)
 		   	g_nIndex = null;
 	      	g_CurrBtn = null;
 	      	showMenu3();
+	      	divGJ.style.display = "none";
 		} else {
 			if (g_nPI >= 0) g_aTD[g_nPI].style.color = "white";
 			g_nPI = -1;
@@ -672,6 +672,7 @@ function loadPlaylistFromNet(json){
         }
         g_CurrBtn = document.getElementById('btn-' + row + '-' + col);
         g_CurrBtn.style.color = "orange";
+        setSubtitle(row, col);
         var item=g_aList0[row], s = item['file'][col];
         if(window.szsite && s.substr(0, 1)=='/'){
             s = window.szsite + s;
@@ -732,7 +733,6 @@ function loadPlaylistFromNet(json){
 	
 	function playlistItem(i, j) {
 		setLocal(false);
-		setSubtitle(i);
 		if (g_nIndex == i && g_nIndex2 == j) {
 			if (!isPlaying()) vpPlay2();
 		} else {
@@ -762,8 +762,12 @@ function loadPlaylistFromNet(json){
 	}
     
 	function setSubtitle(i, j) {
-		var obj = document.getElementById("subtitle"+i);
-		if (obj) obj.innerText = typeof(j)=="undefined" ? "" : "-"+(j+1)+': '+g_aList0[i]['subtitle'][j];
+		var s = g_aList0[i]['file'][j], b = s.indexOf("/v") == 0;
+		if (b) {
+				if (s.substr(-5) == ".m3u8") s = s.substr(0, s.length-5);
+			divGJ.title = "https://www.ganjingworld.com/zh-CN/video/"+s.substr(2);
+		}
+		divGJ.style.display = b ? "" : "none";
 	}
 	window.setSubtitle = setSubtitle;
     
@@ -772,33 +776,18 @@ function loadPlaylistFromNet(json){
 		for (var i = 0; i < n; i++) {
 			var item = g_aList0[i], t = item['title'], f = item['file'], tt=item['subtitle'],  b = typeof(tt) != "undefined";
 			var m = f.length, bMP3 = f[0].substr(-1) == "3", k = b ? tt.length : 0;
-			if (g_bList) {
-				tbody += (i>0?'<tr height=10><td class="sepr" colspan=5></td></tr>':'')+'<tr><td colspan=5 class="t">'+(i+1)+'. '+t+'</td></tr>';
-				for (var j = 0; j < m; j++) {
-					if (b && f[j] == "") continue;
-					if (b || j == 0) tbody += '<tr>';
-					tbody += '<td><div class="btn11" id="btn-'+i+'-'+j+'" onclick="playlistItem('+i+','+j+');">'+(j+1)+'</div></td>';
-					if (b) {
-						if (m>1&&b&&j<k) tbody += '<td colspan=4>'+r+tt[j]+'</td>';
-						tbody += '</tr>';
-					} else {
-						if ((j+1) % 5 == 0)  tbody += j < m-1 ? '</tr><tr>' : '</tr>';
-					}
-					p += '<nobr><a href="javascript:playlistItem('+i+','+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(i+1)+'. '+t+(m>1?"-"+(j+1)+(b&&j<k?": "+tt[j]:""):"")+'</a></nobr>';
+			tbody += (i>0?'<tr height=10><td class="sepr" colspan=5></td></tr>':'')+'<tr><td colspan=5 class="t">'+(i+1)+'. '+t+'</td></tr>';
+			for (var j = 0; j < m; j++) {
+				if (b && f[j] == "") continue;
+				if (b || j == 0) tbody += '<tr>';
+				tbody += '<td><div class="btn11" id="btn-'+i+'-'+j+'" onclick="playlistItem('+i+','+j+');">'+(j+1)+'</div></td>';
+				if (b) {
+					if (m>1&&b&&j<k) tbody += '<td colspan=4>'+r+tt[j]+'</td>';
+					tbody += '</tr>';
+				} else {
+					if ((j+1) % 5 == 0)  tbody += j < m-1 ? '</tr><tr>' : '</tr>';
 				}
-			} else {
-				tbody += (i>0?'<tr height=10><td class="sepr" colspan=5></td></tr>':'')+'<tr><td colspan=5 class="t">'+(i+1)+'. '+t+(b&&m>1?"<span id=subtitle"+i+"></span>":"")+'</td></tr><tr>';
-				for (var j = 0; j < m; j++) {
-					var f1 = "'setSubtitle("+i+','+j+");';", f2 = "'setSubtitle("+i+");'";
-					if (b && f[j] == "")
-						tbody += '<td>';
-					else {			                	
-						tbody += '<td><div'+(m>1&&b&&j<k?" onmouseenter="+f1+" onmouseleave="+f2+" ontouchstart="+f1+" ontouchend="+f2:"")+' class="btn11" id="btn-'+i+'-'+j+'" onclick="playlistItem('+i+','+j+');">'+(j+1)+'</div></td>';
-						p += '<nobr><a href="javascript:playlistItem('+i+','+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(i+1)+'. '+t+(m>1?"-"+(j+1)+(b&&j<k?": "+tt[j]:""):"")+'</a></nobr>';
-					}
-					if ((j+1) % 5 == 0 && j < m-1) tbody += '</tr><tr>';                
-				}
-				tbody += '</tr>';
+				p += '<nobr><a href="javascript:playlistItem('+i+','+j+')">'+(bMP3 ? '<svg class="audio"><use xlink:href="#audio"></use></svg>' : '<svg class="video" viewBox="0 0 512 512"><use xlink:href="#video"></use></svg>')+' '+(i+1)+'. '+t+(m>1?"-"+(j+1)+(b&&j<k?": "+tt[j]:""):"")+'</a></nobr>';
 			}
 		}
 		g_sMenu2 = p;
@@ -1044,6 +1033,25 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		return s;
 	}
 
+	function getBGUrl(s) {
+		return 'url(' +(s.has('/') ? (g_bIE ? s : encodeURI(s)).replace(/#/g, "%23") : eval(s))+ ')';
+	}
+	function loadPoster() {
+		var r = tbPicList.getElementsByTagName('div'), n = r.length / 2;
+		for (var i=0; i<n; ++i) {
+			if (g_sPoster[i] != "") {
+				var img = new Image();
+				img.src = g_sPoster[i];
+				img.i = i;
+				img.onload = function() {
+					var i = this.i;
+					r[i*2+1].style.backgroundImage = getBGUrl(g_sPoster[i]);
+					g_sPoster[i] = "";
+				}
+			}
+		}
+	}
+	var g_sPoster = [];
     function initPic() {
 		for (var i=g_aList2.length-1; i>=0; --i) {var si = g_aList2[i];if (si===undefined) g_aList2.splice(i, 1);}
 		var n = g_aList2.length;
@@ -1055,7 +1063,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		if (bPT) PCN = (g_bAndroid || g_bApple)&&n<11 ? 1 : 2;
 		if (!bPT) h = w; else h = Math.abs(h-h2) < 3 || Math.abs(w-w2) < 3 ? Math.max(Math.max(h2, w2),  Math.ceil(Math.min(h2, w2) * 1.5)) : Math.max(h, Math.ceil(h2 * w / w2));
 		h = Math.ceil(h * (PCN > 2 ? 0.35 : PCN == 2 ? (bPT ? (k>1.7?0.25:k>1.6?0.26:k>1.5?0.27:0.28) : 0.45) : 0.55));
-		var s = '<div style="margin-top:10px"><font size=4>点击图片浏览，再点击可返回</font></div><table id=tbPicList width=100% cellspacing=15 style="table-layout:fixed;margin-top:-8px">', sURL=[];
+		var s = '<div style="margin-top:10px"><font size=4>点击图片浏览，再点击可返回</font></div><table id=tbPicList width=100% cellspacing=15 style="table-layout:fixed;margin-top:-8px">';
 		for (var i=0; i<n; ++i)
 		{
 			var si = g_aList2[i];
@@ -1072,14 +1080,11 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 			s += j > 0 ? '<td>' : '<tr align=center><td>';
 			s += '<div class=divTitle>'+si['title']+'</div><div class="divItem'+(bPT&&PCN>1?' divItem2':'')+'" onclick="showPic(' +i+ ');" style="height:'+h+'px"></div>';
 			s += j < PCN-1 ? '</td>' : '</td></tr>';
-			sURL.push(g_sURL+'media/'+sDir+t);
+			g_sPoster.push(g_sURL+'media/'+sDir+t);
 			if (n > 1) g_sPicList +='<nobr><a href="javascript:showPic('+i+')"><svg class=icon width=20 height=20 viewBox="0 -1 16 16"><use xlink:href=#icon></use></svg> '+(i+1)+'. '+si['title']+'</a></nobr>';
 		}
 		divPicList.innerHTML = s + '</table><div id=divPicEnd style="padding-top:10px;padding-bottom:2px">'+'<br><img src="'+g_sURL+'images/lotus.png" onclick="scroll2(0);" style="cursor:pointer" title="到页首"></div>';
 		divMenu1.innerHTML = g_sPicList;
-		var r = tbPicList.getElementsByTagName('div');
-		n = sURL.length;
-		for (var i=0; i<n; ++i) {s=sURL[i];r[i*2+1].style.backgroundImage = 'url(' +(s.has('/') ? (g_bIE ? s : encodeURI(s)).replace(/#/g, "%23") : eval(s))+ ')';}
 	}
 	initPic();
 </script>
@@ -1087,7 +1092,10 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 
 <div id=d4 style="display:none" align=center>
 <div id=divFile style="height:1.702em;color:#a19787;font-weight:bold;font-size:1.1em;display:table-cell;vertical-align:middle">&nbsp;</div>
-<figure id=fp style="margin:0 0 5px;padding:0;aspect-ratio:16/9"><video id=vp style="width:100%;height:100%;object-fit:contain;outline:none" controls="controls" playsinline webkit-playsinline></video></figure>
+<figure id=fp style="position:relative;margin:0 0 5px;padding:0;aspect-ratio:16/9">
+	<video id=vp style="width:100%;height:100%;object-fit:contain;outline:none" controls="controls" playsinline webkit-playsinline></video>
+	<div id=divGJ style="position:absolute;z-index:1;width:100%;display:none;color:#da843b;font-size:0.8em">干净世界视频 - ganjingworld.com</div>
+</figure>
 <div id=divBtns style="box-shadow:0 5px 5px #888;padding:3px 0;background-color:#f5f5f5;height:40px">
 <svg onclick="g_bLocal?play():play2();" viewBox="0 0 48 48" class=pl><title>播放/暂停</title><circle fill=#42c0fb cx="24" cy="24" r="24"/><polygon fill=#fff points="17,36 17,12 35,24 "/></svg>
 <svg onclick="g_bLocal?playPrev():playlistPrev();" viewBox="0 0 475.558 475.558" class=pl><title>上个</title><g id=prev><circle fill=#42c0fb cx="237.779" cy="237.779" r="237.779"/><path fill=#fff d="M214.181,240.332c29.429-29.425,58.857-58.853,88.278-88.278 c25.666-25.663-14.316-65.341-40.039-39.615c-36.029,36.029-72.055,72.055-108.084,108.084	c-10.888,10.885-10.588,29.023,0.214,39.829c36.029,36.029,72.055,72.058,108.084,108.087 c25.666,25.666,65.345-14.316,39.615-40.043C272.888,299.039,243.535,269.686,214.181,240.332z"/></g></svg>
@@ -1290,6 +1298,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		scroll2(0);
 
 		showMenu3();
+		if (o == d3) loadPoster(); else
 		if (o == d4) onWinResize();
 	}
 
@@ -1309,7 +1318,6 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		vp.addEventListener("resize",onWinResize, false);
 	}catch(e){}
 	
-	if (getPIndex() == 0) jmp(d1);
 	download();
 	
 </script>
