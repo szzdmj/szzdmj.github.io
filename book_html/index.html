@@ -977,6 +977,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		n2 = Math.floor(n2 / PCN) + 1;
 		n += Math.floor((divPicEnd.offsetTop-n) * n1 / n2) - 30 - n1;
 		scroll2(n);
+		loadPoster();
 	}
     
     var g_lTime, g_nScrollTop;
@@ -998,7 +999,7 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
     function goImg(n) {scroll2(eval("img"+n+".offsetTop-tbMenu.offsetHeight"));showMenu(0);}
     
 	function showPic(i) {
-		if (g_nCurPic != i)
+		//if (g_nCurPic != i)
 		{
 			g_nCurPic = i;
 			var s = g_aList2[i]['file'], sDir = g_aList2[i]['dir'];
@@ -1033,25 +1034,35 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 		return s;
 	}
 
-	function getBGUrl(s) {
-		return 'url(' +(s.has('/') ? (g_bIE ? s : encodeURI(s)).replace(/#/g, "%23") : eval(s))+ ')';
+	function getPosterUrl(s) {
+		return (g_bIE ? s : encodeURI(s)).replace(/#/g, "%23");
 	}
-	function loadPoster() {
-		var r = tbPicList.getElementsByTagName('div'), n = r.length / 2;
-		for (var i=0; i<n; ++i) {
-			if (g_sPoster[i] != "") {
-				var img = new Image();
-				img.src = g_sPoster[i];
-				img.i = i;
-				img.onload = function() {
-					var i = this.i;
-					r[i*2+1].style.backgroundImage = getBGUrl(g_sPoster[i]);
-					g_sPoster[i] = "";
+	function loadPoster2(i) {
+		g_sPoster[i].load = 1;
+		var link = document.createElement("link");
+		link.rel = "prefetch";
+		link.onload = function() {
+			var t = tbPicList.getElementsByTagName('div');
+			t[i*2+1].style.backgroundImage = 'url('+this.href+')';
+			g_sPoster[i].load = 2;
 				}
+		link.onerror = function() {g_sPoster[i].load = 0;}
+		link.href = g_sPoster[i].url;
+		document.head.appendChild(link);
 			}
+	function loadPoster() {
+		if (g_bLoadPic) {
+			var n = g_sPoster.length;
+			for (var i=0; i<n; ++i)
+				if (g_sPoster[i].load == 0) loadPoster2(i);
+		} else {
+			g_bLoadPic = true;
+			var t = tbPicList.getElementsByTagName('div'), n = t.length/2;
+			for (var i=0; i<n; ++i)
+				t[i*2+1].innerHTML = '<img alt="" width=100% src="'+g_sPoster[i].url+'" onerror="loadPoster2('+i+');">';
 		}
 	}
-	var g_sPoster = [];
+	var g_sPoster = [], g_bLoadPic = false;
     function initPic() {
 		for (var i=g_aList2.length-1; i>=0; --i) {var si = g_aList2[i];if (si===undefined) g_aList2.splice(i, 1);}
 		var n = g_aList2.length;
@@ -1078,9 +1089,10 @@ zip 解压软件：安卓可用"RAR"、"RE文件管理器"或"ES文件浏览器"
 			t = getFileName(t);
 			j = i % PCN;
 			s += j > 0 ? '<td>' : '<tr align=center><td>';
-			s += '<div class=divTitle>'+si['title']+'</div><div class="divItem'+(bPT&&PCN>1?' divItem2':'')+'" onclick="showPic(' +i+ ');" style="height:'+h+'px"></div>';
+			t = getPosterUrl(g_sURL+'media/'+sDir+t);
+			s += '<div class=divTitle>'+si['title']+'</div><div class="divItem'+(bPT&&PCN>1?' divItem2':'')+'" onclick="showPic(' +i+ ');" style="overflow:hidden;height:'+h+'px"></div>';
 			s += j < PCN-1 ? '</td>' : '</td></tr>';
-			g_sPoster.push(g_sURL+'media/'+sDir+t);
+			g_sPoster.push({url:t,load:-1});
 			if (n > 1) g_sPicList +='<nobr><a href="javascript:showPic('+i+')"><svg class=icon width=20 height=20 viewBox="0 -1 16 16"><use xlink:href=#icon></use></svg> '+(i+1)+'. '+si['title']+'</a></nobr>';
 		}
 		divPicList.innerHTML = s + '</table><div id=divPicEnd style="padding-top:10px;padding-bottom:2px">'+'<br><img src="'+g_sURL+'images/lotus.png" onclick="scroll2(0);" style="cursor:pointer" title="到页首"></div>';
