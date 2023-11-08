@@ -218,7 +218,7 @@ div.d{height:30px;margin-bottom:5px}
 	var g_bPopTui = 0;	/* 自动弹出三退提示框（设为 1 时）*/
 	var g_sToast = "欢迎访问！<br>请将本网页收藏到书签，以后可从书签打开本站。";
 	var g_bWeb = 0;	/* 自动加载（弹出）网址 */
-	var g_sURL =  !g_bHTTP || window.location.href.indexOf("org/?") < 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
+	var g_sURL =  !g_bHTTP || window.location.href.indexOf("/?") < 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
 	var g_sPF = [];
 
 	var g_bDL = 'download' in document.createElement('a') && navigator.userAgent.indexOf('Lenovo') < 0;
