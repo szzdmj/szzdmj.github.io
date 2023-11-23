@@ -276,7 +276,7 @@ for(n=0;e-1>n;++n){var i=arguments[n];if(!f.isObject(i))return u("Catch statemen
 	var g_bPopTui = 0;	/* 自动弹出三退提示框（设为 1 时）*/
 	var g_sToast = "欢迎访问！<br>请将本网页收藏到书签，以后可从书签打开本站。";
 	var g_bWeb = 0;	/* 自动加载（弹出）网址 */
-	var g_sURL =  !g_bHTTP || window.location.pathname.indexOf("/?") != 0 ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
+	var g_sURL =  !g_bHTTP || window.location.href.indexOf("/?")!=window.location.origin.length ? "" : "https://raw.githubusercontent.com/szmj0/szmj0.github.io/main/book_html/";
 	var g_sPF = [];
 
 	var g_bDL = 'download' in document.createElement('a') && navigator.userAgent.indexOf('Lenovo') < 0;
@@ -400,6 +400,7 @@ for(n=0;e-1>n;++n){var i=arguments[n];if(!f.isObject(i))return u("Catch statemen
 			tdSite.style.marginTop = "4px";
 			tdSite.style.padding = "3px";
 			if (!g_bPlyr) divGJ2.style.margin = "-10px 0 0";
+			divd6.style.height = "8px";
 		}
 		if ("ontouchstart" in window) {
 			var e = divBtns.querySelectorAll("svg");
@@ -565,7 +566,7 @@ for(n=0;e-1>n;++n){var i=arguments[n];if(!f.isObject(i))return u("Catch statemen
 <div class="pk-form" style="display:none"><label for="option"><h2></h2></label><div class="pk-form"><select id="optSite" class="option pickout" placeholder=""></select></div></div>
 
 <div id=d6 style="display:none">
-<div style="height:2px"></div>
+<div id=divd6 style="height:2px"></div>
 <div style="display:none"><span id="node" rel="/U53da"></span></div>
 <div align=center><span id=node2 style="color:blue;cursor:pointer" onclick="node.click();" title="点击显示本平台二维码"></span></div>
 <div style="height:8px"></div>
