@@ -663,6 +663,7 @@ for(n=0;e-1>n;++n){var i=arguments[n];if(!f.isObject(i))return u("Catch statemen
 </style>
 <div id="d6c">
     <div id="preload" style="color:green;font-weight:bold" align=center><br><div class=btn9 onclick='loadWeb2();' title='手动加载新闻'>加载新闻</div><br><br></div>
+    <div id="loading" style="color:green;font-weight:bold" align=center></div>
     <div id="content"></div>
 </div>
 
@@ -1093,14 +1094,19 @@ function NotFoundSite(){
 	setSiteBtn(false);
 	if (window.szsite) {
 		if (confirm('未找到节点，再次查找？')) loadWeb2();
-	} else
-		preload.innerHTML = "<br>加载失败，请 &nbsp;<div class=btn9 onclick='loadWeb2();' title='点击重试'>重试</div>&nbsp; 或稍后再试<br><br>";
+	} else {
+		if (preload.innerHTML.indexOf("加载新闻") > 0) preload.innerHTML = "";
+		loading.innerHTML = "<br>加载失败，请 &nbsp;<div class=btn9 onclick='loadWeb2();' title='点击重试'>重试</div>&nbsp; 或稍后再试<br><br>";
+	}
 }
 /*回调函数--当显示或隐藏進度条时触发*/
 function ShowLoading(show){
 	/*show为1表示显示進度条，0表示隐藏進度条*/
 	if (show) {
-		if (!window.szsite) preload.innerHTML = "<br>正在加载新闻内容…<br><br>";
+		if (!window.szsite) {
+			if (preload.innerHTML.indexOf("加载新闻") > 0) preload.innerHTML = "";
+			loading.innerHTML = "<br>正在加载新闻内容…<br><br>";
+		}
 	} else
 		node2.innerHTML = window.szsite ? "点击分享本平台短网址和二维码" : "";
 }
