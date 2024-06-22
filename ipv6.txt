@@ -11,7 +11,7 @@
 {
                             "Action": "CREATE",
                             "ResourceRecordSet": {
-                                 "Name": "d.szzd.org",
+                                 "Name": "a.szzd.org",
                                  "Type": "AAAA",
                                   "TTL": 300,
                                   "ResourceRecords": [{"Value": "2001:f71:af40:500:9432:92ff:fed8:e039"}]
