@@ -2,7 +2,7 @@
                 "Comment": "CREATE/DELETE/UPDATE",
                  "Changes": [ 
 {
-                            "Action": "CREATE",
+                            "Action": "UPSERT",
                             "ResourceRecordSet": {
                                  "Name": "a.szzd.org",
                                  "Type": "AAAA",
