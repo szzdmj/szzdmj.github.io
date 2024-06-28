@@ -1,20 +1,11 @@
 {
-   "Actions" : [
-      {
-         "value" : "1",
-         "properties" : {
-            "name" : "abc",
-            "age" : "2",
-            "other ": "test1"
-          }
-      },
-      {
-         "value" : "2",
-         "properties" : {
-            "name" : "def",
-            "age" : "3",
-            "other" : "test2"
-          }
-      }
-   ]
+    "env": "dev",
+    "dev": {
+        "projects" : {
+            "prj1": {
+                "dependencies": {},
+                "description": ""
+            }
+        }
+    }
 }
