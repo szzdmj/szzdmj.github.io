@@ -1,14 +1,5 @@
-{
-  "DBConfig": {
-    "DefaultDB": "LocalOrcl",
-    "EnableLog": true,
-    "DoNotCompleteFlag": false,
-    "DataBases": [
-      {
-        "DBName": "LocalOrcl",
-        "ConnectionString": "Data Source=localhost/ORCL;USER ID=jimmy;PASSWORD=jimmy;",
-        "Provider": "Oracle"
-      }
-    ]
-  }
-}
+id  name      age  score
+1   zhangsan  17   75
+2   lisi      16   80
+3   wangwu    18   85
+4   zhaoliu   18   90
