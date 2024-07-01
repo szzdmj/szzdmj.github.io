@@ -1,5 +1,6 @@
-id  name      age  score
-1   zhangsan  17   75
-2   lisi      16   80
-3   wangwu    18   85
-4   zhaoliu   18   90
+[
+    { "name": "Sammy", "type": "shark", "clams": 5 },
+    { "name": "Bubbles", "type": "orca", "clams": 3 },
+    { "name": "Splish", "type": "dolphin", "clams": 2 },
+    { "name": "Splash", "type": "dolphin", "clams": 2 }
+]
