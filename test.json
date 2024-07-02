@@ -1,6 +1,9 @@
-[
-    { "name": "Sammy", "type": "shark", "clams": 5 },
-    { "name": "Bubbles", "type": "orca", "clams": 3 },
-    { "name": "Splish", "type": "dolphin", "clams": 2 },
-    { "name": "Splash", "type": "dolphin", "clams": 2 }
-]
+{"intents": [
+  {
+    "patterns": "'For the last 8 years of his life, Galileo was under house arrest for espousing this man's theory'",
+    "responses": "Copernicus"
+  },
+  {
+    "patterns": "'No. 2: 1912 Olympian; football star at Carlisle Indian School; 6 MLB seasons with the Reds, Giants & Braves'",
+    "responses": "Jim Thorpe"
+  },
