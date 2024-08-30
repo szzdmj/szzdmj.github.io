@@ -7,7 +7,7 @@
     <title>神州明见 v.2.0</title>
     <img src="" class="hidden" id="c" rel="" nov="1" pwa="0">
     <script type="text/javascript" src="szmjweb+player.js"></script>
-
+    <script type="text/javascript" src="hls.mind.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js" defer></script>
     <script>
@@ -95,14 +95,18 @@
                 transform: translateX(0%);
             }
         }
-        .newstd p{
-            white-space: nowrap;    /* 确保文本在一行内显示 */
-            overflow: hidden;       /* 隐藏超出容器的文本 */
-            text-overflow: ellipsis; /* 添加省略号表示文本被截断 */
+
+        .newstd p {
+            white-space: nowrap;
+            /* 确保文本在一行内显示 */
+            overflow: hidden;
+            /* 隐藏超出容器的文本 */
+            text-overflow: ellipsis;
+            /* 添加省略号表示文本被截断 */
             /*width:350px;            设置容器宽度 */
             margin-right: auto;
             margin-left: 0;
-            }
+        }
     </style>
 </head>
 
@@ -119,8 +123,8 @@
                     class="text-3xl font-bold">视频</a>
                 <a href="#" @click.prevent="showPage('books')" :class="{ 'text-yellow-400': currentPage === 'books' }"
                     class="text-3xl font-bold">书籍</a>
-                <a href="#" @click.prevent="showPage('downloads')" :class="{ 'text-yellow-400': currentPage === 'downloads' }" 
-                    class="text-3xl font-bold">软件</a>
+                <a href="#" @click.prevent="showPage('downloads')"
+                    :class="{ 'text-yellow-400': currentPage === 'downloads' }" class="text-3xl font-bold">软件</a>
                 <a href="#" @click.prevent="showPage('about')" :class="{ 'text-yellow-400': currentPage === 'about' }"
                     class="text-3xl font-bold">三退</a>
             </nav>
@@ -146,141 +150,146 @@
     </header>
 
     <!-- Page Content -->
-    <main>
-        <div x-show="currentPage === 'home'">
-            <!-- Carousel Component -->
-            <div x-data="carouselComponent()" x-init="init()" class="relative w-full  mx-auto"
-                style="background-color:#f9f2e2">
-                <!-- Carousel Images -->
-                <div class="overflow-hidden relative">
-                    <div x-ref="slides" class="flex transition-transform duration-1000"
-                        :style="`transform: translateX(-${currentIndex * 100}%)`">
-                        <template x-for="(image, index) in images" :key="index">
-                            <a :href="image.link" class="flex-shrink-0 w-full h-64 flex items-center justify-center">
-                                <img :src="image.src" :alt="image.alt" class="carousel-image ">
-                            </a>
-                        </template>
-                    </div>
-
-                    <!-- Left Arrow -->
-                    <button @click="prevSlide()"
-                        class="absolute top-1/2 left-4 transform -translate-y-1/2  w-10 h-10 p-2 bg-gray-100 text-gray-300 rounded-full shadow-lg hover:bg-gray-300 hover:text-gray-100 focus:outline-none">
-                        &#9664;
-                    </button>
-                    <!-- Right Arrow -->
-                    <button @click="nextSlide()"
-                        class="absolute top-1/2 right-4 transform -translate-y-1/2  w-10 h-10 p-2 bg-gray-100 text-gray-300 rounded-full shadow-lg hover:bg-gray-300 hover:text-gray-100 focus:outline-none">
-                        &#9654;
-                    </button>
-                </div>
-
-                <!-- Dots Navigation -->
-                <div class="flex justify-center mt-4" style="background-color:#f9f2e2">
+    <div x-show="currentPage === 'home'">
+        <!-- Carousel Component -->
+        <div x-data="carouselComponent()" x-init="init()" style="background-color:#f9f2e2">
+            <!-- Carousel Images -->
+            <div class="overflow-hidden relative">
+                <div x-ref="slides" class="flex transition-transform duration-1000"
+                    :style="`transform: translateX(-${currentIndex * 100}%)`">
                     <template x-for="(image, index) in images" :key="index">
-                        <button @click="goToSlide(index)"
-                            :class="{'bg-white': currentIndex === index, 'bg-gray-500': currentIndex !== index}"
-                            class="w-3 h-3 mx-1 rounded-full"></button>
+                        <a :href="image.link" class="flex-shrink-0 w-full h-64 flex items-center justify-center">
+                            <img :src="image.src" :alt="image.alt" class="carousel-image ">
+                        </a>
                     </template>
                 </div>
+
+                <!-- Left Arrow -->
+                <button @click="prevSlide()"
+                    class="absolute top-1/2 left-4 transform -translate-y-1/2  w-10 h-10 p-2 bg-gray-100 text-gray-300 rounded-full shadow-lg hover:bg-gray-300 hover:text-gray-100 focus:outline-none">
+                    &#9664;
+                </button>
+                <!-- Right Arrow -->
+                <button @click="nextSlide()"
+                    class="absolute top-1/2 right-4 transform -translate-y-1/2  w-10 h-10 p-2 bg-gray-100 text-gray-300 rounded-full shadow-lg hover:bg-gray-300 hover:text-gray-100 focus:outline-none">
+                    &#9654;
+                </button>
             </div>
 
-            <script>
-                function carouselComponent() {
-                    return {
-                        images: [
-                            { src: '1.jpeg', alt: 'Image 1', link: '#' },
-                            { src: '2.jpeg', alt: 'Image 2', link: '#' },
-                            { src: '3.jpeg', alt: 'Image 3', link: '#' },
-                            { src: '4.jpeg', alt: 'Image 4', link: '#' },
-                            { src: '5.jpeg', alt: 'Image 5', link: '#' },
-                            { src: '6.jpeg', alt: 'Image 6', link: '#' },
-                        ],
-                        currentIndex: 0,
-                        interval: null,
+            <!-- Dots Navigation -->
+            <div class="flex justify-center mt-4" style="background-color:#f9f2e2">
+                <template x-for="(image, index) in images" :key="index">
+                    <button @click="goToSlide(index)"
+                        :class="{'bg-white': currentIndex === index, 'bg-gray-500': currentIndex !== index}"
+                        class="w-3 h-3 mx-1 rounded-full"></button>
+                </template>
+            </div>
+        </div>
 
-                        init() {
-                            this.startAutoScroll();
-                        },
+        <script>
+            function carouselComponent() {
+                return {
+                    images: [
+                        { src: '1.jpeg', alt: 'Image 1', link: '#' },
+                        { src: '2.jpeg', alt: 'Image 2', link: '#' },
+                        { src: '3.jpeg', alt: 'Image 3', link: '#' },
+                        { src: '4.jpeg', alt: 'Image 4', link: '#' },
+                        { src: '5.jpeg', alt: 'Image 5', link: '#' },
+                        { src: '6.jpeg', alt: 'Image 6', link: '#' },
+                    ],
+                    currentIndex: 0,
+                    interval: null,
 
-                        startAutoScroll() {
-                            this.interval = setInterval(() => {
-                                this.nextSlide();
-                            }, 10000); // Auto-scroll every 10 seconds
-                        },
+                    init() {
+                        this.startAutoScroll();
+                    },
 
-                        stopAutoScroll() {
-                            clearInterval(this.interval);
-                        },
+                    startAutoScroll() {
+                        this.interval = setInterval(() => {
+                            this.nextSlide();
+                        }, 10000); // Auto-scroll every 10 seconds
+                    },
 
-                        nextSlide() {
-                            this.currentIndex = (this.currentIndex + 1) % this.images.length;
-                        },
+                    stopAutoScroll() {
+                        clearInterval(this.interval);
+                    },
 
-                        prevSlide() {
-                            this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-                        },
+                    nextSlide() {
+                        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                    },
 
-                        goToSlide(index) {
-                            this.currentIndex = index;
-                        }
+                    prevSlide() {
+                        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                    },
+
+                    goToSlide(index) {
+                        this.currentIndex = index;
                     }
                 }
-            </script>
-            <div x-data class="marquee-wrapper relative flex bg-yellow-200 p-2">
-                <div class="marquee-pause">
-                    <div class="marquee-content">
-                        <div x-html="$store.marqueeStore.getData('component1')" class="text-blue-600"></div>
-                    </div>
-                    <div class="marquee-content2 absolute">
-                        <div x-html="$store.marqueeStore.getData('component2')" class="text-blue-600"></div>
-                    </div>
+            }
+        </script>
+        <div x-data class="marquee-wrapper relative flex bg-yellow-200 p-2">
+            <div class="marquee-pause">
+                <div class="marquee-content">
+                    <div x-html="$store.marqueeStore.getData('component1')" class="text-blue-600"></div>
+                </div>
+                <div class="marquee-content2 absolute">
+                    <div x-html="$store.marqueeStore.getData('component2')" class="text-blue-600"></div>
                 </div>
             </div>
+        </div>
 
-            <div class="flex mt-4">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="flex mt-4 mb-4 max-w-screen-xl mx-auto">
                 <!-- Left Part (2/3 of the screen) -->
                 <div class="w-4/5 pr-4 pl-12">
                     <!-- News Sections -->
                     <div class="space-y-8">
                         <!-- Example News Section -->
                         <div id="loading"></div>
-                        <div id=MainleftContent style="width:90%;" align="left">
+                        <div id=MainleftContent style="width:90%;">
                         </div>
                     </div>
                 </div>
 
+                <!-- Separator Line -->
+                <div class="w-px bg-gray-200"></div>
+
                 <!-- Right Part (1/3 of the screen) -->
-                <div class="w-1/5 ">
+                <div class="w-1/5">
                     <!-- Friendly Links -->
                     <div class="space-y-2">
                         <!-- Image Link -->
-                        <div class="link-item flex flex-col">
+                        <div class=" w-full">
                             <a href="http://cn.epochtimes.com/gb/23/4/17/n13975246.htm" target="_blank">
-                                <img src="r1.jpeg" alt="为什么要救度众生">
+                                <img src="r1.jpeg" alt="为什么要救度众生" class="w-full h-auto">
                             </a>
                         </div>
-                        <div class="link-item flex flex-col">
+                        <div class="w-full">
                             <a href="http://cn.epochtimes.com/gb/23/1/21/n13912117.htm" target="_blank">
-                                <img src="r2.jpeg" alt="为什么会有人类">
+                                <img src="r2.jpeg" alt="为什么会有人类" class="w-full h-auto">
                             </a>
                         </div>
-                        <div class="link-item flex flex-col"> flex flex-col
+                        <div class="w-full">
                             <a href="http://cn.epochtimes.com/gb/23/4/17/n13975246.htm" target="_blank">
-                                <img src="r3.png" alt="干净世界">
+                                <img src="r3.png" alt="干净世界" class="w-full h-auto">
                             </a>
                         </div>
                         <div class="link-item flex flex-col">
-                            <p class="text-dark font-bold">本平台二维码和网址</p>
+                            <p class="text-red-500  mt-4">请收藏本平台</p>
+                            <p class="text-dark font-bold ">本平台二维码和网址</p>
                             <div id="qrcode"></div>
-                            <p class="p-4 underline text-blue-400">
+                            <p class="underline text-blue-400 m-4">
                                 <script>document.write('<a href="' + location.href + '" target="_blank">' + location.href + '</a>');</script>
                             </p>
                         </div>
 
+                        <div class="h-px bg-gray-200 m-4"></div>
+
                         <!-- Link Group -->
-                        <div class="link-group">
-                            <h3 class="text-xl font-bold mb-2">常用翻墙网址</h3>
-                            <div class="space-y-2 mb-12">
+                        <div class="link-group flex flex-col m-4">
+                            <h3 class="text-xl font-bold ">常用翻墙网址</h3>
+                            <div class="space-y-2 mb-4">
                                 <p><a href="https://www.youtube.com/" target="_blank"
                                         class="text-blue-500 hover:underline">油管</a>
                                     <a href="https://twitter.com" target="_blank"
@@ -305,8 +314,10 @@
                             </div>
                         </div>
 
+                        <div class="h-px bg-gray-200 m-4"></div>
+
                         <!-- Another Link Group -->
-                        <div class="link-group mt-12 mb-12">
+                        <div class="link-group mt-12 mb-12 pb-4 ml-4">
                             <h3 class="text-xl font-bold mb-2">获取翻墙软件</h3>
                             <div class="space-y-2 text-sm">
                                 <p><a href="https://j.mp/fgp88" target="_blank"
@@ -324,7 +335,9 @@
                             </div>
                         </div>
 
-                        <div class="link-group pt-12 pb-12">
+                        <div class="h-px bg-gray-200 m-4"></div>
+
+                        <div class="link-group pb-12 m-4">
                             <h3 class="text-xl font-bold mb-2">直连翻墙网址</h3>
                             <div class="space-y-2 text-sm">
                                 <p><a href="https://tinyurl.com/iiidd" target="_blank"
@@ -347,565 +360,631 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div x-show="currentPage === 'videos'">
-            <!-- Video Page Component -->
-            <div x-data="videoPageComponent()" class="relative">
-                <!-- Sub-page Navigation Bar -->
+    </div>
+    <div x-show="currentPage === 'videos'">
+        <!-- Video Page Component -->
+        <div x-data="videoPageComponent()" class="relative">
+            <!-- Sub-page Navigation Bar -->
+            <script>console.log('Current video: ' + this.currentVideoName)</script>
+            <div class="mb-4">
+                <nav class="flex space-x-4 border-b border-gray-300 pb-2 text-xl">
+                    <button @click="currentTab = 'local'"
+                        :class="{ 'border-b-2 border-blue-500 text-blue-500 text-2xl font-bold': currentTab === 'local' }"
+                        class="p-2">本地视频</button>
+                    <button @click="currentTab = 'youtube'"
+                        :class="{ 'border-b-2 border-blue-500 text-blue-500 text-2xl font-bold': currentTab === 'youtube' }"
+                        class="p-2">干净世界</button>
+                    <button @click="currentTab = 'facebook'"
+                        :class="{ 'border-b-2 border-blue-500 text-blue-500 text-2xl font-bold': currentTab === 'facebook' }"
+                        class="p-2">网络视频</button>
+                </nav>
+            </div>
+
+            <!-- Tab Content -->
+            <div x-show="currentTab === 'local'">
+                <!-- Local Videos -->
+                <div class="mb-4 max-w-screen-xl mx-auto">
+                    <!-- Video Player -->
+                    <div class="mb-4">
+                        <div x-text="currentVideoName" x-init="init()"
+                            class=" text-center font-bold text-2xl text-yellow-400 "></div>
+                        <video id="video" controls class="w-full h-90 bg-gray-800">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <!-- Video Table -->
+                    <table class="w-full border-collapse">
+                        <tbody>
+                            <template x-for="(video, index) in localVideos" :key="index">
+                                <tr>
+                                    <td class="border p-2" x-text="video.name"></td>
+                                    <td class="border p-2">
+                                        <button @click="loadVideo(video)"
+                                            class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">播放</button>
+                                    </td>
+                                    <td class="border p-2 text-center">
+                                        <a :href="video.url" download :download="video.name"
+                                            class="w-full text-dark px-4 py-2 rounded underline">下载</a>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div x-show="currentTab === 'youtube'">
+                <!-- YouTube Video Player -->
                 <div class="mb-4">
-                    <nav class="flex space-x-4 border-b border-gray-300 pb-2 text-xl">
-                        <button @click="currentTab = 'local'"
-                            :class="{ 'border-b-2 border-blue-500 text-blue-500 text-2xl font-bold': currentTab === 'local' }"
-                            class="p-2">本地视频</button>
-                        <button @click="currentTab = 'youtube'"
-                            :class="{ 'border-b-2 border-blue-500 text-blue-500 text-2xl font-bold': currentTab === 'youtube' }"
-                            class="p-2">干净世界</button>
-                        <button @click="currentTab = 'facebook'"
-                            :class="{ 'border-b-2 border-blue-500 text-blue-500 text-2xl font-bold': currentTab === 'facebook' }"
-                            class="p-2">网络视频</button>
-                    </nav>
+                    <iframe width="100%" height="600" :src="youtubeUrl" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 </div>
-
-                <!-- Tab Content -->
-                <div x-show="currentTab === 'local'">
-                    <!-- Local Videos -->
-                    <div class="mb-4">
-                        <!-- Video Player -->
-                        <div class="mb-4">
-                            <div x-text="currentVideoName" class="text-center font-bold text-2xl text-yellow-400 ">
-                            </div>
-                            <video x-ref="videoPlayer" controls class="w-full h-90 bg-gray-800" :src="currentVideo">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-
-                        <!-- Video Table -->
-                        <table class="w-full border-collapse">
-                            <tbody>
-                                <template x-for="(video, index) in localVideos" :key="index">
-                                    <tr>
-                                        <td class="border p-2" x-text="video.name"></td>
-                                        <td class="border p-2">
-                                            <button @click="playVideo(video)"
-                                                class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">播放</button>
-                                        </td>
-                                        <td class="border p-2 text-center">
-                                            <a :href="video.url" download :download="video.name"
-                                                class="w-full text-dark px-4 py-2 rounded underline">下载</a>
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div x-show="currentTab === 'youtube'">
-                    <!-- YouTube Video Player -->
-                    <div class="mb-4">
-                        <iframe width="100%" height="600" :src="youtubeUrl" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <div x-show="currentTab === 'facebook'">
-                    <!-- Facebook Video Player -->
-                    <div class="mb-4">
-                        <iframe width="100%" height="600" :src="facebookUrl" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    </div>
-                </div>
-
             </div>
 
-            <script>
-                function videoPageComponent() {
-                    return {
-                        currentTab: 'local',
-                        currentVideo: 'book_html/425zzph.mp4',
-                        currentVideoName: '“四·二五”北京府右街万人大上访',
-                        youtubeUrl: '', //https://www.ganjingworld.com/embed/1fj0dngtfmd10lVWDSVYmcO5v15o1c', // Example YouTube URL
-                        facebookUrl: '', //https://www.ganjingworld.com/embed/1fj0dngtfmd10lVWDSVYmcO5v15o1c', // Example Facebook URL
-                        localVideos: [
-                            { url: "book_html/425zzph.mp4", name: "“四·二五”北京府右街万人大上访" },
-                            { url: "book_html/weihuo.mp4", name: "伪火:“天安门自焚”真相" },
-                            { url: "book_html/mhsf-trailer-1400_720-final.mp4", name: "明慧十方1分钟：被重复了千遍的“1400例”" },
-                            { url: "book_html/mhsf-trailer-fldf-hcsj_480-v2-final.mp4", name: "明慧十方1分钟：法轮大法洪传世界" },
-                        ],
+            <div x-show="currentTab === 'facebook'">
+                <!-- Facebook Video Player -->
+                <div class="mb-4">
+                    <iframe width="100%" height="600" :src="facebookUrl" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
 
-                        playVideo(video) {
-                            this.currentVideo = video.url;
-                            this.currentVideoName = video.name;
-                            this.$refs.videoPlayer.play();
+        </div>
+
+        <script>
+            function videoPageComponent() {
+                return {
+                    currentTab: 'local',
+                    currentVideo: 'https://video1-us-west.cloudokyo.cloud/video/v9/17/2b/51/172b517e-fc89-4229-bebc-06d113f6d1a1/master.m3u8',
+                    currentVideoName: '“四·二五”北京府右街万人大上访',
+                    youtubeUrl: '', //https://www.ganjingworld.com/embed/1fj0dngtfmd10lVWDSVYmcO5v15o1c', // Example YouTube URL
+                    facebookUrl: '', //https://www.ganjingworld.com/embed/1fj0dngtfmd10lVWDSVYmcO5v15o1c', // Example Facebook URL
+                    localVideos: [
+                        { url: "https://video1-us-west.cloudokyo.cloud/video/v9/17/2b/51/172b517e-fc89-4229-bebc-06d113f6d1a1/master.m3u8", name: "“四·二五”北京府右街万人大上访" },
+                        { url: "https://video5-us-east.cloudokyo.cloud/video/v5/84/eb/10/84eb10f8-aef4-4902-8ccb-6da5c6c4ff14/master.m3u8", name: "伪火:“天安门自焚”真相" },
+                        { url: "https://video5-us-west.cloudokyo.cloud/video/v4/ed/80/9e/ed809ec0-bbe6-464d-8d24-39cc9b5aa4a3/master.m3u8", name: "解析“1400例”" },
+                        { url: "https://video4-us-west.cloudokyo.cloud/video/v5/d0/47/ed/d047ed89-b0c8-4bde-95c5-730f79956034/master.m3u8", name: "红朝阴谋 - 这个星球上从未有过的邪恶" }
+                    ],
+                    init() {
+                        this.loadVideo(this.localVideos[0]);
+
+                    },
+                    loadVideo(video, shouldPlay = false) {
+                        const video_frame = document.getElementById('video');
+                        this.currentVideoName = video.name;
+                        console.log(this.currentVideoName)
+                        if (Hls.isSupported()) {
+                            const hls = new Hls({
+                                maxBufferLength: 15, //播放时的缓存长度（秒）
+                                maxMaxBufferLength: 30, // 最大缓存长度（秒）
+                                liveSyncDurationCount: 3 // 直播情况下保持3个片段的缓存
+                            })
+                            hls.loadSource(video.url);
+                            hls.attachMedia(video_frame);
+                            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                                if (shouldPlay) video_frame.play().catch(error => console.error('Playback failed:', error));
+                            });
+                        } else if (video_frame.canPlayType('application/vnd.apple.mpegurl')) {
+                            video_frame.src = video.url;
+                            video_frame.addEventListener('loadedmetadata', () => {
+                                if (shouldPlay) video_frame.play().catch(error => console.error('Playback failed:', error));
+                            });
                         }
-                    }
+                    },
                 }
-            </script>
+            }
+        </script>
+    </div>
 
-        </div>
-        <div x-show="currentPage === 'books'">
-            <div x-data="{page: 1}" style="max-width:1000px;margin:auto;padding-top:40px;">
-                <div id=divPicList align=center style="color:blue;font-size:1.1em"></div>
-                <div id=divPic style="color:blue;font-size:1.2em;font-weight:bold;display:none" align=center></div>
-                <h2 class="text-3xl text-center font-bold text-dark-500">精彩电子书下载</h2>
-                <div x-show="page == '1'" style="padding:40px;">
+    <div x-show="currentPage === 'books'">
+        <div x-data="{page: 1}" style="max-width:1280px;margin:auto;padding-top:40px;">
+            <div id=divPicList align=center style="color:blue;font-size:1.1em"></div>
+            <div id=divPic style="color:blue;font-size:1.2em;font-weight:bold;display:none" align=center>
+            </div>
+            <h2 class="text-3xl text-center font-bold text-dark-500">精彩电子书下载</h2>
+            <div x-show="page == '1'" style="padding:40px;">
 
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《九评共产党》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：纵观八十多年的中国共产党历史，其所到之处永远伴随着谎言、战乱、饥荒、独裁、屠杀和恐惧；传统的信仰和价值观被共产党强力破坏；原有的伦理观念和社会体系被强制解体；人与人之间的关爱与和谐被扭曲成斗争与仇恨；对天地自然的敬畏与珍惜变成妄自尊大的“战天斗地”，由此带来的社会道德体系和生态体系的全面崩溃，将中华民族乃至整个人类拖向深重的危机...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/九评共产党.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/九评共产党.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/九评共产党.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《风雨天地行》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：众多的基督徒在监禁，折磨，和虐杀面前，选择了和平，坚忍的维护自己的信仰。终于，越来越多的罗马人被基督徒的仁爱和坚忍所震撼。两千年来，曾经辉煌的古罗马帝国早已化为尘土，而早期基督徒面对强权，暴力和谎言时所体现出来的不朽精神却世代承传...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/风雨天地行.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/风雨天地行.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/风雨天地行.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《话说当年四二五》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：十四年前，即一九九九年四月二十五日，逾万法
-                            节选：轮功学员自愿到北京和平上访。这个出现在中共统治下的民众大规模和平上访，震动了世界，被视为中国历史上的奇迹。随后，江泽民集团在七月二十日在全国范围内发动了对法轮功学员的大抓捕，对修炼人的惨烈迫害从此开始…
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/话说当年四二五.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/话说当年四二五.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/话说当年四二五.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《江泽民其人》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：江泽民到底是个什么样的人？他的出身到底如何？他怎么从一个不被看好的过渡性人物党同伐异，成为一个独裁者？历史安排了他这样一个人到底是为了扮演什么角色？...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/江泽民其人.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/江泽民其人.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/江泽民其人.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《共产主义的终极目的》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：共产主义来自何处？为什么宇宙中会冒出个共产党？共产主义的本质究竟是什么？结局又会怎样？对这些根本问题的答案，人们众说纷纭，现在是揭开谜底的时候了...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/共产主义的终极目的.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/共产主义的终极目的.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/共产主义的终极目的.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《揭开恶魔的面纱》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：国际共产主义运动发起至今已有一百多年，在这期间，它给世界人民带来了无尽的灾难。从谎言到杀戮，从侵略到独裁，所到之处无不血流成河，生灵涂炭，其声名之狼藉比纳粹更有过之而无不及。如今，民主已成为世界潮流，马列主义已在全球范围内被证明彻底失败，只有残存的中国共产党和几个共产主义小兄弟还在艰难挣扎...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/揭开恶魔的面纱.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/揭开恶魔的面纱.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/揭开恶魔的面纱.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《解体党文化》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：中共的历史是谎言与暴行交织的历史，而其谎言却分为两个层面。第一个层面，在于对事实本身的掩盖或歪曲；第二个层面，则在于给人灌输一套邪恶的善恶标准和扭曲的思维方式。这种灌输一方面以中共所劫持的国家暴力为后盾，另一方面更通过垄断的所有社会资源而强迫人从记事或学语的第一天即开始耳濡目染...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/解体党文化.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/解体党文化.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/解体党文化.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《马克思的成魔之路》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：被“马克思主义者”奉为神明的马克思，早年曾经是基督徒，后来加入魔鬼撒旦教，他自己也承认与撒旦签了契约。其后马克思大行魔鬼所为之事：诅咒全人类下地狱，包括工人和那些为共产主义而战的人。“马克思主义”正是在其加入魔教后诞生...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/马克思的成魔之路.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/马克思的成魔之路.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/马克思的成魔之路.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《九评共产党》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：纵观八十多年的中国共产党历史，其所到之处永远伴随着谎言、战乱、饥荒、独裁、屠杀和恐惧；传统的信仰和价值观被共产党强力破坏；原有的伦理观念和社会体系被强制解体；人与人之间的关爱与和谐被扭曲成斗争与仇恨；对天地自然的敬畏与珍惜变成妄自尊大的“战天斗地”，由此带来的社会道德体系和生态体系的全面崩溃，将中华民族乃至整个人类拖向深重的危机...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/九评共产党.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/九评共产党.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/九评共产党.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/九评共产党.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
                     </div>
                 </div>
 
-
-                <div x-show="page == '2'" style="padding:40px;display:none;">
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《魔鬼在统治着我们的世界》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：共产主义并非一种思潮、学说，或者在人类寻找出路时一个失败了的尝试。它是魔鬼，亦称共产邪灵，由恨和宇宙低层空间各种败坏物质构成。它原本是一条蛇，到了表层空间的体现形式则是一条红龙。它与仇视正神的撒旦为伍，同时利用各种低灵和魔祸乱人间。这个邪灵的终极目的就是要毁灭人类，在神归来挽救众生的最后关头，让人不信神，让人的道德败坏到背弃神和传统，听不懂神的教诲而导致最终被淘汰...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/魔鬼在统治着我们的世界.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/魔鬼在统治着我们的世界.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/魔鬼在统治着我们的世界.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《起诉江泽民》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：一九九九年，江泽民一手挑起了针对法轮功学员的迫害运动，在中国大陆对修炼真善忍的法轮功群众施行“名誉上搞臭、经济上搞垮、肉体上消灭”“打死白打、打死算自杀”等灭绝政策，导致十年来众多法轮功学员广泛遭受酷刑折磨、被活摘器官、及被其它方式迫害致死等。江泽民及其政治流氓集团，对这场迫害的发生、推行和延续，有着不可逃脱的罪责...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/起诉江泽民.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/起诉江泽民.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/起诉江泽民.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《死刑犯遮不住器官市场的蘑菇云》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：长期以来，中共官方一直对外宣称器官来源是自愿捐赠，不承认死囚器官。活摘法轮功学员器官被揭露之后，中共更是极力否认，但是又一再拒绝海外独立调查团队进入中国的签证申请。这种矛盾行为反而加深了外界的疑虑。不过，器官移植市场爆棚，成为了世界“器官移植旅游”的首选地是不争的事实。“在过去十年间（1997年～2007年），中国器官移植数量飞速增长”。短短几年就冒出来了600多家（甚至有专家称高达1000多家）医院开展器官移植，而美国也只有250多家...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/死刑犯遮不住器官市场的蘑菇云.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/死刑犯遮不住器官市场的蘑菇云.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/死刑犯遮不住器官市场的蘑菇云.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《退党手册》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：统计数据显示，2005年3月以来，中国大陆平均每天有2万多人突破封锁，在大纪元网上发表声明。据了解，还有很多没有条件突破封锁上网的中国大陆民众通过在公共场所张贴各类三退声明的方式退出中共组织。从大纪元2004年12月3日开设“退党”网站两年多来，至2007年12月末已有超过3000万人网上声明退党、团、队。
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/退党手册.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/退党手册.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/退党手册.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《你我有缘画册》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选：历史一直在告诉人们：无度行恶必然招天理惩治。中共对真善忍的迫害已犯下滔天大罪，天灭中共已是不争的事，而在大难来临之时，如何逃生、自救？如今已有两千万人退出中共（党团队），跟上这两千万勇士的脚步吧，只有摆脱中共，方能得救...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/你我有缘画册.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/你我有缘画册.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/你我有缘画册.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
-                    </div>
-
-                    <div class="w-full py-5">
-                        <h4 class="font-bold">《世纪伪案 惊天骗局》</h4>
-                        <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
-                            节选:2001 年1 月23日（除夕），在北京天安门广场，发生了震惊世界的自焚事件。　　事发两个小时后，新华社以超乎寻常的速度向全世界发出英语新闻，声称：自焚者是五名来自开封市的法轮功学员。　　但是，美国之音记者打电话向北京公安局和公安部查证，他们答复说不知道有此事发生。　　随后，央视在全国反复播出自己制作的“自焚新闻节目”，矛头直指法轮功。一周之后，又抛出十二岁的小学生刘思影被焚烧后的悲惨镜头，煽起民众对法轮功的仇恨，在全国对法轮功掀起了文革式的“大批判”...
-                            <p class="text-blue-600 pt-1.25">多种格式下载：<a href="#">book_html/世纪伪案惊天骗局.html</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">pdf</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/世纪伪案惊天骗局.chm</a>&nbsp;&nbsp;&nbsp;<a
-                                    href="#">epub</a>&nbsp;&nbsp;&nbsp;<a href="#">book_html/世纪伪案惊天骗局.epub</a>&nbsp;&nbsp;&nbsp;</p>
-                        </div>
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《风雨天地行》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：众多的基督徒在监禁，折磨，和虐杀面前，选择了和平，坚忍的维护自己的信仰。终于，越来越多的罗马人被基督徒的仁爱和坚忍所震撼。两千年来，曾经辉煌的古罗马帝国早已化为尘土，而早期基督徒面对强权，暴力和谎言时所体现出来的不朽精神却世代承传...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/风雨天地行.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/风雨天地行.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/风雨天地行.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/风雨天地行.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
                     </div>
                 </div>
-                <div style="width:25%;;margin:auto;padding:20px;font-weight:bold">
-                    <table style="width:70%;" border="0">
-                        <tr>
-                            <td><a href="#" @click.prevent="page = '1';">< </a>
-                            </td>
-                            <td><a href="#" @click.prevent="page = '1';"
-                                    :class="{ 'text-yellow-400': page === '1' }">1</a></td>
-                            <td><a href="#" @click.prevent="page = '2';"
-                                    :class="{ 'text-yellow-400': page === '2' }">2</a></td>
-                            <td><a href="#" @click.prevent="page = '2';">></a></td>
-                        </tr>
-                    </table>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《话说当年四二五》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：十四年前，即一九九九年四月二十五日，逾万法
+                        节选：轮功学员自愿到北京和平上访。这个出现在中共统治下的民众大规模和平上访，震动了世界，被视为中国历史上的奇迹。随后，江泽民集团在七月二十日在全国范围内发动了对法轮功学员的大抓捕，对修炼人的惨烈迫害从此开始…
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/话说当年四二五.pdf">pdf</a>
+                        </p>
+                    </div>
                 </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《江泽民其人》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：江泽民到底是个什么样的人？他的出身到底如何？他怎么从一个不被看好的过渡性人物党同伐异，成为一个独裁者？历史安排了他这样一个人到底是为了扮演什么角色？...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/江泽民其人.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/江泽民其人.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/江泽民其人.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《共产主义的终极目的》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：共产主义来自何处？为什么宇宙中会冒出个共产党？共产主义的本质究竟是什么？结局又会怎样？对这些根本问题的答案，人们众说纷纭，现在是揭开谜底的时候了...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/共产主义的终极目的.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/共产主义的终极目的.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/共产主义的终极目的.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《揭开恶魔的面纱》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：国际共产主义运动发起至今已有一百多年，在这期间，它给世界人民带来了无尽的灾难。从谎言到杀戮，从侵略到独裁，所到之处无不血流成河，生灵涂炭，其声名之狼藉比纳粹更有过之而无不及。如今，民主已成为世界潮流，马列主义已在全球范围内被证明彻底失败，只有残存的中国共产党和几个共产主义小兄弟还在艰难挣扎...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/揭开恶魔的面纱.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《解体党文化》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：中共的历史是谎言与暴行交织的历史，而其谎言却分为两个层面。第一个层面，在于对事实本身的掩盖或歪曲；第二个层面，则在于给人灌输一套邪恶的善恶标准和扭曲的思维方式。这种灌输一方面以中共所劫持的国家暴力为后盾，另一方面更通过垄断的所有社会资源而强迫人从记事或学语的第一天即开始耳濡目染...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/解体党文化.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/解体党文化.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/解体党文化.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《马克思的成魔之路》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：被“马克思主义者”奉为神明的马克思，早年曾经是基督徒，后来加入魔鬼撒旦教，他自己也承认与撒旦签了契约。其后马克思大行魔鬼所为之事：诅咒全人类下地狱，包括工人和那些为共产主义而战的人。“马克思主义”正是在其加入魔教后诞生...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/马克思的成魔之路.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div x-show="page == '2'" style="padding:40px;display:none;">
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《魔鬼在统治着我们的世界》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：共产主义并非一种思潮、学说，或者在人类寻找出路时一个失败了的尝试。它是魔鬼，亦称共产邪灵，由恨和宇宙低层空间各种败坏物质构成。它原本是一条蛇，到了表层空间的体现形式则是一条红龙。它与仇视正神的撒旦为伍，同时利用各种低灵和魔祸乱人间。这个邪灵的终极目的就是要毁灭人类，在神归来挽救众生的最后关头，让人不信神，让人的道德败坏到背弃神和传统，听不懂神的教诲而导致最终被淘汰...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/魔鬼在统治着我们的世界.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《起诉江泽民》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：一九九九年，江泽民一手挑起了针对法轮功学员的迫害运动，在中国大陆对修炼真善忍的法轮功群众施行“名誉上搞臭、经济上搞垮、肉体上消灭”“打死白打、打死算自杀”等灭绝政策，导致十年来众多法轮功学员广泛遭受酷刑折磨、被活摘器官、及被其它方式迫害致死等。江泽民及其政治流氓集团，对这场迫害的发生、推行和延续，有着不可逃脱的罪责...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/起诉江泽民.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《死刑犯遮不住器官市场的蘑菇云》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：长期以来，中共官方一直对外宣称器官来源是自愿捐赠，不承认死囚器官。活摘法轮功学员器官被揭露之后，中共更是极力否认，但是又一再拒绝海外独立调查团队进入中国的签证申请。这种矛盾行为反而加深了外界的疑虑。不过，器官移植市场爆棚，成为了世界“器官移植旅游”的首选地是不争的事实。“在过去十年间（1997年～2007年），中国器官移植数量飞速增长”。短短几年就冒出来了600多家（甚至有专家称高达1000多家）医院开展器官移植，而美国也只有250多家...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.epub">epub</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《退党手册》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：统计数据显示，2005年3月以来，中国大陆平均每天有2万多人突破封锁，在大纪元网上发表声明。据了解，还有很多没有条件突破封锁上网的中国大陆民众通过在公共场所张贴各类三退声明的方式退出中共组织。从大纪元2004年12月3日开设“退党”网站两年多来，至2007年12月末已有超过3000万人网上声明退党、团、队。
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/退党手册.html">html</a>&nbsp;&nbsp;&nbsp;
+                            <a href="https://szmj0.github.io/book_html/退党手册.chm">chm</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《你我有缘画册》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选：历史一直在告诉人们：无度行恶必然招天理惩治。中共对真善忍的迫害已犯下滔天大罪，天灭中共已是不争的事，而在大难来临之时，如何逃生、自救？如今已有两千万人退出中共（党团队），跟上这两千万勇士的脚步吧，只有摆脱中共，方能得救...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/你我有缘画册.html">html</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full py-5">
+                    <h4 class="font-bold">《世纪伪案 惊天骗局》</h4>
+                    <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
+                        节选:2001 年1
+                        月23日（除夕），在北京天安门广场，发生了震惊世界的自焚事件。　　事发两个小时后，新华社以超乎寻常的速度向全世界发出英语新闻，声称：自焚者是五名来自开封市的法轮功学员。　　但是，美国之音记者打电话向北京公安局和公安部查证，他们答复说不知道有此事发生。　　随后，央视在全国反复播出自己制作的“自焚新闻节目”，矛头直指法轮功。一周之后，又抛出十二岁的小学生刘思影被焚烧后的悲惨镜头，煽起民众对法轮功的仇恨，在全国对法轮功掀起了文革式的“大批判”...
+                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                            <a href="https://szmj0.github.io/book_html/世纪伪案惊天骗局.html">html</a>&nbsp;&nbsp;&nbsp;
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div style="width:25%;;margin:auto;padding:20px;font-weight:bold">
+                <table style="width:70%;" border="0">
+                    <tr>
+                        <td><a href="#" @click.prevent="page = '1';">
+                                < </a>
+                        </td>
+                        <td><a href="#" @click.prevent="page = '1';" :class="{ 'text-yellow-400': page === '1' }">1</a>
+                        </td>
+                        <td><a href="#" @click.prevent="page = '2';" :class="{ 'text-yellow-400': page === '2' }">2</a>
+                        </td>
+                        <td><a href="#" @click.prevent="page = '2';">></a></td>
+                    </tr>
+                </table>
             </div>
         </div>
 
-        <div x-show="currentPage === 'downloads'">
-            <div style="max-width:90%;margin:auto;" align="center">
-
-                <div class="shadow-lg mt-12">
-                    <table class="w-full border-spacing-0">
-                        <tbody>
-                            <tr align="left">
-                                <td colspan="2">
-                                    <h3 class="text-yellow-800 text-xl font-bold"><span>电脑、安卓、苹果设备点击直接翻墙网址</span></h3>
-                                </td>
-                            </tr>
-                            <tr>
+    </div>
+    <div x-show="currentPage === 'downloads'">
+        <!-- <div style="max-width:90%;margin:auto;" align="center"> -->
+        <div class="max-w-screen-xl mx-auto">
+            <div class="shadow-lg mt-12">
+                <table class="w-full border-spacing-0">
+                    <tbody>
+                        <tr align="left">
+                            <td colspan="2">
+                                <h3 class="text-yellow-800 text-xl font-bold">
+                                    <span>电脑、安卓、苹果设备点击直接翻墙网址</span>
+                                </h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddw2288"
+                                    target="_blank">j.mp/ddw2288</a></td>
+                            <td class="border border-gray-300 px-4 py-2">动态网</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddw8866"
+                                    target="_blank">j.mp/ddw8866</a></td>
+                            <td class="border border-gray-300 px-4 py-2">全球退党服务中心</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddm6699"
+                                    target="_blank">j.mp/ddm6699</a></td>
+                            <td class="border border-gray-300 px-4 py-2">明慧之窗</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><br><br>
+            <div class="shadow-lg">
+                <table class="w-full border-spacing-0">
+                    <tbody>
+                        <tr align="left">
+                            <td colspan="2" style="color:#7f530c">
+                                <h3 class="text-yellow-800 text-xl font-bold"><span class="title2">电脑软件</span>
+                                </h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/fg.exe" target="_blank">fg.exe<br>
+                                    <p class="text-xs text-gray-500">&lt;01自由门电脑版&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：自由门 - 电脑版</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a href="https://szmj0.github.io/book_html/u.exe"
+                                    target="_blank">u.exe<br>
+                                    <p class="text-xs text-gray-500">&lt;02无界浏览电脑版&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：无界浏览 - 电脑版</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/Green_iPPOTV.exe"
+                                    target="_blank">Green_iPPOTV.exe<br>
+                                    <p class="text-xs text-gray-500">&lt;03爱博电视直播电脑版&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：爱博电视 - 电脑版</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><br><br>
+            <div class="shadow-lg">
+                <table class="w-full border-spacing-0">
+                    <tbody>
+                        <tr align="left">
+                            <td colspan="2" style="color:#7f530c">
+                                <h3 class="text-yellow-800 text-xl font-bold"><span class="title2">安卓软件</span>
+                                </h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/fgvpn.apk" target="_blank">fgvpn.apk<br>
+                                    <p class="text-xs text-gray-500">&lt;01自由门VPN&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：自由门VPN - 安卓版</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a href="https://szmj0.github.io/book_html/u.apk"
+                                    target="_blank">u.apk<br>
+                                    <p class="text-xs text-gray-500">&lt;02无界VPN&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界VPN - 安卓版</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/um.apk" target="_blank">um.apk<br>
+                                    <p class="text-xs text-gray-500">&lt;03无界一点通&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界一点通 - 安卓版</td>
+                        </tr>
+                        <!-- <tr>
                                 <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddw2288"
-                                        target="_blank">j.mp/ddw2288</a></td>
-                                <td class="border border-gray-300 px-4 py-2">动态网</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddw8866"
-                                        target="_blank">j.mp/ddw8866</a></td>
-                                <td class="border border-gray-300 px-4 py-2">全球退党服务中心</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddm6699"
-                                        target="_blank">j.mp/ddm6699</a></td>
-                                <td class="border border-gray-300 px-4 py-2">明慧之窗</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><br><br>
-                <div class="shadow-lg">
-                    <table class="w-full border-spacing-0">
-                        <tbody>
-                            <tr align="left">
-                                <td colspan="2" style="color:#7f530c">
-                                    <h3 class="text-yellow-800 text-xl font-bold"><span class="title2">电脑软件</span></h3>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/fg.exe"
-                                        target="_blank">fg.exe<br>
-                                        <p class="text-xs text-gray-500">&lt;01自由门电脑版&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：自由门 - 电脑版</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/u.exe"
-                                        target="_blank">u.exe<br>
-                                        <p class="text-xs text-gray-500">&lt;02无界浏览电脑版&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：无界浏览 - 电脑版</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a
-                                        href="book_html/Green_iPPOTV.exe"
-                                        target="_blank">Green_iPPOTV.exe<br>
-                                        <p class="text-xs text-gray-500">&lt;03爱博电视直播电脑版&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：爱博电视 - 电脑版</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><br><br>
-                <div class="shadow-lg">
-                    <table class="w-full border-spacing-0">
-                        <tbody>
-                            <tr align="left">
-                                <td colspan="2" style="color:#7f530c">
-                                    <h3 class="text-yellow-800 text-xl font-bold"><span class="title2">安卓软件</span></h3>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/fgvpn.apk"
-                                        target="_blank">fgvpn.apk<br>
-                                        <p class="text-xs text-gray-500">&lt;01自由门VPN&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：自由门VPN - 安卓版</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/u.apk"
-                                        target="_blank">u.apk<br>
-                                        <p class="text-xs text-gray-500">&lt;02无界VPN&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界VPN - 安卓版</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/um.apk"
-                                        target="_blank">um.apk<br>
-                                        <p class="text-xs text-gray-500">&lt;03无界一点通&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界一点通 - 安卓版</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/iNTD_TV.apk"
+                                    style="padding:7px 10px;border-left:0"><a href="软件/安卓手机翻墙/04爱博电视安卓版/iNTD_TV.apk"
                                         target="_blank">iNTD_TV.apk<br>
                                         <p class="text-xs text-gray-500">&lt;04爱博电视安卓版&gt;</p>
                                     </a></td>
                                 <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：爱博电视 - 安卓版</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/adobe.apk"
-                                        target="_blank">adobe.apk<br>
-                                        <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">阅读软件：Adobe 安卓版，可看 pdf 格式电子书</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/lithium.apk"
-                                        target="_blank">lithium.apk<br>
-                                        <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">阅读软件：锂 EPUB 阅读器安卓版，可看 epub 格式电子书</td>
-                            </tr>
-                            <tr>
-                                <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
-                                    style="padding:7px 10px;border-left:0"><a href="book_html/UBrowser.apk"
-                                        target="_blank">UBrowser.apk<br>
-                                        <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
-                                    </a></td>
-                                <td class="border border-gray-300 px-4 py-2">优盘浏览器 - 安卓版：可浏览 U 盘中的各种文件</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </tr> -->
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/adobe.apk" target="_blank">adobe.apk<br>
+                                    <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">阅读软件：Adobe 安卓版，可看 pdf 格式电子书
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/lithium.apk" target="_blank">lithium.apk<br>
+                                    <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">阅读软件：锂 EPUB 阅读器安卓版，可看 epub
+                                格式电子书</td>
+                        </tr>
+                        <tr>
+                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                                style="padding:7px 10px;border-left:0"><a
+                                    href="https://szmj0.github.io/book_html/UBrowser.apk"
+                                    target="_blank">UBrowser.apk<br>
+                                    <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
+                                </a></td>
+                            <td class="border border-gray-300 px-4 py-2">优盘浏览器 - 安卓版：可浏览 U 盘中的各种文件</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+
+            <div style="padding:0 0 20px 20px">
                 <br>
+                <table id="tbSoftware">
+                    <tbody>
+                        <tr>
+                            <td width="80%">
+                                <p class="text-sm text-dark"><b>
 
-                <div style="padding:0 0 20px 20px">
-                    <br>
-                    <table id="tbSoftware">
-                        <tbody>
-                            <tr>
-                                <td width="80%">
-                                    <p class="text-sm text-dark"><b>
+                                        用翻墙软件可以浏览被中共封锁的国外网站，网络封锁严重时如果不能访问，可改时间再试，或尝试多个翻墙软件。如果有最新版本的翻墙软件，请及时下载。
+                                        <p>
+                                        </p>
+                                    </b></p>
+                            </td>
+                            <td align="center">
 
-                                            用翻墙软件可以浏览被中共封锁的国外网站，网络封锁严重时如果不能访问，可改时间再试，或尝试多个翻墙软件。如果有最新版本的翻墙软件，请及时下载。<p>
-                                            </p>
-                                        </b></p>
-                                </td>
-                                <td align="center">
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div x-show="currentPage === 'about'">
-            <div class="text-center">
-                <h2 class="text-2xl font-bold text-dark-500">自2004年12月3日起</h2>
-                <h2 class="text-2xl font-bold text-dark-500">三退（退党、团、队）人数</h2>
-                <p style="font-size:3.0em;color:#f67900;font-weight:bold">4.2 <span
-                        style="color:black;font-size:0.7em;">亿</span></p>
+    </div>
+    <div x-show="currentPage === 'about'">
+        <div class="text-center pt-12 max-w-screen-xl mx-auto">
+            <h2 class="text-2xl font-bold text-dark-500">自2004年12月3日起</h2>
+            <h2 class="text-2xl font-bold text-dark-500">三退（退党、团、队）人数</h2>
+            <p style="font-size:3.0em;color:#f67900;font-weight:bold">4.2 <span
+                    style="color:black;font-size:0.7em;">亿</span></p>
+        </div>
+        <div style="letter-spacing:0.1em; " class="max-w-screen-xl mx-auto">
+            <div class="text-xl text-center leading-relaxed pt-15"><b>大纪元郑重声明</b></div><br>
+            <div class="text-xl text-left p-12">
+                　　广大的中国民众：共产党的末日就要到了。但是这个邪恶的党（魔教）在历史上却对众生、对神佛犯下了滔天大罪，神一定要清算这个恶魔。
+                <br><br>
+                　　如果有一天，神指使人类的谁对共产党清算时，也一定不会放过那些所谓坚定的邪恶党徒。我们郑重声明：所有参加过共产党与共产党其它组织的
+                (被邪恶打上兽的印记的)人，赶快退出，抹去邪恶的印记。一旦谁对这个魔教清算时，大纪元储存的记录可以为声明退出共产党和共产党其它组织的人作证。
+                <br><br>
+                　　天网恢恢，善恶分明；苦海有边，生死一念。曾被历史上最邪恶的魔教所欺骗的人，曾被邪恶打上兽的印记的人，请抓住这稍纵即逝的良机！
+                <br><br>
             </div>
-            <font style="letter-spacing:0.1em;">
-                <div class="text-xl text-center leading-relaxed pt-15"><b>大纪元郑重声明</b></div><br>
-                <div class="text-xl text-left p-12">
-                    　　广大的中国民众：共产党的末日就要到了。但是这个邪恶的党（魔教）在历史上却对众生、对神佛犯下了滔天大罪，神一定要清算这个恶魔。
-                    <br><br>
-                    　　如果有一天，神指使人类的谁对共产党清算时，也一定不会放过那些所谓坚定的邪恶党徒。我们郑重声明：所有参加过共产党与共产党其它组织的
-                    (被邪恶打上兽的印记的)人，赶快退出，抹去邪恶的印记。一旦谁对这个魔教清算时，大纪元储存的记录可以为声明退出共产党和共产党其它组织的人作证。
-                    <br><br>
-                    　　天网恢恢，善恶分明；苦海有边，生死一念。曾被历史上最邪恶的魔教所欺骗的人，曾被邪恶打上兽的印记的人，请抓住这稍纵即逝的良机！
-                    <br><br>
-                </div>
-                <div align=right style="width:100%">
-                    <div class="text-xl text-center w-1/2">大纪元<br>2005年1月12日</div>
-                </div>
-                <div>
-                    <div align="center">
-                        <div class="text-md text-left text-red-500 pt-5" style="max-width:400px;">
-                            * 入过党、团、队或小时候戴过红领巾的要退<br>
-                            * 帮亲友或其他人三退需要征得本人同意<br>
-                            * 已做过三退的请勿重复三退<br>
-                            * 可以使用化名三退<br>
-                        </div>
+            <div align=right style="width:100%">
+                <div class="text-xl text-center w-1/2">大纪元<br>2005年1月12日</div>
+            </div>
+            <div>
+                <div align="center">
+                    <div class="text-md text-left text-red-500 pt-5" style="max-width:400px;">
+                        * 入过党、团、队或小时候戴过红领巾的要退<br>
+                        * 帮亲友或其他人三退需要征得本人同意<br>
+                        * 已做过三退的请勿重复三退<br>
+                        * 可以使用化名三退<br>
+                    </div>
 
 
-                        <div class="pt-16 text-2xl text-blue-900 font-bold">
-                            <a href="http://tuidang.epochtimes.com" target="_blank">我 要 声 明 三 退</a>
-                        </div>
-                        <div class="text-gray-500 pb-16">
-                            点击进入“全球退党服务中心”官网
-                        </div>
+                    <div class="pt-16 text-2xl text-blue-900 font-bold">
+                        <a href="http://tuidang.epochtimes.com" target="_blank">我 要 声 明 三 退</a>
+                    </div>
+                    <div class="text-gray-500 pb-16">
+                        点击进入“全球退党服务中心”官网
                     </div>
                 </div>
-        </div>
-        <!-- Alpine.js Component -->
-
-        <div class="bg-yellow-400" id=BottomTop style="height:8px;margin:auto;"></div>
-        <div class="bg-yellow-100" id=InBottomMain style="margin:auto;">
-            <div style="padding:10px 30px 0;" align="left;">
-                <h3 class="font-bold text-xl">友好链接:</h3>
             </div>
-            <div style="line-height: 2.4em;padding:0 60px 10px;">
-                <span style="color:#f67900;">网络媒体:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.minghui.org/" target="_blank">明慧网</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://cn.epochtimes.com/gb/" target="_blank">大纪元</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://cn.secretchina.com/" target="_blank">看中国</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.renminbao.com/" target="_blank">人民报</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.zhengjian.org/" target="_blank">正见网</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.aboluowang.com/" target="_blank">阿波罗网</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://xinsheng.net/" target="_blank">新生网</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="https://window.minghui.org/" target="_blank">明慧之窗</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="https://www.ganjing.com/zh-CN" target="_blank">干净世界</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="https://www.ming-jian.net/" target="_blank">明见网</a><br>
+        </div>
+    </div>
+    <!-- Alpine.js Component -->
 
+    <div class="bg-yellow-400 mb-4" style="height:8px;margin:auto;"></div>
 
-                <span style="color:#f67900;">音频视频:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.mhradio.org/" target="_blank">明慧广播</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://cn.ntdtv.com/" target="_blank">新唐人</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://cn.ntdtv.com/" target="_blank">中文电视台</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.soundofhope.org/" target="_blank">希望之声广播电台</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
-                    href="http://asp.fgmtv.org/" target="_blank">放光明</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
-                    href="http://www.881903.com/" target="_blank">香港商台</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://ap.ntdtv.com/" target="_blank">新唐人亚太台</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
-                    href="http://www.newrealmstudios.ca/" target="_blank">新境界影视</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href=https://www.ganjing.com/zh-TW/channel/1eiqjdnq7gozJ9BKZeWTfN1061tn0c""
-                    target="_blank">新世纪影视</a> <br>
+    <section class="bg-yellow-100 flex items-center justify-center">
 
+        <!-- <h3 class="text-md mx-auto w-1/2 text-center p-4">友好链接:</h3> -->
 
+        <div
+            class="bg-yellow-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 ml-12 mr-12 max-w-screen-xl mx-auto ">
 
-                <span style="color:#f67900;">网络杂志:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://qikan.minghui.org/display.aspx?qikan_type_id=5240" target="_blank">真相</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://qikan.minghui.org/display.aspx?qikan_type_id=5151"
-                    target="_blank">明慧周报：海外版</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.epochweekly.com/"
-                    target="_blank">新纪元周刊</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.watchinese.com/"
-                    target="_blank">看杂志</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="http://www.bjs.org/"
-                    target="_blank">北京之春</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.chinaaffairs.org/"
-                    target="_blank">中国事务</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.open.com.hk/"
-                    target="_blank">开放杂志</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.huanghuagang.org/"
-                    target="_blank">黄花岗</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.cna.com.tw/"
-                    target="_blank">中央社</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://fireofliberty.info/"
-                    target="_blank">自由圣火</a> <br>
+            <!-- Column 1 -->
+            <div class="m-4">
+                <h3 class="text-md font-bold mb-4">网络媒体</h3>
+                <ul class="space-y-2">
+                    <li><a href="http://www.minghui.org/" class="hover:underline">明慧网</a></li>
+                    <li><a href="http://cn.epochtimes.com/gb/" class="hover:underline">大纪元</a></li>
+                    <li><a href="http://cn.secretchina.com/" class="hover:underline">看中国</a></li>
+                    <li><a href="http://www.renminbao.com/" class="hover:underline">人民报</a></li>
+                    <li><a href="http://www.zhengjian.org/" class="hover:underline">正见网</a></li>
+                    <li><a href="http://www.aboluowang.com/" class="hover:underline">阿波罗网</a></li>
+                    <li><a href="http://xinsheng.net/" class="hover:underline">新生网</a></li>
+                    <li><a href="https://window.minghui.org/" class="hover:underline">明慧之窗</a></li>
+                    <li><a href="https://www.ganjing.com/zh-CN" class="hover:underline">干净世界</a></li>
+                    <li><a href="https://www.ming-jian.net/" class="hover:underline">明见网</a><br></li>
 
-
-
-                <span style="color:#f67900;">社交网站:</span>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="https://www.youtube.com/" target="_blank">油管</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="https://www.youmaker.com/" target="_blank">优美客</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="http://www.youtaker.com/video/index.html?code=gb" target="_blank">优特客</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.facebook.com/" target="_blank">脸书</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://twitter.com/" target="_blank">推特</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.blogger.com/" target="_blank">Blogger</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://gab.com/" target="_blank">Gab</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://parler.com/" target="_blank">Parler</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://safechat.com/" target="_blank">SafeChat</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://rumble.com/" target="_blank">Rumble</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://signal.org/" target="_blank">Signal</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://telegram.org/" target="_blank">Telegram</a> <br>
-
+                </ul>
             </div>
 
+            <!-- Column 2 -->
+            <div class="m-4">
+                <h3 class="text-md font-bold mb-4">音频视频</h3>
+                <ul class="space-y-2">
+                    <li><a href="http://www.mhradio.org/" class="hover:underline">明慧广播</a> </li>
+                    <li><a href="http://cn.ntdtv.com/" class="hover:underline">新唐人</a> </li>
+                    <li><a href="http://cn.ntdtv.com/" class="hover:underline">中文电视台</a> </li>
+                    <li><a href="http://www.soundofhope.org/" class="hover:underline">希望之声广播电台</a> </li>
+                    <li><a href="http://asp.fgmtv.org/" class="hover:underline">放光明</a> </li>
+                    <li><a href="http://www.881903.com/" class="hover:underline">香港商台</a> </li>
+                    <li><a href="http://ap.ntdtv.com/" class="hover:underline">新唐人亚太台</a> </li>
+                    <li><a href="http://www.newrealmstudios.ca/" class="hover:underline">新境界影视</a> </li>
+                    <li><a href="https://www.ganjing.com/zh-TW/channel/1eiqjdnq7gozJ9BKZeWTfN1061tn0c"
+                            class="hover:underline">新世纪影视</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="m-4">
+                <h3 class="text-md font-bold mb-4">网络杂志</h3>
+                <ul class="space-y-2">
+                    <li><a href="http://qikan.minghui.org/display.aspx?qikan_type_id=5240" target="_blank">真相</a>
+                    </li>
+                    <li><a href="http://qikan.minghui.org/display.aspx?qikan_type_id=5151" target="_blank">明慧周报：海外版</a>
+                    </li>
+                    <li><a href="http://www.epochweekly.com/" target="_blank">新纪元周刊</a></li>
+                    <li><a href="http://www.watchinese.com/" target="_blank">看杂志</a></li>
+                    <li><a href="http://www.bjs.org/" target="_blank">北京之春</a></li>
+                    <li><a href="http://www.chinaaffairs.org/" target="_blank">中国事务</a></li>
+                    <li><a href="http://www.open.com.hk/" target="_blank">开放杂志</a></li>
+                    <li><a href="http://www.huanghuagang.org/" target="_blank">黄花岗</a></li>
+                    <li><a href="http://www.cna.com.tw/" target="_blank">中央社</a></li>
+                    <li><a href="https://fireofliberty.info/" target="_blank">自由圣火</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4 -->
+            <div class="m-4">
+                <h3 class="text-md font-bold mb-4">社交网络</h3>
+                <ul class="space-y-2">
+                    <li><a href="https://www.youtube.com/" class="hover:underline">油管</a> </li>
+                    <li><a href="https://www.youmaker.com/" class="hover:underline">优美客</a> </li>
+                    <li><a href="http://www.youtaker.com/video/index.html?code=gb" class="hover:underline">优特客</a>
+                    </li>
+                    <li><a href="https://www.facebook.com/" class="hover:underline">脸书</a></li>
+                    <li><a href="https://twitter.com/" class="hover:underline">推特</a></li>
+                    <li><a href="https://www.blogger.com/" class="hover:underline">Blogger</a></li>
+                    <li><a href="https://gab.com/" class="hover:underline">Gab</a></li>
+                    <li><a href="https://parler.com/" class="hover:underline">Parler</a></li>
+                    <li><a href="https://safechat.com/" class="hover:underline">SafeChat</a></li>
+                    <li><a href="https://rumble.com/" class="hover:underline">Rumble</a></li>
+                    <li><a href="https://signal.org/" class="hover:underline">Signal</a></li>
+                    <li><a href="https://telegram.org/" class="hover:underline">Telegram</a></li>
+                </ul>
+            </div>
         </div>
+    </section>
+
+    <div x-data="yearComponent()" class="bg-yellow-400 text-md text-center"
+        style="height:35px;padding-top:5px;margin:auto;border-radius: 0 0 10px 10px;">
+        神州明见 版权所有 2023 - <span x-text="currentYear"></span>
+    </div>
+    <div id=divTop
+        style="right:27%;width:44px;height:44px;position:fixed;bottom:0;cursor:pointer;z-index:10001;display:none;opacity:0.8"
+        onClick="scroll2(0);showTop(0);" onmouseenter="showTop(1);" onmouseleave="showTop(0);">
+        <svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet">
+            <circle id=circle cx=32 cy=32 r=30 fill=#e5e5c5></circle>
+            <path fill=#fff d="M48 30.3L32 15L16 30.3h10.6V49h10.3V30.3z"></path>
+        </svg>
+    </div>
 
 
-        <div x-data="yearComponent()" class="bg-yellow-400 text-md text-center"
-            style="height:35px;padding-top:5px;margin:auto;border-radius: 0 0 10px 10px;">
-            神州明见 版权所有 2023 - <span x-text="currentYear"></span>
-        </div>
-        <div id=divTop
-            style="right:27%;width:44px;height:44px;position:fixed;bottom:0;cursor:pointer;z-index:10001;display:none;opacity:0.8"
-            onClick="scroll2(0);showTop(0);" onmouseenter="showTop(1);" onmouseleave="showTop(0);">
-            <svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet">
-                <circle id=circle cx=32 cy=32 r=30 fill=#e5e5c5></circle>
-                <path fill=#fff d="M48 30.3L32 15L16 30.3h10.6V49h10.3V30.3z"></path>
-            </svg>
-        </div>
 
 
-
-
-        <script>
-            function yearComponent() {
-                return {
-                    currentYear: new Date().getFullYear()
-                }
+    <script>
+        function yearComponent() {
+            return {
+                currentYear: new Date().getFullYear()
             }
-        </script>
+        }
+    </script>
 
-        <!-- To Top Button -->
-        <button x-data="{
+    <!-- To Top Button -->
+    <button x-data="{
             show: false,
             init() {
                 window.addEventListener('scroll', () => {
@@ -916,16 +995,16 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }" x-show="show" @click="scrollToTop()"
-            class="fixed bottom-12 right-12 p-3 bg-gray-100 text-yellow-600 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none"
-            aria-label="Scroll to top">
-            <!-- SVG Triangle Shape -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                class="text-blue-200">
-                <path d="M6 14L12 8L18 14H6Z" fill="currentColor" />
-            </svg>
-        </button>
+        class="fixed bottom-12 right-12 p-3 bg-gray-100 text-yellow-600 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none"
+        aria-label="Scroll to top">
+        <!-- SVG Triangle Shape -->
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            class="text-blue-200">
+            <path d="M6 14L12 8L18 14H6Z" fill="currentColor" />
+        </svg>
+    </button>
 
-    </main>
+
 
     <!-- Alpine.js Component -->
     <script>
@@ -992,9 +1071,9 @@
                     var s = '<p>' + anchor.innerHTML + '</p>';
                     if (j < half) anchors1 += s; else anchors2 += s;
                 });
-                
+
                 news += '<h2 class="text-xl font-bold' + (i === 0 ? '' : ' style="margin-top:30px;"') + '">' + title + '</h2>' +
-                    '<div class="grid grid-cols-2 gap-2 mb-12">' +
+                    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-12">' +
                     '<div id="inMainleft' + (++blockCount) + '" class="newstd text-blue-600 p-4">' + anchors1 + '</div>' +
                     '<div id="inMainleft' + (++blockCount) + '" class="newstd text-blue-600 p-4">' + anchors2 + '</div>' +
                     '<div style="clear: both;"></div></div>';
@@ -1024,6 +1103,7 @@
         loadWeb();
     </script>
     <!--web代码结束-->
+
 
 
 </body>
