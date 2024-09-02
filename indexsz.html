@@ -118,29 +118,30 @@
 
 <body x-data="app()" x-cloak>
     <!-- Navbar -->
-    <header class="text-yellow-400 p-4 relative " style="background-color:#f9f2e2">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-4xl font-bold">神州明见 2.0</h1>
+    <header class="text-yellow-400 p-2 relative " >
+        <div class="container mx-auto flex justify-between items-center  ">
+            <h1 class="text-2xl font-bold">神州明见 2.0</h1>
             <!-- Desktop Navbar -->
-            <nav class="hidden md:flex space-x-12">
+            <nav class="hidden md:flex space-x-4">
                 <a href="#" @click.prevent="showPage('home')" :class="{ 'text-yellow-800': currentPage === 'home' }"
-                    class="text-3xl ">主页</a>
+                    class="text-xl ">主页</a>
                 <a href="#" @click.prevent="showPage('videos')" :class="{ 'text-yellow-800': currentPage === 'videos' }"
-                    class="text-3xl ">视频</a>
+                    class="text-xl ">视频</a>
                 <a href="#" @click.prevent="showPage('books')" :class="{ 'text-yellow-800': currentPage === 'books' }"
-                    class="text-3xl ">书籍</a>
+                    class="text-xl ">书籍</a>
                 <a href="#" @click.prevent="showPage('downloads')"
-                    :class="{ 'text-yellow-800': currentPage === 'downloads' }" class="text-3xl ">软件</a>
+                    :class="{ 'text-yellow-800': currentPage === 'downloads' }" class="text-xl ">软件</a>
                 <a href="#" @click.prevent="showPage('about')" :class="{ 'text-yellow-800': currentPage === 'about' }"
-                    class="text-3xl ">三退</a>
+                    class="text-xl ">三退</a>
             </nav>
             <!-- Mobile Menu Button -->
             <button @click="toggleMenu" class="md:hidden text-2xl mr-4">
-                <span x-show="!menuOpen">☰</span>
-                <span x-show="menuOpen">✖</span>
+                <span x-show="!menuOpen">&#9776;</span>
+                <span x-show="menuOpen">&#10005;</span>
             </button>
-                    <!-- Mobile Menu -->
-            <nav x-show="menuOpen" class="md:hidden bg-gray-700 text-white absolute right-8 top-16 p-4 z-50 text-center w-24">
+            <!-- Mobile Menu -->
+            <nav x-show="menuOpen"
+                class="md:hidden bg-gray-700 text-white absolute right-8 top-16 p-4 z-50 text-center w-24">
                 <a href="#" @click.prevent="showPage('home'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'home' }" class="block py-2 ">主页</a>
                 <a href="#" @click.prevent="showPage('videos'); toggleMenu()"
@@ -159,33 +160,33 @@
     <!-- Page Content -->
     <div x-show="currentPage === 'home'">
         <!-- Carousel Component -->
-        <div x-data="carouselComponent()" x-init="init()" style="background-color:#f9f2e2">
+        <div x-data="carouselComponent()" x-init="init()" style="background-color:#f9f2e2;" class="max-h-[100px]  md:max-h-[200px] relative">
             <!-- Carousel Images -->
-            <div class="overflow-hidden relative">
-                <div x-ref="slides" class="flex transition-transform duration-1000"
-                    :style="`transform: translateX(-${currentIndex * 100}%)`">
-                    <template x-for="(image, index) in images" :key="index">
-                        <a :href="image.link" class="flex-shrink-0 w-full h-64 flex items-center justify-center">
-                            <img :src="image.src" :alt="image.alt" class="carousel-image ">
-                        </a>
-                    </template>
-                </div>
-
+            <div class="relative overflow-hidden w-full h-32 sm:h-48">
+                <template x-for="(image, index) in images" :key="index">
+                    <a :href="image.link" x-show="currentIndex === index"
+                        x-transition:enter.opacity.duration.1000ms
+                        x-transition:leave.opacity.duration.1000ms
+                        class="absolute inset-0 flex items-center justify-center"
+                        :class="{'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index}">
+                        <img :src="image.src" :alt="image.alt" class="object-contain w-full h-full">
+                    </a>
+                </template>
+        
                 <!-- Left Arrow -->
                 <button @click="prevSlide()"
-                    class="absolute top-1/2 left-2 transform -translate-y-1/2  w-10 h-10 pt-6 rounded-full text-gray-300 hover:bg-gray-300 hover:text-gray-100 focus:outline-none">
+                    class="absolute top-1/2 left-2 transform -translate-y-1/2 w-10 h-10 pt-6 text-gray-300 hover:text-gray-400 focus:outline-none">
                     &#9664;
                 </button>
                 <!-- Right Arrow -->
                 <button @click="nextSlide()"
-                    class="absolute top-1/2 right-2 transform -translate-y-1/2  w-10 h-10 pt-6 text-gray-300 rounded-full hover:bg-gray-300 hover:text-gray-100 focus:outline-none">
+                    class="absolute top-1/2 right-2 transform -translate-y-1/2 w-10 h-10 pt-6 text-gray-300 hover:text-gray-400 focus:outline-none">
                     &#9654;
                 </button>
-
             </div>
-
+        
             <!-- Dots Navigation -->
-            <div class="flex justify-center mt-4" style="background-color:#f9f2e2">
+            <div class="flex justify-center p-2 z-40" style="background-color:#f9f2e2">
                 <template x-for="(image, index) in images" :key="index">
                     <button @click="goToSlide(index)"
                         :class="{'bg-white': currentIndex === index, 'bg-gray-500': currentIndex !== index}"
@@ -236,7 +237,7 @@
                 }
             }
         </script>
-        <div x-data class="marquee-wrapper relative flex bg-yellow-200 p-2">
+        <div x-data class="marquee-wrapper relative  bg-yellow-200 p-1">
             <div class="marquee-pause">
                 <div class="marquee-content">
                     <div x-html="$store.marqueeStore.getData('component1')" class="text-yellow-800"></div>
@@ -247,7 +248,7 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-center min-h-screen ">
+        <div class="flex items-center justify-center ">
             <div class="flex mt-4 mb-4 max-w-screen-xl mx-auto">
                 <!-- Left Part (2/3 of the screen) -->
                 <div class="w-ful">
@@ -295,9 +296,9 @@
                         <div class="h-px bg-gray-200 m-4"></div>
 
                         <!-- Link Group -->
-                        <div class="link-group flex flex-col m-4">
-                            <h3 class="text-xl font-bold ">常用翻墙网址</h3>
-                            <div class="space-y-2 mb-4">
+                        <div class="link-group flex flex-col mt-12 mb-12 pb-4 ml-4">
+                            <h3 class="text-xl font-bold mb-2">常用翻墙网址</h3>
+                            <div class="space-y-2 ">
                                 <p><a href="https://www.youtube.com/" target="_blank"
                                         class="text-blue-500 hover:underline">油管</a>
                                     <a href="https://twitter.com" target="_blank"
@@ -409,7 +410,8 @@
                                     <td class="border p-2" x-text="video.name"></td>
                                     <td class="border p-2 ">
                                         <button @click="loadVideo(video)"
-                                            class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 whitespace-nowrap"> 播放 </button>
+                                            class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 whitespace-nowrap">
+                                            播放 </button>
                                     </td>
                                     <td class="border p-2 text-center min-w-4xl">
                                         <a :href="video.url" download :download="video.name"
@@ -867,8 +869,9 @@
                         * 可以使用化名三退<br>
                     </div>
 
-                    
-                    <div class="text-2xl text-blue-900 font-bold bg-gray-100 rounded shadow-md hover:bg-blue-100 focus:outline-none p-2 max-w-sm">
+
+                    <div
+                        class="text-2xl text-blue-900 font-bold bg-gray-100 rounded shadow-md hover:bg-blue-100 focus:outline-none p-2 max-w-sm">
                         <a href="http://tuidang.epochtimes.com" target="_blank">我 要 声 明 三 退</a>
                     </div>
                     <div class="text-gray-500 pt-4 pb-12">
