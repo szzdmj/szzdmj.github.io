@@ -118,7 +118,7 @@
 
 <body x-data="app()" x-cloak>
     <!-- Navbar -->
-    <header class="text-yellow-400 p-2 relative " >
+    <header class="text-yellow-400 p-2 relative ">
         <div class="container mx-auto flex justify-between items-center  ">
             <h1 class="text-2xl font-bold">神州明见 2.0</h1>
             <!-- Desktop Navbar -->
@@ -160,19 +160,19 @@
     <!-- Page Content -->
     <div x-show="currentPage === 'home'">
         <!-- Carousel Component -->
-        <div x-data="carouselComponent()" x-init="init()" style="background-color:#f9f2e2;" class="max-h-[100px]  md:max-h-[200px] relative">
+        <div x-data="carouselComponent()" x-init="init()" style="background-color:#f9f2e2;"
+            class="max-h-[100px]  md:max-h-[200px] relative">
             <!-- Carousel Images -->
             <div class="relative overflow-hidden w-full h-32 sm:h-48">
                 <template x-for="(image, index) in images" :key="index">
-                    <a :href="image.link" x-show="currentIndex === index"
-                        x-transition:enter.opacity.duration.1000ms
+                    <a :href="image.link" x-show="currentIndex === index" x-transition:enter.opacity.duration.1000ms
                         x-transition:leave.opacity.duration.1000ms
                         class="absolute inset-0 flex items-center justify-center"
                         :class="{'opacity-100': currentIndex === index, 'opacity-0': currentIndex !== index}">
                         <img :src="image.src" :alt="image.alt" class="object-contain w-full h-full">
                     </a>
                 </template>
-        
+
                 <!-- Left Arrow -->
                 <button @click="prevSlide()"
                     class="absolute top-1/2 left-2 transform -translate-y-1/2 w-10 h-10 pt-6 text-gray-300 hover:text-gray-400 focus:outline-none">
@@ -184,7 +184,7 @@
                     &#9654;
                 </button>
             </div>
-        
+
             <!-- Dots Navigation -->
             <div class="flex justify-center p-2 z-40" style="background-color:#f9f2e2">
                 <template x-for="(image, index) in images" :key="index">
@@ -265,11 +265,11 @@
                 <div class="hidden md:flex w-px bg-gray-200"></div>
 
                 <!-- Right Part (1/3 of the screen) -->
-                <div class="hidden md:flex w-1/5">
+                <div class="hidden md:flex w-1/2">
                     <!-- Friendly Links -->
                     <div class="space-y-2">
                         <!-- Image Link -->
-                        <div class=" w-full">
+                        <div class="w-full">
                             <a href="http://cn.epochtimes.com/gb/23/4/17/n13975246.htm" target="_blank">
                                 <img src="r1.jpeg" alt="为什么要救度众生" class="w-full h-auto">
                             </a>
@@ -284,11 +284,11 @@
                                 <img src="r3.png" alt="干净世界" class="w-full h-auto">
                             </a>
                         </div>
-                        <div class="link-item flex flex-col">
+                        <div class="link-item flex flex-col pb-8">
                             <p class="text-red-500  mt-4">请收藏本平台</p>
                             <p class="text-dark font-bold ">本平台二维码和网址</p>
                             <div id="qrcode block"></div>
-                            <p class="underline text-blue-400 m-4 break-words block">
+                            <p class=" underline text-blue-800 m-4 break-words block">
                                 <script>document.write('<a href="' + location.href + '" target="_blank" class="break-words block">' + location.href + '</a>');</script>
                             </p>
                         </div>
@@ -296,29 +296,25 @@
                         <div class="h-px bg-gray-200 m-4"></div>
 
                         <!-- Link Group -->
-                        <div class="link-group flex flex-col mt-12 mb-12 pb-4 ml-4">
-                            <h3 class="text-xl font-bold mb-2">常用翻墙网址</h3>
+                        <div class="link-group flex flex-col mt- mb-12 pb-4 ml-4 pb-8">
+                            <h3 class="text-xl text-blue-400 font-bold mb-2">常用翻墙网址</h3>
                             <div class="space-y-2 ">
-                                <p><a href="https://www.youtube.com/" target="_blank"
-                                        class="text-blue-500 hover:underline">油管</a>
-                                    <a href="https://twitter.com" target="_blank"
-                                        class="text-blue-500 hover:underline">推特</a>
-                                    <a href="https://www.facebook.com/" target="_blank"
-                                        class="text-blue-500 hover:underline">脸书</a>
+                                <p class="text-blue-800"><a href="https://www.youtube.com/" target="_blank"
+                                        class=" hover:underline">油管</a>
+                                    <a href="https://twitter.com" target="_blank" class=" hover:underline">推特</a>
+                                    <a href="https://www.facebook.com/" target="_blank" class=" hover:underline">脸书</a>
                                 </p>
-                                <p><a href="http://cn.epochtimes.com/gb/" target="_blank"
-                                        class="text-blue-500 hover:underline">大纪元</a>
+                                <p class="text-blue-800"><a href="http://cn.epochtimes.com/gb/" target="_blank"
+                                        class=" hover:underline">大纪元</a>
                                     <a href="http://cn.secretchina.com/" target="_blank"
-                                        class="text-blue-500 hover:underline">看中国</a>
+                                        class=" hover:underline">看中国</a>
                                     <a href="https://www.ganjing.com/zh-CN" target="_blank"
-                                        class="text-blue-500 hover:underline">干净世界</a>
+                                        class=" hover:underline">干净世界</a>
                                 </p>
-                                <p><a href="http://cn.ntdtv.com/" target="_blank"
-                                        class="text-blue-500 hover:underline">新唐人</a>
-                                    <a href="http://asp.fgmtv.org/" target="_blank"
-                                        class="text-blue-500 hover:underline">放光明</a>
-                                    <a href="http://www.mhradio.org/" target="_blank"
-                                        class="text-blue-500 hover:underline">明慧广播</a>
+                                <p class="text-blue-800"><a href="http://cn.ntdtv.com/" target="_blank"
+                                        class="hover:underline">新唐人</a>
+                                    <a href="http://asp.fgmtv.org/" target="_blank" class=" hover:underline">放光明</a>
+                                    <a href="http://www.mhradio.org/" target="_blank" class="hover:underline">明慧广播</a>
                                 </p>
                             </div>
                         </div>
@@ -326,19 +322,19 @@
                         <div class="h-px bg-gray-200 m-4"></div>
 
                         <!-- Another Link Group -->
-                        <div class="link-group mt-12 mb-12 pb-4 ml-4">
-                            <h3 class="text-xl font-bold mb-2">获取翻墙软件</h3>
-                            <div class="space-y-2 text-sm">
-                                <p><a href="https://j.mp/fgp88" target="_blank"
-                                        class="text-blue-500 hover:underline">自由门专业版</a></p>
-                                <p><a href="https://j.mp/fgv88" target="_blank"
-                                        class="text-blue-500 hover:underline">自由门安卓VPN</a></p>
+                        <div class="link-group mt-12 mb-12 pb-4 ml-4 pb-8">
+                            <h3 class="text-xl text-blue-400 font-bold mb-2">获取翻墙软件</h3>
+                            <div class="space-y-2 text-sm  text-blue-800">
+                                <p><a href="https://j.mp/fgp88" target="_blank" class="hover:underline">自由门专业版</a>
+                                </p>
+                                <p><a href="https://j.mp/fgv88" target="_blank" class="hover:underline">自由门安卓VPN</a>
+                                </p>
                                 <p><a href="https://j.mp/szmjweb" target="_blank"
-                                        class="text-blue-500 hover:underline">szmj网页版（HTML）</a></p>
-                                <p><a href="https://j.mp/szmjtv" target="_blank"
-                                        class="text-blue-500 hover:underline">szmjtv安卓改包版</a></p>
+                                        class="hover:underline">szmj网页版（HTML）</a></p>
+                                <p><a href="https://j.mp/szmjtv" target="_blank" class="hover:underline">szmjtv安卓改包版</a>
+                                </p>
                                 <p><a href="https://j.mp/szmjapp" target="_blank"
-                                        class="text-blue-500 hover:underline">szmjapp安卓改包版</a></p>
+                                        class="hover:underline">szmjapp安卓改包版</a></p>
                                 <p>亦可经由下列二维条码下载:</p>
                                 <p><img src="r5.png" alt="二维码"></p>
                             </div>
@@ -348,19 +344,18 @@
 
                         <div class="link-group pb-12 m-4">
                             <h3 class="text-xl font-bold mb-2">直连翻墙网址</h3>
-                            <div class="space-y-2 text-sm">
+                            <div class="space-y-2 text-sm text-blue-800">
                                 <p><a href="https://tinyurl.com/iiidd" target="_blank"
-                                        class="text-blue-500 hover:underline">动态git翻墙平台</a></p>
-                                <p><a href="https://goo.su/Ohw5" target="_blank"
-                                        class="text-blue-500 hover:underline">神州长效网址</a></p>
-                                <p><a href="https://j.mp/mh3333" target="_blank"
-                                        class="text-blue-500 hover:underline">明慧网</a></p>
-                                <p><a href="https://j.mp/ddm6699" target="_blank"
-                                        class="text-blue-500 hover:underline">明慧之窗</a></p>
-                                <p><a href="https://j.mp/ddw2288" target="_blank"
-                                        class="text-blue-500 hover:underline">动态网</a></p>
-                                <p><a href="https://j.mp/ddw8866" target="_blank"
-                                        class="text-blue-500 hover:underline">退党网</a></p>
+                                        class="hove text-blue-400r:underline">动态git翻墙平台</a></p>
+                                <p><a href="https://goo.su/Ohw5" target="_blank" class=" hover:underline">神州长效网址</a>
+                                </p>
+                                <p><a href="https://j.mp/mh3333" target="_blank" class="hover:underline">明慧网</a></p>
+                                <p><a href="https://j.mp/ddm6699" target="_blank" class="hover:underline">明慧之窗</a>
+                                </p>
+                                <p><a href="https://j.mp/ddw2288" target="_blank" class="hover:underline">动态网</a>
+                                </p>
+                                <p><a href="https://j.mp/ddw8866" target="_blank" class="hover:underline">退党网</a>
+                                </p>
 
                             </div>
                         </div>
@@ -501,7 +496,7 @@
                     <h4 class="font-bold">《九评共产党》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：纵观八十多年的中国共产党历史，其所到之处永远伴随着谎言、战乱、饥荒、独裁、屠杀和恐惧；传统的信仰和价值观被共产党强力破坏；原有的伦理观念和社会体系被强制解体；人与人之间的关爱与和谐被扭曲成斗争与仇恨；对天地自然的敬畏与珍惜变成妄自尊大的“战天斗地”，由此带来的社会道德体系和生态体系的全面崩溃，将中华民族乃至整个人类拖向深重的危机...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25  text-right">下载：
                             <a href="https://szmj0.github.io/book_html/九评共产党.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/九评共产党.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/九评共产党.chm">chm</a>&nbsp;&nbsp;&nbsp;
@@ -514,7 +509,7 @@
                     <h4 class="font-bold">《风雨天地行》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：众多的基督徒在监禁，折磨，和虐杀面前，选择了和平，坚忍的维护自己的信仰。终于，越来越多的罗马人被基督徒的仁爱和坚忍所震撼。两千年来，曾经辉煌的古罗马帝国早已化为尘土，而早期基督徒面对强权，暴力和谎言时所体现出来的不朽精神却世代承传...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/风雨天地行.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/风雨天地行.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/风雨天地行.chm">chm</a>&nbsp;&nbsp;&nbsp;
@@ -528,7 +523,7 @@
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：十四年前，即一九九九年四月二十五日，逾万法
                         节选：轮功学员自愿到北京和平上访。这个出现在中共统治下的民众大规模和平上访，震动了世界，被视为中国历史上的奇迹。随后，江泽民集团在七月二十日在全国范围内发动了对法轮功学员的大抓捕，对修炼人的惨烈迫害从此开始…
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/话说当年四二五.pdf">pdf</a>
                         </p>
                     </div>
@@ -538,7 +533,7 @@
                     <h4 class="font-bold">《江泽民其人》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：江泽民到底是个什么样的人？他的出身到底如何？他怎么从一个不被看好的过渡性人物党同伐异，成为一个独裁者？历史安排了他这样一个人到底是为了扮演什么角色？...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/江泽民其人.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/江泽民其人.chm">chm</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/江泽民其人.epub">epub</a>&nbsp;&nbsp;&nbsp;
@@ -550,7 +545,7 @@
                     <h4 class="font-bold">《共产主义的终极目的》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：共产主义来自何处？为什么宇宙中会冒出个共产党？共产主义的本质究竟是什么？结局又会怎样？对这些根本问题的答案，人们众说纷纭，现在是揭开谜底的时候了...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/共产主义的终极目的.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/共产主义的终极目的.chm">chm</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/共产主义的终极目的.epub">epub</a>&nbsp;&nbsp;&nbsp;
@@ -562,7 +557,7 @@
                     <h4 class="font-bold">《揭开恶魔的面纱》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：国际共产主义运动发起至今已有一百多年，在这期间，它给世界人民带来了无尽的灾难。从谎言到杀戮，从侵略到独裁，所到之处无不血流成河，生灵涂炭，其声名之狼藉比纳粹更有过之而无不及。如今，民主已成为世界潮流，马列主义已在全球范围内被证明彻底失败，只有残存的中国共产党和几个共产主义小兄弟还在艰难挣扎...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/揭开恶魔的面纱.epub">epub</a>&nbsp;&nbsp;&nbsp;
                         </p>
                     </div>
@@ -572,7 +567,7 @@
                     <h4 class="font-bold">《解体党文化》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：中共的历史是谎言与暴行交织的历史，而其谎言却分为两个层面。第一个层面，在于对事实本身的掩盖或歪曲；第二个层面，则在于给人灌输一套邪恶的善恶标准和扭曲的思维方式。这种灌输一方面以中共所劫持的国家暴力为后盾，另一方面更通过垄断的所有社会资源而强迫人从记事或学语的第一天即开始耳濡目染...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/解体党文化.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/解体党文化.chm">chm</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/解体党文化.epub">epub</a>&nbsp;&nbsp;&nbsp;
@@ -584,7 +579,7 @@
                     <h4 class="font-bold">《马克思的成魔之路》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：被“马克思主义者”奉为神明的马克思，早年曾经是基督徒，后来加入魔鬼撒旦教，他自己也承认与撒旦签了契约。其后马克思大行魔鬼所为之事：诅咒全人类下地狱，包括工人和那些为共产主义而战的人。“马克思主义”正是在其加入魔教后诞生...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/马克思的成魔之路.epub">epub</a>&nbsp;&nbsp;&nbsp;
                         </p>
                     </div>
@@ -597,7 +592,7 @@
                     <h4 class="font-bold">《魔鬼在统治着我们的世界》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：共产主义并非一种思潮、学说，或者在人类寻找出路时一个失败了的尝试。它是魔鬼，亦称共产邪灵，由恨和宇宙低层空间各种败坏物质构成。它原本是一条蛇，到了表层空间的体现形式则是一条红龙。它与仇视正神的撒旦为伍，同时利用各种低灵和魔祸乱人间。这个邪灵的终极目的就是要毁灭人类，在神归来挽救众生的最后关头，让人不信神，让人的道德败坏到背弃神和传统，听不懂神的教诲而导致最终被淘汰...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/魔鬼在统治着我们的世界.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
                         </p>
                     </div>
@@ -607,7 +602,7 @@
                     <h4 class="font-bold">《起诉江泽民》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：一九九九年，江泽民一手挑起了针对法轮功学员的迫害运动，在中国大陆对修炼真善忍的法轮功群众施行“名誉上搞臭、经济上搞垮、肉体上消灭”“打死白打、打死算自杀”等灭绝政策，导致十年来众多法轮功学员广泛遭受酷刑折磨、被活摘器官、及被其它方式迫害致死等。江泽民及其政治流氓集团，对这场迫害的发生、推行和延续，有着不可逃脱的罪责...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/起诉江泽民.chm">chm</a>&nbsp;&nbsp;&nbsp;
                         </p>
                     </div>
@@ -617,7 +612,7 @@
                     <h4 class="font-bold">《死刑犯遮不住器官市场的蘑菇云》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：长期以来，中共官方一直对外宣称器官来源是自愿捐赠，不承认死囚器官。活摘法轮功学员器官被揭露之后，中共更是极力否认，但是又一再拒绝海外独立调查团队进入中国的签证申请。这种矛盾行为反而加深了外界的疑虑。不过，器官移植市场爆棚，成为了世界“器官移植旅游”的首选地是不争的事实。“在过去十年间（1997年～2007年），中国器官移植数量飞速增长”。短短几年就冒出来了600多家（甚至有专家称高达1000多家）医院开展器官移植，而美国也只有250多家...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.pdf">pdf</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.epub">epub</a>&nbsp;&nbsp;&nbsp;
@@ -629,7 +624,7 @@
                     <h4 class="font-bold">《退党手册》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：统计数据显示，2005年3月以来，中国大陆平均每天有2万多人突破封锁，在大纪元网上发表声明。据了解，还有很多没有条件突破封锁上网的中国大陆民众通过在公共场所张贴各类三退声明的方式退出中共组织。从大纪元2004年12月3日开设“退党”网站两年多来，至2007年12月末已有超过3000万人网上声明退党、团、队。
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/退党手册.html">html</a>&nbsp;&nbsp;&nbsp;
                             <a href="https://szmj0.github.io/book_html/退党手册.chm">chm</a>&nbsp;&nbsp;&nbsp;
                         </p>
@@ -640,7 +635,7 @@
                     <h4 class="font-bold">《你我有缘画册》</h4>
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选：历史一直在告诉人们：无度行恶必然招天理惩治。中共对真善忍的迫害已犯下滔天大罪，天灭中共已是不争的事，而在大难来临之时，如何逃生、自救？如今已有两千万人退出中共（党团队），跟上这两千万勇士的脚步吧，只有摆脱中共，方能得救...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/你我有缘画册.html">html</a>&nbsp;&nbsp;&nbsp;
                         </p>
                     </div>
@@ -651,7 +646,7 @@
                     <div class="max-w-[90%] pt-2.5 mx-auto text-gray-600">
                         节选:2001 年1
                         月23日（除夕），在北京天安门广场，发生了震惊世界的自焚事件。　　事发两个小时后，新华社以超乎寻常的速度向全世界发出英语新闻，声称：自焚者是五名来自开封市的法轮功学员。　　但是，美国之音记者打电话向北京公安局和公安部查证，他们答复说不知道有此事发生。　　随后，央视在全国反复播出自己制作的“自焚新闻节目”，矛头直指法轮功。一周之后，又抛出十二岁的小学生刘思影被焚烧后的悲惨镜头，煽起民众对法轮功的仇恨，在全国对法轮功掀起了文革式的“大批判”...
-                        <p class="text-blue-600 pt-1.25">多种格式下载：
+                        <p class="text-blue-800 pt-1.25 text-right">下载：
                             <a href="https://szmj0.github.io/book_html/世纪伪案惊天骗局.html">html</a>&nbsp;&nbsp;&nbsp;
                         </p>
                     </div>
@@ -688,22 +683,25 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">动态网</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddw2288"
                                     target="_blank">j.mp/ddw2288</a></td>
-                            <td class="border border-gray-300 px-4 py-2">动态网</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">全球退党服务中心</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddw8866"
                                     target="_blank">j.mp/ddw8866</a></td>
-                            <td class="border border-gray-300 px-4 py-2">全球退党服务中心</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">明慧之窗</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a href="https://j.mp/ddm6699"
                                     target="_blank">j.mp/ddm6699</a></td>
-                            <td class="border border-gray-300 px-4 py-2">明慧之窗</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -718,29 +716,32 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：自由门 - 电脑版</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/fg.exe" target="_blank">fg.exe<br>
                                     <p class="text-xs text-gray-500">&lt;01自由门电脑版&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：自由门 - 电脑版</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：无界浏览 - 电脑版</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a href="https://szmj0.github.io/book_html/u.exe"
                                     target="_blank">u.exe<br>
                                     <p class="text-xs text-gray-500">&lt;02无界浏览电脑版&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：无界浏览 - 电脑版</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：爱博电视 - 电脑版</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/Green_iPPOTV.exe"
                                     target="_blank">Green_iPPOTV.exe<br>
                                     <p class="text-xs text-gray-500">&lt;03爱博电视直播电脑版&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">电脑翻墙软件：爱博电视 - 电脑版</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -755,28 +756,31 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：自由门VPN - 安卓版</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/fgvpn.apk" target="_blank">fgvpn.apk<br>
                                     <p class="text-xs text-gray-500">&lt;01自由门VPN&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：自由门VPN - 安卓版</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界VPN - 安卓版</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a href="https://szmj0.github.io/book_html/u.apk"
                                     target="_blank">u.apk<br>
                                     <p class="text-xs text-gray-500">&lt;02无界VPN&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界VPN - 安卓版</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界一点通 - 安卓版</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/um.apk" target="_blank">um.apk<br>
                                     <p class="text-xs text-gray-500">&lt;03无界一点通&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：无界一点通 - 安卓版</td>
+
                         </tr>
                         <!-- <tr>
                                 <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
@@ -787,31 +791,34 @@
                                 <td class="border border-gray-300 px-4 py-2">安卓翻墙软件：爱博电视 - 安卓版</td>
                             </tr> -->
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">阅读软件：Adobe 安卓版，可看 pdf 格式电子书
+                            </td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/adobe.apk" target="_blank">adobe.apk<br>
                                     <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">阅读软件：Adobe 安卓版，可看 pdf 格式电子书
-                            </td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">阅读软件：锂 EPUB 阅读器安卓版，可看 epub
+                                格式电子书</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/lithium.apk" target="_blank">lithium.apk<br>
                                     <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">阅读软件：锂 EPUB 阅读器安卓版，可看 epub
-                                格式电子书</td>
+
                         </tr>
                         <tr>
-                            <td class="text-blue-500 border border-gray-300 px-4 py-2" width="40%"
+                            <td class="border border-gray-300 px-4 py-2">优盘浏览器 - 安卓版：可浏览 U 盘中的各种文件</td>
+                            <td class="text-blue-800 border border-gray-300 px-4 py-2" width="40%"
                                 style="padding:7px 10px;border-left:0"><a
                                     href="https://szmj0.github.io/book_html/UBrowser.apk"
                                     target="_blank">UBrowser.apk<br>
                                     <p class="text-xs text-gray-500">&lt;05其它软件&gt;</p>
                                 </a></td>
-                            <td class="border border-gray-300 px-4 py-2">优盘浏览器 - 安卓版：可浏览 U 盘中的各种文件</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -820,15 +827,15 @@
 
             <div style="padding:0 0 20px 20px">
                 <br>
-                <table id="tbSoftware">
+                <table>
                     <tbody>
                         <tr>
-                            <td width="80%">
-                                <p class="text-sm text-dark"><b>
-                                        用翻墙软件可以浏览被中共封锁的国外网站，网络封锁严重时如果不能访问，可改时间再试，或尝试多个翻墙软件。如果有最新版本的翻墙软件，请及时下载。
-                                        <p>
-                                        </p>
-                                    </b></p>
+                            <td width="90%" class="right">
+                                <p class="flex items-center text-gray-400">
+                                    注：用翻墙软件可以浏览被中共封锁的国外网站，网络封锁严重时如果不能访问，可改时间再试，或尝试多个翻墙软件。如果有最新版本的翻墙软件，请及时下载。
+                                <p>
+                                </p>
+                                </p>
                             </td>
                             <td align="center">
 
@@ -1080,7 +1087,7 @@
                     if (j == 0) {
                         marquee += anchor.innerHTML.replace(/<a\s/g, '<a style="margin-left:40px;" ');
                     }
-                    var s = '<p>' + anchor.innerHTML + '</p>';
+                    var s = '<p class="text-blue-800">' + anchor.innerHTML + '</p>';
                     if (j < half) anchors1 += s; else anchors2 += s;
                 });
 
