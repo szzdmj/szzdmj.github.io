@@ -462,11 +462,60 @@ var g_aList2 = [
 
 var g_sDir3 = '视频';
 // 修改视频的文件名和说明，每个文件一行。要不使用一行，可在行首加 //
-var g_aList3 = [
+var g_aList3 = [ 
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v5/4b/3d/99/4b3d9939-c8c6-48f9-a4d5-42ab7ac9f714/master.m3u8",title:"法轮功创始人李洪志大师发表《为什么会有人类》"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v5/32/89/ef/3289eff2-1eb7-4107-9d33-6ab068da3f5c/master.m3u8",title:"法轮功创始人李洪志大师发表《为什么要救度众生》"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v7/94/5d/cc/945dccbb-1814-490d-b8c9-856ad7afb12d/master.m3u8",title:"法轮大法功法介绍 "},
 	{file:"https://video1-us-west.cloudokyo.cloud/video/v9/17/2b/51/172b517e-fc89-4229-bebc-06d113f6d1a1/master.m3u8",title:"“四·二五”北京府右街万人大上访"},
 	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/84/eb/10/84eb10f8-aef4-4902-8ccb-6da5c6c4ff14/master.m3u8",title:"伪火:“天安门自焚”真相"},
 	{file:"https://video5-us-west.cloudokyo.cloud/video/v4/ed/80/9e/ed809ec0-bbe6-464d-8d24-39cc9b5aa4a3/master.m3u8",title:"解析“1400例”"},
 	{file:"https://video4-us-west.cloudokyo.cloud/video/v5/d0/47/ed/d047ed89-b0c8-4bde-95c5-730f79956034/master.m3u8",title:"红朝阴谋 - 这个星球上从未有过的邪恶"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/b2/9a/a2/b29aa2f0-be40-43ba-b3a2-d25fe1ab54b6/master.m3u8",title:"【传奇时代纪录片】红墙的记忆"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/db/87/7e/db877eb0-5f27-47ac-9252-02de0a4e9f67/master.m3u8",title:"【传奇时代纪录片】从头再来"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/48/88/5a/48885a51-244e-4f90-923e-66197a1ebd33/master.m3u8",title:"【传奇时代纪录片】通往天安门的旅程"},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8",title:"【传奇时代纪录片】雪中梅"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/87/cc/f2/87ccf27c-1e89-4925-84cd-9ba1d4453223/master.m3u8",title:"【传奇时代纪录片】御风而行（上）香港人不怕【国语】"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/85/ef/f2/85eff259-da77-43dd-b73b-4135b398de64/master.m3u8",title:"【传奇时代纪录片】御风而行（下集）：逆境追光【国语】"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/a1/39/d2/a139d20d-0418-404f-8989-1396bbd0466b/master.m3u8",title:"【传奇时代纪录片】义诉"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/a5/92/46/a5924680-047e-4d17-ad3a-26afc54eba8d/master.m3u8",title:"【传奇时代纪录片】欧洲的抉择 "},
+	{file:"https://video2-us-west.cloudokyo.cloud/video/v3/e7/7b/d6/e77bd6fc-95b3-4122-904a-c1ad396c0a96/master.m3u8",title:"【传奇时代纪录片】街对面的烛光"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/85/5e/6f/855e6f5c-72ca-45c6-a27c-5c5ebafe9133/master.m3u8",title:"【传奇时代纪录片】扶摇直上 "},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/9e/b5/89/9eb58900-22a5-4b16-b508-cd74e7fe3e08/master.m3u8",title:"【传奇时代纪录片】罗大厨的百味人生"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/50/ba/3a/50ba3ab7-0739-4849-986e-85a5c79e5000/master.m3u8",title:"【传奇时代纪录片】漫漫团圆路"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/17/8d/e5/178de5ec-68f4-40f9-afca-e0ec0ee21681/master.m3u8",title:"【传奇时代纪录片】天国乐团"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/32/87/73/32877323-7be2-49a7-b83a-7f6f756ce528/master.m3u8",title:"【传奇时代纪录片】功夫 - 寻道"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/ca/f9/6b/caf96b08-d40c-41ca-9ca1-cff916f22e45/master.m3u8",title:"飞向自由的海鸥"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v6/64/78/55/6478550a-385e-412f-904c-5151f8eeca29/master.m3u8",title:"电影：《为你而来》——根据一个影响了一亿人的真实故事改编"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v5/e7/76/ae/e776ae85-76b7-4e31-8111-146505a8d41c/master.m3u8",title:"为你而来II【永恒的五十分钟】"},
+	{file:"https://video2-us-east.cloudokyo.cloud/video/v6/0b/d8/b3/0bd8b3df-8ce6-4dd2-927e-70d7700fb83e/master.m3u8",title:"纪录片《四亿人的觉醒》2小时9分钟"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/06/dc/93/06dc93ef-98f2-4182-886c-6268b490a37c/master.m3u8",title:"纪录片：欺世伪火－揭开天安门自焚伪案的震撼内幕和来龙去脉"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/6b/77/62/6b776280-1178-4b07-a050-ca5bbec1a421/master.m3u8",title:"【风雨天地行】片头 "},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/69/bc/38/69bc389a-0622-444a-860f-3199ed119ade/master.m3u8",title:"【风雨天地行】之「清音」篇"},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/a4/25/31/a4253134-0e7f-4d0b-ab33-736d817bc176/master.m3u8",title:"【风雨天地行】之「审判」篇"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/3c/d4/2f/3cd42f02-9422-43f3-b2fa-e517e91f2dfa/master.m3u8",title:"【风雨天地行】之「历劫」篇"},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/be/f3/e4/bef3e411-b742-4f5a-847c-37f065b9160c/master.m3u8",title:"【风雨天地行】之「风雨」篇"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/88/4d/42/884d4242-c3d6-486a-8507-6fdbabc9a34e/master.m3u8",title:"【风雨天地行】之「同心」篇"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/0e/07/a1/0e07a114-4d1b-4fb3-8093-d9356af6f7d9/master.m3u8",title:"【九评之一】评共产党是什么"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/08/cb/09/08cb09e7-4cf7-4619-8284-34d2ddf29540/master.m3u8",title:"【九评之二】评中国共产党是怎样起家的"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v5/1b/45/14/1b4514a7-7b14-400d-8ae1-c69d9b04b71f/master.m3u8",title:"【九评之三】评中国共产党的暴政 "},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/f6/ed/f1/f6edf128-3ca2-4268-896e-71aae06a75a5/master.m3u8",title:"【九评之四】评共产党是反宇宙的力量"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/24/56/54/2456545a-cfb1-4e15-9325-6161fe8e8bd4/master.m3u8",title:"【九评之五】评江泽民与中共相互利用迫害法轮功"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/9f/7e/47/9f7e4797-1acf-4630-95ba-0f685efec852/master.m3u8",title:"【九评之六】评中国共产党破坏民族文化"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/06/54/b6/0654b6a7-c504-46c4-9c70-cf5b27da852b/master.m3u8",title:"【九评之七】评中国共产党的杀人历史"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v5/41/33/7a/41337af6-7918-4b5c-b5a7-bcdf8448c62c/master.m3u8",title:"【九评之八】评中国共产党的邪教本质"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/e4/44/90/e4449082-1143-4947-abdd-8cef65c84ea4/master.m3u8",title:"【九评之九】评中国共产党的流氓本性"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v9/c7/01/91/c7019185-2239-4211-8d65-89b6e0714799/master.m3u8",title:"我们告诉未来 第一集： 气功铺路"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v9/b9/a8/0e/b9a80ec4-8c7f-4fda-bcc4-13d39348e345/master.m3u8",title:"我们告诉未来 第二集：大法开传"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v10/a2/80/c5/a280c5b9-8f56-4ab1-9e93-69905e2aa7fc/master.m3u8",title:"我们告诉未来 第三集：破谜与正心"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v10/a7/08/44/a70844fe-a222-40e4-9620-a0a1b93359c7/master.m3u8",title:"我们告诉未来 第四集：从常人到修炼人"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v6/1f/43/e3/1f43e37c-135c-446d-8257-e347d6d6106c/master.m3u8",title:"我们告诉未来 第五集：山雨欲来"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v6/6a/50/08/6a5008d5-3573-4b5b-bc77-f412e46d2fb7/master.m3u8",title:"我们告诉未来 第六集：在魔难中"},
+	{file:"https://video2-us-east.cloudokyo.cloud/video/v6/3b/e2/8c/3be28cf6-4038-4078-b1b5-ce3f20520e5e/master.m3u8",title:"我们告诉未来 第七集：艰难岁月"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v6/55/f0/aa/55f0aabf-5251-4f17-9e7b-3dd260f60184/master.m3u8",title:"我们告诉未来 第八集：真相与人心"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v7/db/a5/e8/dba5e824-c5be-4600-a5da-28735c57874c/master.m3u8",title:"我们告诉未来 第九集：来源与使命"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v9/8d/e4/d8/8de4d842-8a0d-40bc-aac5-e6ac367c87c7/master.m3u8",title:"我们告诉未来 第十集：封锁与反封锁"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v6/4d/b4/e0/4db4e052-ef4c-4aa0-89dd-39f0ab0d3555/master.m3u8",title:"我们告诉未来 第十一集：慈悲与威严"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v6/2e/24/a1/2e24a121-67f4-46ef-a989-4f1fa096e847/master.m3u8",title:"我们告诉未来 第十二集：生命的抉择"},
 ];</script>
 
 <div style="display:none;">
@@ -941,17 +990,19 @@ content.onmouseleave=function(){
 <div id=divPicList align=center style="color:blue;font-size:1.1em"></div>
 <div id=divPic style="color:blue;font-size:1.2em;font-weight:bold;display:none" align=center></div>
 <h2 align=center>精彩电子书下载</h2>
+<h3 align=center style="color:#999999">部分电子书点击标题可在线阅读</h3>
 <div id= bookpage1 style="padding:40px;">
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《九评共产党》</h4>
-<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：纵观八十多年的中国共产党历史，其所到之处永远伴随着谎言、战乱、饥荒、独裁、屠杀和恐惧；传统的信仰和价值观被共产党强力破坏；原有的伦理观念和社会体系被强制解体；人与人之间的关爱与和谐被扭曲成斗争与仇恨；对天地自然的敬畏与珍惜变成妄自尊大的“战天斗地”，由此带来的社会道德体系和生态体系的全面崩溃，将中华民族乃至整个人类拖向深重的危机...
+<a href="https://szmj0.github.io/book_html/九评共产党.html" target="_blank"><h4 style="font-weight:bold">《九评共产党》</h4></a>
+<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >
+节选：纵观八十多年的中国共产党历史，其所到之处永远伴随着谎言、战乱、饥荒、独裁、屠杀和恐惧；传统的信仰和价值观被共产党强力破坏；原有的伦理观念和社会体系被强制解体；人与人之间的关爱与和谐被扭曲成斗争与仇恨；对天地自然的敬畏与珍惜变成妄自尊大的“战天斗地”，由此带来的社会道德体系和生态体系的全面崩溃，将中华民族乃至整个人类拖向深重的危机...
 <p style="color:#f67900;padding-top:5px;">多种格式下载：<a href="https://szmj0.github.io/book_html/九评共产党.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="    https://szmj0.github.io/book_html/九评共产党.pdf" target="_blank">pdf</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/九评共产党.chm" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/九评共产党.epub" target="_blank">epub</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《风雨天地行》</h4>
+<a href="https://szmj0.github.io/book_html/风雨天地行.html" target="_blank"><h4 style="font-weight:bold">《风雨天地行》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >
 节选：众多的基督徒在监禁，折磨，和虐杀面前，选择了和平，坚忍的维护自己的信仰。终于，越来越多的罗马人被基督徒的仁爱和坚忍所震撼。两千年来，曾经辉煌的古罗马帝国早已化为尘土，而早期基督徒面对强权，暴力和谎言时所体现出来的不朽精神却世代承传...
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/风雨天地行.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/风雨天地行.chm" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/风雨天地行.epub" target="_blank">epub</a>&nbsp;&nbsp;&nbsp;</p>
@@ -968,14 +1019,14 @@ content.onmouseleave=function(){
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《江泽民其人》</h4>
+<a href="https://szmj0.github.io/book_html/江泽民其人.html" target="_blank"><h4 style="font-weight:bold">《江泽民其人》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：江泽民到底是个什么样的人？他的出身到底如何？他怎么从一个不被看好的过渡性人物党同伐异，成为一个独裁者？历史安排了他这样一个人到底是为了扮演什么角色？...
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/江泽民其人.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/江泽民其人.chm" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/江泽民其人.epub" target="_blank">epub</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《共产主义的终极目的》</h4>
+<a href="https://szmj0.github.io/book_html/共产主义的终极目的.html" target="_blank"><h4 style="font-weight:bold">《共产主义的终极目的》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：共产主义来自何处？为什么宇宙中会冒出个共产党？共产主义的本质究竟是什么？结局又会怎样？对这些根本问题的答案，人们众说纷纭，现在是揭开谜底的时候了...
 <p style="color:#f67900;padding-top:5px;">多种格式下载：<a href="https://szmj0.github.io/book_html/共产主义的终极目的.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/共产主义的终极目的.chm" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/共产主义的终极目的.epub" target="_blank">epub</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
@@ -989,7 +1040,7 @@ content.onmouseleave=function(){
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《解体党文化》</h4>
+<a href="https://szmj0.github.io/book_html/解体党文化.html" target="_blank"><h4 style="font-weight:bold">《解体党文化》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：中共的历史是谎言与暴行交织的历史，而其谎言却分为两个层面。第一个层面，在于对事实本身的掩盖或歪曲；第二个层面，则在于给人灌输一套邪恶的善恶标准和扭曲的思维方式。这种灌输一方面以中共所劫持的国家暴力为后盾，另一方面更通过垄断的所有社会资源而强迫人从记事或学语的第一天即开始耳濡目染...
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/解体党文化.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/解体党文化.chm" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/解体党文化.epub" target="_blank">epub</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
@@ -1022,28 +1073,28 @@ content.onmouseleave=function(){
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《死刑犯遮不住器官市场的蘑菇云》</h4>
+<a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.html" target="_blank"><h4 style="font-weight:bold">《死刑犯遮不住器官市场的蘑菇云》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：长期以来，中共官方一直对外宣称器官来源是自愿捐赠，不承认死囚器官。活摘法轮功学员器官被揭露之后，中共更是极力否认，但是又一再拒绝海外独立调查团队进入中国的签证申请。这种矛盾行为反而加深了外界的疑虑。不过，器官移植市场爆棚，成为了世界“器官移植旅游”的首选地是不争的事实。“在过去十年间（1997年～2007年），中国器官移植数量飞速增长”。短短几年就冒出来了600多家（甚至有专家称高达1000多家）医院开展器官移植，而美国也只有250多家...
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="https:\\szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.pdf" target="_blank">pdf</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/死刑犯遮不住器官市场的蘑菇云.epub" target="_blank">epub</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《退党手册》</h4>
+<a href="https://szmj0.github.io/book_html/退党手册.html" target="_blank"><h4 style="font-weight:bold">《退党手册》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：统计数据显示，2005年3月以来，中国大陆平均每天有2万多人突破封锁，在大纪元网上发表声明。据了解，还有很多没有条件突破封锁上网的中国大陆民众通过在公共场所张贴各类三退声明的方式退出中共组织。从大纪元2004年12月3日开设“退党”网站两年多来，至2007年12月末已有超过3000万人网上声明退党、团、队。
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/退党手册.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;<a href="https://szmj0.github.io/book_html/退党手册.chm" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《你我有缘画册》</h4>
+<a href="https://szmj0.github.io/book_html/你我有缘画册.html" target="_blank"><h4 style="font-weight:bold">《你我有缘画册》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选：历史一直在告诉人们：无度行恶必然招天理惩治。中共对真善忍的迫害已犯下滔天大罪，天灭中共已是不争的事，而在大难来临之时，如何逃生、自救？如今已有两千万人退出中共（党团队），跟上这两千万勇士的脚步吧，只有摆脱中共，方能得救...
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/你我有缘画册.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
 </div>
 
 <div style="width:100%;padding:20px 0;">
-<h4 style="font-weight:bold">《世纪伪案 惊天骗局》</h4>
+<a href="https://szmj0.github.io/book_html/世纪伪案惊天骗局.html" target="_blank"><h4 style="font-weight:bold">《世纪伪案 惊天骗局》</h4></a>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >节选:2001 年1 月23 日（除夕），在北京天安门广场，发生了震惊世界的自焚事件。　　事发两个小时后，新华社以超乎寻常的速度向全世界发出英语新闻，声称：自焚者是五名来自开封市的法轮功学员。　　但是，美国之音记者打电话向北京公安局和公安部查证，他们答复说不知道有此事发生。　　随后，央视在全国反复播出自己制作的“自焚新闻节目”，矛头直指法轮功。一周之后，又抛出十二岁的小学生刘思影被焚烧后的悲惨镜头，煽起民众对法轮功的仇恨，在全国对法轮功掀起了文革式的“大批判”...
 <p style="color:#f67900;padding-top:5px">多种格式下载：<a href="https://szmj0.github.io/book_html/世纪伪案惊天骗局.html" target="_blank">html</a>&nbsp;&nbsp;&nbsp;</p>
 </div>
@@ -1279,7 +1330,7 @@ var m3u8Url = "";
 			
 			
 			}
-			vp.onended = function() {playNext(true);}
+			//vp.onended = function() {playNext(true);}
 		}
 	}	
 	
@@ -2196,6 +2247,9 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 
 <!--web代码开始-->
 <img src="" class="hidden" id="c" rel="" nov="1" pwa="0" jsonp="ios:C6V8Z,!ios:kiC7K">
+<div id="custom">{
+"b_order": ["custom","dongtaiwang_top","epochtimes","ntdtv","mhwin","secretchina","soundofhope"]
+}</div>
 <script type="text/javascript" src="szmjweb+player.js"></script>
 <script type="text/javascript">
 //显示本平台二维码和网址
