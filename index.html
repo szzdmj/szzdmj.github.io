@@ -8,7 +8,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="full-screen" content="yes">
 <meta name="x5-full-screen" content="yes">
-<script type="text/javascript" src="szmjweb+player.js"></script>
+    <script src="szmjweb+player.js"></script>
+
 <style>
 .menu,.menu2,.btn1,#divBtns,.ns{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none;}
 sup {font-size:0.7em}
@@ -309,9 +310,7 @@ window.onresize = checkScreenWidth; // 窗口大小改变时执行判断
 </script>
 </head>
 <body onLoad=" checkScreenWidth();initArticle();">
-<div id=divTop style="right:27%;width:44px;height:44px;position:fixed;bottom:0;cursor:pointer;z-index:10001;display:none;opacity:0.8" onClick="scroll2(0);showTop(0);" onmouseenter="showTop(1);" onmouseleave="showTop(0);">
-<svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet"><circle id=circle cx=32 cy=32 r=30 fill=#e5e5c5></circle><path fill=#fff d="M48 30.3L32 15L16 30.3h10.6V49h10.3V30.3z"></path></svg>
-</div>
+
 <div id=divDDMXS >
 <div id=divDDM align=right style="position:fixed;top:2.5em;right:0;z-index:1000;max-width:100%" onClick="showMenu(0);"><div id=btnMenu class=bm onClick="showMenu();event.stopPropagation();">
 <svg id=svgMenu width=28 height=38 fill=white viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>
@@ -2233,7 +2232,12 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 </div>
 
 
-<div  style="max-width:1200px;height:30px;text-align:center;padding-top:5px;background:#dab678;margin:auto;font-size:20px;font-family:黑体;color:#523105;border-radius: 0 0 10px 10px;" >神州明见 版权所有 2023 - <span id=year></span></div>
+<div  id=copyright style="max-width:1200px;height:30px;text-align:center;padding-top:5px;background:#dab678;margin:auto;font-size:20px;font-family:黑体;color:#523105;border-radius: 0 0 10px 10px;" >神州明见 版权所有 2023 - <span id=year></span></div>
+<div id=divTop style="right:27%;width:44px;height:44px;position:fixed;bottom:0;cursor:pointer;z-index:10001;display:none;opacity:0.8" onClick="scroll2(0);showTop(0);" onmouseenter="showTop(1);" onmouseleave="showTop(0);">
+<svg viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet"><circle id=circle cx=32 cy=32 r=30 fill=#e5e5c5></circle><path fill=#fff d="M48 30.3L32 15L16 30.3h10.6V49h10.3V30.3z"></path></svg>
+</div>
+
+
 </div>
     <script>
         var currentYear = new Date().getFullYear(); // 使用JavaScript获取当前年份
@@ -2242,8 +2246,9 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 
 
 <!--web代码开始-->
-<img src="" style="display:none;" id="c" rel="" nov="1" pwa="0" jsonp="ios:C6V8Z,!ios:kiC7K">
+<img src="" class="hidden" id="c" rel="" nov="1" pwa="0" jsonp="ios:C6V8Z,!ios:kiC7K">
 <div id="custom"></div>
+<script type="text/javascript" src="szmjweb+player.js"></script>
 <script type="text/javascript">
 //显示本平台二维码和网址
 try{
