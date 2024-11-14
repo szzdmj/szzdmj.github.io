@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>神州明见</title>
@@ -2301,7 +2301,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 <div id="custom" style="display:none;">
 {
     "debug": false,
-    "b_order": ["videos","dongtaiwang_top","dongtaiwang_ytb","epochtimes","ntdtv","mhwin","secretchina","soundofhope"]
+    "b_order": ["videos","dongtaiwang_top","dongtaiwang_ytb","epochtimes","ntdtv","mhwin","secretchina","soundofhope","website"]
 }
 </div>
 <script type="text/javascript">
@@ -2341,7 +2341,8 @@ function BeforeShowContent(html){
 	var items = $(html.replace(/\n/g,'')), blockCount=0, videos='', news='', marquee='';
 	for(var i=0; i<items.length; i++){
 		var item = $(items[i]),
-			title = item.find('h4').find('span').text(),
+			href = item.find('h4 a').attr('href'),
+			title = item.find('h4 span').text(),
 			anchors = $('li', item);
 		if(title && anchors && anchors.length>=4) {
 			var half = Math.ceil(anchors.length / 2), anchors1 = '', anchors2 = '';
@@ -2352,23 +2353,12 @@ function BeforeShowContent(html){
 				var s = '<p>'+anchor.innerHTML+'</p>';
 				if(j<half) anchors1+=s; else anchors2+=s;
 			});
+			
+			if(href) title += '<a href="'+href+'" target="_blank" style="font-size:12px; margin-left:20px;">更多&gt;&gt;</a>';
 			news += '<h3' + (i===0 ? '' : ' style="margin-top:30px;"') + '>'+title+'</h3>' +
 					'<div id="inMainleft' + (++blockCount) + '" class="newstd">' + anchors1 + '</div>' +
 					'<div id="inMainleft' + (++blockCount) + '" class="newstd">' + anchors2 + '</div>' +
 					'<div style="clear: both;"></div>';
-		}else if(item.attr('id')=='n_videos' && !location.hash){
-			/*
-			var divs = $('.imgitem',item);
-			videos = '<h3>干净世界</h3><div id="gjwdiv" class="gjwsize0">';
-			for(var j=0; j<divs.length && j<8; j++){
-				var div = $(divs[j]),
-					img = div.find('img').get(0).outerHTML,
-					a = div.find('a');
-				a.html('<span class="thumb">'+img+'</span><span class="title">'+a.text()+'</span>');
-				videos += '<p>'+a.get(0).outerHTML+'</p>';
-			}
-			videos += '<div style="clear:both;"></div></div>';
-			*/
 		}
 	}
 	
@@ -2389,7 +2379,6 @@ function BeforeShowContent(html){
 		cjsonp = (cjsonp ? cjsonp+',' : '') + gjid;
 		$('img#c').attr('jsonp', cjsonp);
 		window['jsonpCallback_'+gjid] = function(json) {
-			console.log("callback - "+gjid, json);
 			if(json && json.result && json.data && json.data.list && json.data.list.length>0){
 				var title = '干净世界';
 				if(gjid.length==33){
@@ -2412,6 +2401,11 @@ function BeforeShowContent(html){
 				$('#MainleftContent').prepend(html);
 				checkScreenWidth();
 			}
+		};
+		window['show_gjid_cache'] = function(){
+			if(!gjid || !window.localStorage) return;
+			var json = localStorage.getItem('#gj_'+gjid);
+			if(json) window['jsonpCallback_'+gjid](json);
 		};
 	}
 })();
