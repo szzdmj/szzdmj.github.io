@@ -53,7 +53,7 @@
 		not {
 			path ^/shenzhou-app |^/robots.txt
 		}
-		path_regexp forbidden ^/(data|include|temp|plugin)/|\.db$|\.htaccess$|~\w+$|\.bak$|\.inc$|\.sh$|\.yaml$|\.ini$|\.bat$|\.dat$|\.txt$|\.lock$|\.conf$|\.inc\.php$|^/images/enc\.js$
+		path_regexp forbidden ^/(data|include|temp|plugin)/|\.db$|\.htaccess$|~\w+$|\.bak$|\.inc$|\.sh$|\.yaml$|\.ini$|\.bat$|\.dat$|\.lock$|\.conf$|\.inc\.php$|^/images/enc\.js$
 	}
 	respond @forbidden "" 404
 
