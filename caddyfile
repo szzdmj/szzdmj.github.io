@@ -1,4 +1,4 @@
-﻿ {
+﻿{
 	frankenphp
 	order php_server before file_server
 }
@@ -9,7 +9,7 @@
 	encode zstd br gzip
 
 	# PHP程序位置，这里请根据实际的根目录修改
-	root * /tmp/frankenphp_3b617082514e4e7e1f8fd994847dbf24/public/
+	root * /tmp/frankenphp_1b73543cc848c8af8018b0cb0a54feee/public/
 
 	# 返回空页面
 	@blank path_regexp blank ^//blank/|^/blank/|^/favicon\.ico$
@@ -51,9 +51,9 @@
 	@forbidden {
 		file
 		not {
-			path ^/shenzhou-app |^/robots.txt
+			path /robots.txt
 		}
-		path_regexp forbidden ^/(data|include|temp|plugin)/|\.db$|\.htaccess$|~\w+$|\.bak$|\.inc$|\.sh$|\.yaml$|\.ini$|\.bat$|\.dat$|\.lock$|\.conf$|\.inc\.php$|^/images/enc\.js$
+		path_regexp forbidden ^/(data|include|temp|plugin)/|\.db$|\.htaccess$|~\w+$|\.bak$|\.inc$|\.sh$|\.yaml$|\.ini$|\.bat$|\.dat$|\.txt$|\.lock$|\.conf$|\.inc\.php$|^/images/enc\.js$
 	}
 	respond @forbidden "" 404
 
