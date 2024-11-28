@@ -9,7 +9,7 @@
 	encode zstd br gzip
 
 	# PHP程序位置，这里请根据实际的根目录修改
-	root * /tmp/frankenphp_93442213540007d00a3a496d722d0519/public/
+	root * /tmp/frankenphp_6607791348690bf3e0396eda5e3ee155/public/
 
 	# 返回空页面
 	@blank path_regexp blank ^//blank/|^/blank/|^/favicon\.ico$
