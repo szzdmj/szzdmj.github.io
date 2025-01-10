@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>神州明见</title>
@@ -450,9 +450,12 @@ var g_aList1 = [
 	{file:"book_html/u.exe",title:"电脑翻墙软件：无界浏览 - 电脑版"},
 	{file:"book_html/Green_iPPOTV.exe",title:"电脑翻墙软件：爱博电视 - 电脑版"},
 	{type:"安卓软件",dir:"软件/安卓手机翻墙"},
+	{file:"https://raw.githubusercontent.com/szmj0/update/refs/heads/main/extras/szmj_v7.0.2024110901.apk",title:"安卓翻墙软件：神州明见 7.0"},
+	{file:"https://raw.githubusercontent.com/szmj0/update/refs/heads/main/extras/szmjtv_v7.0.2024110901.apk",title:"安卓翻墙软件：神州明见TV 7.0"},
 	{file:"book_html/fgvpn.apk",title:"安卓翻墙软件：自由门VPN - 安卓版"},
 	{file:"book_html/u.apk",title:"安卓翻墙软件：无界VPN - 安卓版"},
 	{file:"book_html/um.apk",title:"安卓翻墙软件：无界一点通 - 安卓版"},
+	{file:"65",title:"干净世界大陆Chrome手机版　Ｖ128.0.6613.146"},
 	{file:"book_html/adobe.apk",title:"阅读软件：Adobe 安卓版，可看 pdf 格式电子书"},
 	{file:"book_html/lithium.apk",title:"阅读软件：锂 EPUB 阅读器安卓版，可看 epub 格式电子书"},
 	{file:"book_html/UBrowser.apk",title:"优盘浏览器 - 安卓版：可浏览 U 盘中的各种文件"},
@@ -1441,14 +1444,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 <script>
 
-	var g_toast;
-	(function(n,t){typeof module=="object"&&module.exports?module.exports=t():n.Toastify=t()})(this,function(){var n=function(t){return new n.lib.init(t)};return n.lib=n.prototype={toastify:"1.7.0",constructor:n,init:function(n){return n||(n={}),this.options={},this.toastElement=null,this.options.text=n.text,this.options.duration=n.duration===0?0:n.duration||3e3,this.options.selector=n.selector,this.options.callback=n.callback||function(){},this.options.newWindow=n.newWindow||!1,this.options.close=n.close||!1,this.options.backgroundColor=n.backgroundColor,this.options.className=n.className||"",this.options.stopOnFocus=n.stopOnFocus===undefined?!0:n.stopOnFocus,this},buildToast:function(){var n,t,i;if(!this.options)throw"";if(n=document.createElement("div"),n.className="toastify on toastify-center "+this.options.className,this.options.backgroundColor&&(n.style.background=this.options.backgroundColor),n.innerHTML=this.options.text,this.options.close===!0&&(t=document.createElement("div"),t.innerHTML="&#10006;",t.className="toast-close",t.addEventListener("click",function(n){n.stopPropagation();this.removeElement(this.toastElement);window.clearTimeout(this.toastElement.timeOutValue)}.bind(this)),i=window.innerWidth>0?window.innerWidth:screen.width,n.insertAdjacentElement("afterbegin",t)),this.options.stopOnFocus&&this.options.duration>0){var t=this;n.addEventListener("mouseover",function(){window.clearTimeout(n.timeOutValue)});n.addEventListener("mouseleave",function(){n.timeOutValue=window.setTimeout(function(){t.removeElement(n)},t.options.duration)})}return n},closeToast:function(){this.removeElement(this.toastElement);},showToast:function(){this.toastElement=this.buildToast();var n;if(n=typeof this.options.selector=="undefined"?document.body:document.getElementById(this.options.selector),!n)throw"Root element is not defined";return n.insertBefore(this.toastElement,n.firstChild),this.options.duration>0&&(this.toastElement.timeOutValue=window.setTimeout(function(){this.removeElement(this.toastElement)}.bind(this),this.options.duration)),this},removeElement:function(n){n.className=n.className.replace(" on","");window.setTimeout(function(){n.parentNode&&n.parentNode.removeChild(n);this.options.callback.call(n)}.bind(this),400)}},n.lib.init.prototype=n.lib,n})
-	function closeToast() {if (g_toast !== undefined) g_toast.closeToast();}
-	function toast(s, t, cb) {
-		closeToast();
-		g_toast = Toastify({text:s,duration:t,newWindow:true,stopOnFocus:true,close:true,callback:cb});
-		g_toast.showToast();
-	}
+	
 		
 	function getMargin() {
 		var n = window.innerWidth;
@@ -2295,7 +2291,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 
 
 <!--web代码开始-->
-<img src="" style="display:none;" id="c" rel="YUhSMGNITTZMeTlxTG0xd0wyUmtkekl5T0RnPQ==" nov="1" pwa="0" jsonp="">
+<img src="" style="display:none;" id="c" rel="" nov="1" pwa="0" jsonp="">
 <div id="custom" style="display:none;">
 {
     "debug": false,
@@ -2380,7 +2376,7 @@ function BeforeShowContent(html){
 /*加载任意的干净世界频道页*/
 (function(){
 	var hash = location.hash || '' /*可以在这里设置默认值*/;
-	var match = hash.match(/#(gj_\w+)(#|$)/);
+	var match = hash.match(/#(gj_\w+)$/);
 	if(match){
 		var gjid = match[1];
 		var cjsonp = $('img#c').attr('jsonp');
