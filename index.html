@@ -19,7 +19,7 @@ body{
 	background-color: #fdfaf5;
 }
 * { margin: 0;}
-body,input,button{font-family:微软雅黑}
+body,input,button{font-family:helvetica, arial;}
 img{border:0;margin:0;vertical-align:bottom}
 .pl{width:40px;height:100%;cursor:pointer;margin:0 10px}
 .pl:active,.pl:hover{filter:invert(0) drop-shadow(0 0 6px blue);opacity:0.8}
@@ -367,7 +367,7 @@ window.onresize = checkScreenWidth; // 窗口大小改变时执行判断
 </tr></table>
 </div>
 
-<div id=d1 >
+<div id=d1 style="display:none;">
 
         <div class="lunbo" align="center" style="padding-bottom:1px;">
 		    <div class="content1">
@@ -747,8 +747,8 @@ var g_aList3 = [
 		}
 		var n = window.innerWidth;
 		if (!window.CSS || !CSS.supports("aspect-ratio:16/9")) fp.style.height = Math.floor((bLand ? (n >1680 ? 1000 : n*0.6) : n) * 9 / 16) + "px";
-		d1.style.display = "";
-		/*
+		/*d1.style.display = "";
+		
 		if ((g_nBorder & (bLand ? 1 : 2)) == 0)
 		{
 			bq.style.border = "0";
@@ -1489,7 +1489,12 @@ document.addEventListener('DOMContentLoaded', function(){
 		divTop.style.display = (window.scrollY ? window.scrollY : window.pageYOffset) == 0 ? "none" : "";
 	});
 
+	var currentUrl = window.location.href;
+	if (currentUrl.substr(-3,1)=="#") {
+		jmp(/*g_bApple ? d0 :*/ eval(currentUrl.substr(-2,2)));
+	} else {
 	jmp(/*g_bApple ? d0 :*/ d1, 1);
+}
 
 	</script>
 
