@@ -276,18 +276,18 @@
             <h1 class="text-2xl font-bold">&#31070;&#24030;&#26126;&#35265; 2.0</h1>
             <!-- Desktop Navbar -->
             <nav class="hidden md:flex space-x-4">
-                <a href="#" @click.prevent="showPage('home')" :class="{ 'text-yellow-800': currentPage === 'home' }"
+                <a href="#home" @click.prevent="showPage('home')" :class="{ 'text-yellow-800': currentPage === 'home' }"
                     class="text-xl ">主页</a>
-                <a href="#" @click.prevent="showPage('articles')"
+                <a href="#articles" @click.prevent="showPage('articles')"
                     :class="{ 'text-yellow-800': currentPage === 'articles' }" class="text-xl ">文章</a>
-                <a href="#" @click.prevent="showPage('videos')" :class="{ 'text-yellow-800': currentPage === 'videos' }"
-                    class="text-xl ">视频</a>
-                <a href="#" @click.prevent="showPage('books')" :class="{ 'text-yellow-800': currentPage === 'books' }"
-                    class="text-xl ">书籍</a>
-                <a href="#" @click.prevent="showPage('downloads')"
+                <a href="#videos" @click.prevent="showPage('videos')"
+                    :class="{ 'text-yellow-800': currentPage === 'videos' }" class="text-xl ">视频</a>
+                <a href="#books" @click.prevent="showPage('books')"
+                    :class="{ 'text-yellow-800': currentPage === 'books' }" class="text-xl ">书籍</a>
+                <a href="#downloads" @click.prevent="showPage('downloads')"
                     :class="{ 'text-yellow-800': currentPage === 'downloads' }" class="text-xl ">软件</a>
-                <a href="#" @click.prevent="showPage('about')" :class="{ 'text-yellow-800': currentPage === 'about' }"
-                    class="text-xl ">&#19977;&#36864;</a>
+                <a href="#about" @click.prevent="showPage('about')"
+                    :class="{ 'text-yellow-800': currentPage === 'about' }" class="text-xl ">&#19977;&#36864;</a>
             </nav>
             <!-- Mobile Menu Button -->
             <button @click="toggleMenu" class="md:hidden text-2xl mr-4">
@@ -297,17 +297,17 @@
             <!-- Mobile Menu -->
             <nav x-show="menuOpen"
                 class="md:hidden bg-gray-700 text-white absolute right-8 top-16 p-4 z-50 text-center w-24">
-                <a href="#" @click.prevent="showPage('home'); toggleMenu()"
+                <a href="#home" @click.prevent="showPage('home'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'home' }" class="block py-2 ">主页</a>
-                <a href="#" @click.prevent="showPage('articles'); toggleMenu()"
+                <a href="#articles" @click.prevent="showPage('articles'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'articles' }" class="block py-2 ">文章</a>
-                <a href="#" @click.prevent="showPage('videos'); toggleMenu()"
+                <a href="#videos" @click.prevent="showPage('videos'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'videos' }" class="block py-2 ">视频</a>
-                <a href="#" @click.prevent="showPage('books'); toggleMenu()"
+                <a href="#books" @click.prevent="showPage('books'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'books' }" class="block py-2 ">书籍</a>
-                <a href="#" @click.prevent="showPage('downloads'); toggleMenu()"
+                <a href="#downloads" @click.prevent="showPage('downloads'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'downloads' }" class="block py-2 ">软件</a>
-                <a href="#" @click.prevent="showPage('about'); toggleMenu()"
+                <a href="#about" @click.prevent="showPage('about'); toggleMenu()"
                     :class="{ 'text-yellow-400': currentPage === 'about' }" class="block py-2 ">&#19977;&#36864;</a>
             </nav>
         </div>
@@ -315,7 +315,7 @@
     </header>
 
     <!-- Page Content -->
-    <div x-show="currentPage === 'home'">
+    <div x-show="currentPage === 'home'" id="home">
         <!-- Carousel Component -->
         <div x-data="carouselComponent()" x-init="init()" style="background-color:#f9f2e2;"
             class="max-h-[100px] max-w-screen-xl mx-auto w-full relative">
@@ -422,7 +422,7 @@
                 <div class="hidden md:flex w-px bg-gray-200"></div>
 
                 <!-- Right Part (1/3 of the screen) -->
-                <div class="hidden md:flex w-1/2">
+                <div class="hidden md:flex w-1/3">
                     <!-- Friendly Links -->
                     <div class="space-y-2">
                         <!-- Image Link -->
@@ -534,7 +534,7 @@
             </div>
         </div>
     </div>
-    <div x-show="currentPage === 'articles'">
+    <div x-show="currentPage === 'articles'" id="articles">
         <div x-data="pagination()" class="flex flex-col items-center justify-center p-6">
             <div class="bg-white max-w-screen-4xl p-6 ">
                 <!-- Article Display -->
@@ -1346,7 +1346,7 @@
             </script>
         </div>
     </div>
-    <div x-show="currentPage === 'videos'">
+    <div x-show="currentPage === 'videos'" id="videos">
         <!-- Video Page Component -->
         <div x-data="videoPageComponent()" class="relative">
             <!-- Sub-page Navigation Bar -->
@@ -1877,7 +1877,7 @@
         </script>
     </div>
 
-    <div x-show="currentPage === 'books'">
+    <div x-show="currentPage === 'books'" id="books">
         <div x-data="{page: 1}" style="max-width:1280px;margin:auto;padding-top:40px;">
             <div id="divPicList" align="center" style="color:blue;font-size:1.1em"></div>
             <div id="divPic" style="color:blue;font-size:1.2em;font-weight:bold;display:none" align="center">
@@ -2062,7 +2062,7 @@
         </div>
 
     </div>
-    <div x-show="currentPage === 'downloads'">
+    <div x-show="currentPage === 'downloads'" id="downloads">
         <!-- <div style="max-width:90%;margin:auto;" align="center"> -->
         <div class="max-w-screen-xl mx-auto  p-8">
             <div class="shadow-md mt-12">
@@ -2255,7 +2255,7 @@
             </div>
         </div>
     </div>
-    <div x-show="currentPage === 'about'">
+    <div x-show="currentPage === 'about'" id="about">
         <div class="text-center pt-12 max-w-screen-xl mx-auto">
             <h2 class="text-2xl font-bold text-dark-500">自2004年12月3日起</h2>
             <h2 class="text-2xl font-bold text-dark-500">三退（退党、团、队）人数</h2>
@@ -2390,7 +2390,10 @@
             <p class="text-dark font-bold ">本平台二维码和网址</p>
             <div id="qrcode1"></div>
             <p id="qrcode_text1" class=" underline text-blue-800 m-4 break-words block">
-                <script>document.write('<a href="' + location.href + '" target="_blank" class="break-words block">' + location.href + '</a>');</script>
+                <script>
+                    var url = location.origin && location.origin.substr(0, 4) == 'http' ? location.origin + '/0/' : location.href;
+                    document.write('<a href="' + url + '" target="_blank">' + url + '</a>');
+                </script>
             </p>
         </div>
     </div>
@@ -2447,7 +2450,7 @@
         function app() {
             console.log('App Starting...')
             return {
-                currentPage: 'home', // Default page
+                currentPage: window.location.hash?.replace('#', '') || 'home', // Default page
                 menuOpen: false,
                 showPage(page) {
                     this.currentPage = page;
@@ -2482,7 +2485,7 @@
             window.szsite = site;
             console.log(window.szsite);
             try {
-                $("#qrcode_text").text(site + '/0/');
+                $("#qrcode_text").html('<a href="' + site + '/0/" target="_blank">' + site + '/0/</a>');
                 $("#qrcode").empty();
                 new QRCode(document.getElementById("qrcode"), {
                     text: site + '/0/',
@@ -2494,7 +2497,7 @@
                 });
             } catch { }
             try {
-                $("#qrcode_text1").text(site + '/0/');
+                $("#qrcode_text").html('<a href="' + site + '/0/" target="_blank">' + site + '/0/</a>');
                 $("#qrcode1").empty();
                 new QRCode(document.getElementById("qrcode1"), {
                     text: site + '/0/',
@@ -2590,7 +2593,18 @@
     </script>
     <!--web代码结束-->
 
-
+    <script>
+        // Optional: Scroll to the anchor when the page loads
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const target = document.querySelector(hash);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
 
 </body>
 
