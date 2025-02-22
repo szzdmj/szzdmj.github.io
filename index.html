@@ -2479,7 +2479,7 @@ function BeforeShowContent(html){
 	var items = $(html.replace(/\n/g,'')), blockCount=0, videos='', news='', marquee='';
 	for(var i=0; i<items.length; i++){
 		var item = $(items[i]),
-			href = item.find('h4 a').attr('href'),
+			href = item.find('h4 a[href]').attr('href'),
 			title = item.find('h4 span').text(),
 			anchors = $('li', item);
 		if(title && anchors && anchors.length>=4) {
