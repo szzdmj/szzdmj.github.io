@@ -2545,29 +2545,38 @@
         /*回调函数--加载通过web版获取到的新闻*/
         function BeforeShowContent(html) {
             console.log(html);
-            var items = $(html.replace(/\n/g, '')), blockCount = 0, news = '', marquee = '';
-            items.each(function (i, item) {
-                var title = $(item).find('h4').find('span').text(),
+            var items = $(html.replace(/\n/g, '')), blockCount = 0, videos = '', news = '', marquee = '';
+            for (var i = 0; i < items.length; i++) {
+                var item = $(items[i]),
+                    href = item.find('h4 a[href]').attr('href'),
+                    title = item.find('h4 span').text(),
                     anchors = $('li', item);
-                if (!title || !anchors || anchors.length < 4) {
-                    return;
-                }
-                var half = Math.ceil(anchors.length / 2), anchors1 = '', anchors2 = '';
-                anchors.each(function (j, anchor) {
-                    if (j == 0) {
-                        marquee += anchor.innerHTML.replace(/<a\s/g, '<a style="margin-left:40px;" ');
-                    }
-                    var s = '<p class="text-blue-800">' + anchor.innerHTML + '</p>';
-                    if (j < half) anchors1 += s; else anchors2 += s;
-                });
+                if (title && anchors && anchors.length >= 4) {
+                    var half = Math.ceil(anchors.length / 2), anchors1 = '', anchors2 = '';
+                    anchors.each(function (j, anchor) {
+                        if (j == 0) {
+                            marquee += anchor.innerHTML.replace(/<a\s/g, '<a style="margin-left:40px;" ');
+                        }
+                        var s = '<p>' + anchor.innerHTML + '</p>';
+                        if (j < half) anchors1 += s; else anchors2 += s;
+                    });
 
-                news += '<h2 class="text-xl font-bold ml-4' + (i === 0 ? '' : ' style="margin-top:20px;"') + '">' + title + '</h2>' +
-                    '<div class="grid grid-cols-1 sm:grid-cols-2 gap-1 mb-12">' +
-                    '<div id="inMainleft' + (++blockCount) + '" class="newstd text-blue-600 ml-6">' + anchors1 + '</div>' +
-                    '<div id="inMainleft' + (++blockCount) + '" class="newstd text-blue-600 ml-6">' + anchors2 + '</div>' +
-                    '<div style="clear: both;"></div></div>';
-            });
-            $('#MainleftContent').html(news);
+                    if (href) title += '<a href="' + href + '" target="_blank" style="font-size:12px; margin-left:20px;">更多&gt;&gt;</a>';
+                    // news += '<h3' + (i === 0 ? '' : ' style="margin-top:30px;"') + '>' + title + '</h3>' +
+                    //     '<div id="inMainleft' + (++blockCount) + '" class="newstd">' + anchors1 + '</div>' +
+                    //     '<div id="inMainleft' + (++blockCount) + '" class="newstd">' + anchors2 + '</div>' +
+                    //     '<div style="clear: both;"></div>';
+
+                    news += '<h2 class="text-xl font-bold ml-4' + (i === 0 ? '' : ' style="margin-top:20px;"') + '">' + title + '</h2>' +
+                        '<div class="grid grid-cols-1 sm:grid-cols-2 gap-1 mb-12">' +
+                        '<div id="inMainleft' + (++blockCount) + '" class="newstd text-blue-600 ml-6">' + anchors1 + '</div>' +
+                        '<div id="inMainleft' + (++blockCount) + '" class="newstd text-blue-600 ml-6">' + anchors2 + '</div>' +
+                        '<div style="clear: both;"></div></div>';
+                }
+            }
+
+            $('#MainleftContent').html(videos + news);
+            // checkScreenWidth(blockCount);
 
             //checkScreenWidth(blockCount);
             //走马灯
