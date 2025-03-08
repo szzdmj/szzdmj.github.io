@@ -1,1 +1,76 @@
-"use strict";const v0="szcache",v1=[["index.html","update.js"],["manifest.json","favicon.png","icon.png"]];var v2=0;function v3(e){var t=(t=registration.scope)||location.origin,e=e.url.substring(t.length);return e=""==(e="/"==e.substring(0,1)?e.substring(1):e)||"/"==e||e.startsWith("#")||e.startsWith("?v=")||e.startsWith("?_=")?"index.html":e}async function v4(){return caches.open(v0).then(r=>{var a=registration.scope;r.keys().then(function(e){e.forEach(function(e,t,a){if(e){var n=e.url.split("/").pop();-1===v1[1].indexOf(n)&&r.delete(e)}})});v1[0].forEach(t=>{fetch(a+t).then(e=>{r.put(a+t,e.clone());"index.html"==t&&r.put(a,e.clone())})})}).catch(e=>{caches.delete(v0)})}async function v5(){try{var e=registration.scope+"update.js",t=await(a=await fetch(e,{cache:"reload"})).text();if(t&&t.match(/^\d+$/)){var a,n=await caches.open(v0);(a=n?await n.match(e):null)?await a.text()!=t&&v4():n.put(e,new Response(t))}}catch(e){}}self.addEventListener("fetch",e=>{if("GET"===e.request.method){var t=v3(e.request);if(-1!==v1[1].indexOf(t))return v6(e);if("index.html"==t){t=+new Date;if(36e5<t-v2){v2=t;v5()}}return e.request.destination&&"video"!=e.request.destination?v7(e):void 0}});self.addEventListener("message",e=>{"skipWaiting"===e.data&&self.skipWaiting()});self.addEventListener("install",e=>e.waitUntil(self.skipWaiting()));self.addEventListener("activate",e=>e.waitUntil(async function(){await v4();await self.clients.claim()}()));function v6(t){return t.respondWith(caches.open(v0).then(e=>e.match(t.request)))}function v7(a){return a.respondWith(caches.open(v0).then(t=>t.match(a.request).then(e=>e||fetch(a.request).then(e=>{t.put(a.request,e.clone());return e}))))}
+// sw.js (Service Worker file)
+const CACHE_NAME = "static-cache-v3";
+const STATIC_ASSETS = [
+  "book_html/风雨天地行.html",
+  "book_html/风雨天地行.epub",
+  "book_html/风雨天地行.chm",
+  "/r4.png",
+];
+
+// Install event - cache static assets
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => {
+        console.log("Caching static assets");
+        return cache.addAll(STATIC_ASSETS);
+      })
+      .catch((error) => {
+        console.log("Cache failed:", error);
+      })
+  );
+});
+
+// Activate event - clean up old caches
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((name) => {
+            return name !== CACHE_NAME;
+          })
+          .map((name) => {
+            return caches.delete(name);
+          })
+      );
+    })
+  );
+});
+
+// Fetch event - serve from cache or fetch from network
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches
+      .match(event.request)
+      .then((response) => {
+        // Return cached response if found
+        if (response) {
+          console.log("Found in cache!");
+          return response;
+        }
+
+        // Fetch from network if not in cache
+        return fetch(event.request).then((networkResponse) => {
+          // Optionally cache new responses dynamically
+          if (
+            event.request.method === "GET" &&
+            networkResponse.status === 200
+          ) {
+            console.log("Not in cache, caching...");
+            return caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, networkResponse.clone());
+              return networkResponse;
+            });
+          }
+          return networkResponse;
+        });
+      })
+      .catch(() => {
+        // Fallback if both cache and network fail
+        return caches.match("/offline.html");
+      })
+  );
+});
+
