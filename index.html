@@ -394,7 +394,7 @@ var g_aList1 = [
 	{file:"/pWvtg.exe",title:"电脑翻墙软件：无界浏览 - 电脑版"},
 	{file:"/DjnNY.exe",title:"电脑翻墙软件：爱博电视 - 电脑版"},
 	{type:"安卓软件",dir:"软件/安卓手机翻墙"},
-	{file:"http://www.shenzhouzhengdao.org/book_html/esbxD.apk",title:"安卓翻墙软件：神州明见 7.0"},
+	{file:"/esbxD.apk",title:"安卓翻墙软件：神州明见 7.0"},
 	{file:"/8HYbM.apk",title:"安卓翻墙软件：神州明见TV 7.0"},
 	{file:"/hY3xy.apk",title:"安卓翻墙软件：自由门VPN - 安卓版"},
 	{file:"/htcx5.apk",title:"安卓翻墙软件：无界VPN - 安卓版"},
@@ -997,7 +997,7 @@ content.onmouseleave=function(){
 			if (sDir == '网络直连')
 				s += si['title']+'</td><td>'+'<a href="'+si['file']+'" target=_blank>'+getURL(si['file'], bLand)+'</a></td></tr>';
 			else
-				s += si['title']+'</td><td>'+'<a href="'+si['file']+'" download="'+si['file']+'" class="preload"  target=_blank'+(g_bOTG ? ' onclick="return clickFile(\''+si['file']+'\','+i+')">' : '>')+getName(si['file'])+'</a></td></tr>';
+				s += si['title']+'</td><td>'+'<a href="'+si['file']+'" download=" target=_blank'+(g_bOTG ? ' onclick="return clickFile(\''+si['file']+'\','+i+')">' : '>')+getName(si['file'])+'</a></td></tr>';
 		}
 		document.write(s+'</table></div>');
 	}
@@ -1301,7 +1301,7 @@ content.onmouseleave=function(){
 <a href="/gjw#gjw2#gj_1eiqjdnq7go5eF4ZdQNC1og9T1op0c" target="_blank">新聞看點</a> &nbsp;&nbsp; 
 <a href="/gjw#gjw2#gj_1eiqjdnq7go5pVcjheW81Z1KD1er0c" target="_blank">天亮時分</a> &nbsp;&nbsp; 
 <a href="/gjw#gjw2#gj_1eiqjdnq7go3i1dk1QyGrlYTF1g80c" target="_blank">江峰時刻</a> &nbsp;&nbsp; 
-<a href="/gjw#gjw2#gj_1eiqjdnq7go3i1dk1QyGrlYTF1g80c" target="_blank">老北京茶馆</a> &nbsp;&nbsp; 
+<a href="/gjw#gjw2#gj_1eiqjdnq7go7Hd4D9daOz5Owj13s0c" target="_blank">老北京茶馆</a> &nbsp;&nbsp; 
 <a href="/gjw#gjw2#gj_1eiqjdnq7go5kDW2VK51wY5RA14u0c" target="_blank">遠見快評</a> &nbsp;&nbsp; 
 <a href="/gjw#gjw2#gj_1eiqjdnq7go6pJSSgqmmSw55e17s0c" target="_blank">新聞最嘲點</a> &nbsp;&nbsp; 
 <a href="/gjw#gjw3#gj_1eiqjdnq7go6LOm7uwUFGcLm01080c" target="_blank">拍案惊奇</a> &nbsp;&nbsp; 
@@ -2751,7 +2751,6 @@ loadWeb();
 
 	var x = document.getElementsByClassName("lbnews");
 	var BottomTop = document.getElementById("BottomTop");
-	var gjwdiv = document.getElementById("gjwdiv");
 	var divDDMXS = document.getElementById('divDDMXS');
 	var d0 = document.getElementById('d0');
 	var toptu = document.getElementById('toptu');
@@ -2769,6 +2768,7 @@ loadWeb();
 		vpheight = '403px';
 		
 function checkScreenWidth() {
+	var gjwdiv = document.getElementById("gjwdiv");
     var width = window.innerWidth || document.documentElement.clientWidth;
 	var height = window.innerHeight || document.documentElement.clientHeight;
 	var newstdCount = document.getElementsByClassName("newstd").length;
