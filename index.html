@@ -997,7 +997,7 @@ content.onmouseleave=function(){
 			if (sDir == '网络直连')
 				s += si['title']+'</td><td>'+'<a href="'+si['file']+'" target=_blank>'+getURL(si['file'], bLand)+'</a></td></tr>';
 			else
-				s += si['title']+'</td><td>'+'<a href="'+si['file']+'" download=" target=_blank'+(g_bOTG ? ' onclick="return clickFile(\''+si['file']+'\','+i+')">' : '>')+getName(si['file'])+'</a></td></tr>';
+				s += si['title']+'</td><td>'+'<a href="'+si['file']+'" target=_blank'+(g_bOTG ? ' onclick="return clickFile(\''+si['file']+'\','+i+')">' : '>')+getName(si['file'])+'</a></td></tr>';
 		}
 		document.write(s+'</table></div>');
 	}
