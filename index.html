@@ -372,8 +372,6 @@ function start_marquee(html){
 // 修改软件的文件名和说明，每个文件一行。file 为源文件名，title 为文件说明。type 是分类，dir 是该分类所在目录。
 var g_aList1 = [
 	{type:"电脑、安卓、苹果设备点击直接翻墙网址",dir:"网络直连"},
-	{file:"https://bit.ly/D1111111",title:"神州明见1"},
-	{file:"https://bit.ly/D12345678",title:"神州明见2"},
 	{file:"https://j.mp/ddw2288",title:"动态网"},
 	{file:"https://j.mp/ddw8866",title:"全球退党服务中心"},
 	{file:"https://j.mp/ddm6699",title:"明慧之窗"},
@@ -935,6 +933,7 @@ function getName(s) {
 function initDL(bDL) {
 	var s = '', n = g_aList1.length, sDir;
 	var bLand = isLand();
+	var v = 0;
 	for (var i=0; i<n; ++i)
 	{
 		var si = g_aList1[i];
@@ -973,9 +972,16 @@ function initDL(bDL) {
 				s += '_png" class="ic ic2"></a> &nbsp; ';
 			}
 			s += '</td></tr>';
-		} else if (sDir == '网络直连')
-			s += si['title']+'</td><td>'+'<a href="'+si['file']+'" target=_blank  noproxy>'+getURL(si['file'], bLand)+'</a></td></tr>';
-		else {
+		} else if (sDir == '网络直连') {
+			if (v == 0){
+				s += '神州明见长效网址1</td><td>'+'<a href="https://bit.ly/D1111111" target=_blank  noproxy>https://bit.ly/D1111111</a></td></tr>';
+				s += '<tr ><td width=60% style="padding:7px 10px;'+(bLand?"":"border-left:0")+'">';
+				s += '神州明见长效网址2</td><td>'+'<a href="https://bit.ly/D12345678" target=_blank  noproxy>https://bit.ly/D12345678</a></td></tr>';
+				s += '<tr ><td width=60% style="padding:7px 10px;'+(bLand?"":"border-left:0")+'">';
+				v = 2;
+			}
+			s += si['title']+'</td><td>'+'<a href="'+si['file']+'" target=_blank >'+getURL(si['file'], bLand)+'</a></td></tr>';
+		} else {
 			var source=si['source'], download=si['download'];
 			s += si['title']+'</td><td>'+'<a href="'+si['file']+'" target=_blank';
 			if(g_bOTG) {
