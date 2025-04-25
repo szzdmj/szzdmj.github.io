@@ -24,16 +24,53 @@
 	 @media print {
 		body * { display: none; } /* 默认隐藏所有内容 */
 		.show {display:block !important;}
-        }
-		.PreviewDiv{display:inline-block;padding:20px;width:180px;}
-		.PreviewImg{display:block;height:230px;}
-		.PreviewImg:hover{transform: scale(1.8) translate(0,-22%);}
-		.PrintImg{position:absolute;display:block;height:98%; }
-		.PrintQC{position:absolute;display:block;height:55px;}
-		.QCselect{padding:20px;display:inline-block;border: 2px solid #FF9933;}
+     }
+	.PreviewDiv{display:inline-block;padding:20px;width:180px;}
+	.PreviewImg{display:block;height:230px;}
+	.PreviewImg:hover{transform: scale(1.8) translate(0,-22%);}
+	.PrintImg{position:absolute;display:block;height:98%; }
+	.PrintQC{position:absolute;display:block;height:55px;}
+	.QCselect{padding-bottom:20px;display:inline-block;border: 2px solid #FF9933;height:220px;width:200px;}
+	.QCtextdiv{padding-bottom:20px;display:block;border: 2px solid #FF9933;height:220px;width:200px;}
+	.Qrselecttext{padding:20px;display:block;}
+	#qrtext{ 
+		border: 2px solid #007BFF; /* 无边框 */
+   		border-radius: 5px; /* 圆角边框 */
+   		box-shadow: 0 0 5px rgba(0,0,0,0.3); /* 轻微阴影 */
+   		padding: 10px; /* 内边距 */
+		color: gray;
+		}
+	.modal {
+  display:none ; /* 默认不显示 */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+ 
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%; 
+}
 </style>
+<script type="text/javascript" src="qrcode.min.js"></script>
 </head>
 <body>
+ <div id="myModal" class="modal" align="center">
+  <div class="modal-content">
+    <div class="close"  align="right"></div>
+    <p>打印图片加载中,请稍候...</p>
+  </div>
+</div>
+
 <div align="left"  style="width:90%;margin: 0 auto;">
 	<div  align="center" style="width:100%;">
 	<h1>神州明见翻墙二维码<br>在线打印/下载</h1><br>
@@ -60,7 +97,32 @@
 			<button onClick="QCButton(2)">选择</button>
 		</div>
 		</div>
-	</div>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+		<div id=fX align="center" class=QCselect style="display:none">
+		<h3>3<br>二维码助手的【1-3】</h3>
+		<div style="width:120px;height:124px;">
+		<div style="padding:8px;background-color:white;"><div id="qrcode_div1_31"  ></div></div>
+		</div>
+		<div  style="padding:5px;">
+			<button onClick="QCButton(X)">选择</button>
+		</div>
+		</div>
+		</div>
+		
+		<div  align="center" class=Qrselecttext>
+		<h3>输入翻墙网址，自动生成翻墙二维码：</h3>
+		<input id=qrtext type="text" size="80" height="30px" maxlength="300"><br><br>
+		<button onClick="qrinput()">生成</button>
+		</div>
+		<div id=f3 align="center" class=QCtextdiv style="margin:auto">
+		<h3>自生成二维码</h3>
+		<div style="width:120px;height:124px;">
+		<div style="padding:8px;background-color:white;"><div id="qrcodetext"  ></div></div>
+		</div>
+		<div  style="padding:5px;">
+			<button onClick="QCButton(3)">选择</button>
+		</div>
+		</div>
 
 <br>
 <div style="border: 2px solid #FF9933;">
@@ -1114,7 +1176,26 @@
 </div>
 
  <div id="show" style="display:block;"></div>
+
 <script>
+	//文本输入
+	document.addEventListener("DOMContentLoaded", function() {
+    var input = document.getElementById('qrtext');
+    input.value = '请在此输入翻墙网址'; 
+	input.style.fontSize = '1em'; 
+    input.addEventListener('focus', function() { 
+        if (this.value === '请在此输入翻墙网址') { 
+            this.value = ''; 
+            this.style.color = 'black'; 
+        }
+    });
+    input.addEventListener('blur', function() { 
+        if (this.value === '') {
+            this.value = '请在此输入翻墙网址'; 
+            this.style.color = 'gray'; 
+        }
+    });
+});
 	 //浏览器判断
     var ua = navigator.userAgent;
     var M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -1129,6 +1210,7 @@
 	//打印输出
     function printDiv(i) {
 		var originalContents = document.body.innerHTML;
+		openModal();
 		const container = document.getElementById('show');
 		const m = eval('c'+i);
 		const n = eval('b'+i);
@@ -1174,17 +1256,18 @@
 			window.print();
 			document.body.innerHTML = originalContents;
 			//newWin.close();
+			//closeModal();
+			QCButton(1);
             };
-
 	 }
 
 //二维码选择
 	function QCButton(o) {
 		var f1=document.getElementById("f1"),
 		f2=document.getElementById("f2"),
+		f3=document.getElementById("f3"),
+		f4=document.getElementById("f4"),
 		x = document.getElementsByClassName("PrintQC");
-		f1.style.backgroundColor = o == 1 ? "#f67900" : "white" ;
-		f2.style.backgroundColor = o == 2 ? "#f67900" : "white" ;
 		if (o==1) {
  			for (i = 0; i < x.length; i++) {
 				x[i].src = "http://www.szzd.org/4fJ7V";
@@ -1195,12 +1278,69 @@
 				x[i].src = "http://www.szzd.org/kF9uk";
  			}
 		}
+		if (o==3) {
+		showQRCode('','','');
+		var qrauto = document.getElementById('qrauto').src;
+		if (qrcodetext.innerHTML == "") {
+		alert("请先生成翻墙二维码！");
+		return;
+		}
+			for (i = 0; i < x.length; i++) {
+			x[i].src = "";
+				x[i].src = qrauto;
+ 			}
+		}
+		f1.style.backgroundColor = o == 1 ? "#f67900" : "white" ;
+		f2.style.backgroundColor = o == 2 ? "#f67900" : "white" ;
+		f3.style.backgroundColor = o == 3 ? "#f67900" : "white" ;
 		
     }
 	QCButton(1);
+    function showQRCode(id, text, size){
+        if(!window.QRCode){
+            return;
+        }
+        var div = document.getElementById(id);
+		if(div){
+			div.innerHTML = '';
+			new QRCode(div, {
+				text: text,
+				width: size,
+				height: size,
+				colorDark: "#000000",
+				colorLight: "#ffffff",
+				correctLevel: QRCode.CorrectLevel.L
+			});
+		}
+    }
+
+	function qrinput (){
+	showQRCode('qrcodetext', qrtext.value, 105);
+	}
 
 </script>
-
+<script>	//提示框
+	var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+ 
+function openModal() {
+  modal.style.display = "block"; // 显示模态框
+}
+ 
+function closeModal() {
+  modal.style.display = "none"; // 隐藏模态框
+}
+ 
+span.onclick = function() {
+  closeModal(); // 点击关闭按钮关闭模态框
+}
+ 
+window.onclick = function(event) { // 点击模态框外部关闭模态框（可选）
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+</script>
  
 </body>
 </html>
