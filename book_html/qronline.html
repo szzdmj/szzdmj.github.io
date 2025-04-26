@@ -20,18 +20,57 @@
 		 font-size: 10pt;
 		 }
 	 }
+	 }
 	 @media print {
 		body * { display: none; } /* 默认隐藏所有内容 */
-        }
-		.PreviewDiv{display:inline-block;padding:20px;width:180px;}
-		.PreviewImg{display:block;height:230px;}
-		.PreviewImg:hover{transform: scale(1.8) translate(0,-22%);}
-		.PrintImg{position:absolute;display:block;height:98%; }
-		.PrintQC{position:absolute;display:block;height:55px;}
-		.QCselect{padding:20px;display:inline-block;border: 2px solid #FF9933;}
+		.show {display:block !important;}
+     }
+	.PreviewDiv{display:inline-block;padding:20px;width:180px;}
+	.PreviewImg{display:block;height:230px;}
+	.PreviewImg:hover{transform: scale(1.8) translate(0,-22%);}
+	.PrintImg{position:absolute;display:block;height:98%; }
+	.PrintQC{position:absolute;display:block;height:55px;}
+	.QCselect{padding-bottom:20px;display:inline-block;border: 2px solid #FF9933;height:220px;width:200px;}
+	.QCtextdiv{padding-bottom:20px;display:block;border: 2px solid #FF9933;height:220px;width:200px;}
+	.Qrselecttext{padding:20px;display:block;}
+	#qrtext{ 
+		border: 2px solid #007BFF; /* 无边框 */
+   		border-radius: 5px; /* 圆角边框 */
+   		box-shadow: 0 0 5px rgba(0,0,0,0.3); /* 轻微阴影 */
+   		padding: 10px; /* 内边距 */
+		color: gray;
+		}
+	.modal {
+  display:none ; /* 默认不显示 */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+ 
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%; 
+}
 </style>
+<script type="text/javascript" src="qrcode.min.js"></script>
 </head>
 <body>
+ <div id="myModal" class="modal" align="center">
+  <div class="modal-content">
+    <div class="close"  align="right"></div>
+    <p>打印图片加载中,请稍候...</p>
+  </div>
+</div>
+
 <div align="left"  style="width:90%;margin: 0 auto;">
 	<div  align="center" style="width:100%;">
 	<h1>神州明见翻墙二维码<br>在线打印/下载</h1><br>
@@ -45,7 +84,7 @@
 	<h2>请选择需要制作的二维码：</h3>
 		<div id=f1 align="center" class=QCselect>
 		<h3>二维码助手的【1-1】</h3>
-		<img loading="lazy" src="http://www.szzd.org/4fJ7V" alt="如果出现本提示，请破网后刷新页面。"  style="width:120px;height:120px">
+		<img  src="http://www.szzd.org/4fJ7V" alt="如果出现本提示，请破网后刷新页面。"  style="width:120px;height:120px">
 		<div  style="padding:5px;">
 			<button onClick="QCButton(1)">选择</button>
 		</div>
@@ -53,312 +92,338 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<div id=f2 align="center" class=QCselect>
 		<h3>二维码助手的【1-3】</h3>
-		<img loading="lazy" src="http://www.szzd.org/kF9uk"  alt="如果出现本提示，请破网后刷新页面。"   style="width:120px;height:120px">
+		<img  src="http://www.szzd.org/kF9uk"  alt="如果出现本提示，请破网后刷新页面。"   style="width:120px;height:120px">
 		<div  style="padding:5px;">
 			<button onClick="QCButton(2)">选择</button>
 		</div>
 		</div>
-	</div>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+		<div id=fX align="center" class=QCselect style="display:none">
+		<h3>3<br>二维码助手的【1-3】</h3>
+		<div style="width:120px;height:124px;">
+		<div style="padding:8px;background-color:white;"><div id="qrcode_div1_31"  ></div></div>
+		</div>
+		<div  style="padding:5px;">
+			<button onClick="QCButton(X)">选择</button>
+		</div>
+		</div>
+		<div id=f3 align="center" class=QCselect style="margin:auto">
+		<h3>自生成二维码</h3>
+		<div style="width:120px;height:124px;">
+		<div style="padding:8px;background-color:white;"><div id="qrcodetext"  ></div></div>
+		</div>
+		<div  style="padding:5px;">
+			<button onClick="QCButton(3)">选择</button>
+		</div>
+		</div>
+		
+		<div  align="center" class=Qrselecttext>
+		<h3>输入翻墙网址，自动生成翻墙二维码：</h3>
+		<input id=qrtext type="text" size="80" height="30px" maxlength="300"><br><br>
+		<button onClick="qrinput()">生成</button>
+		</div>
+
+		</div>
 
 <br>
 <div style="border: 2px solid #FF9933;">
 <div align="center" class=PreviewDiv >
 <h3>样式1</h3>
-<img loading="lazy" src="img/01.png"  class=PreviewImg >
+<img src="img/1.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(1)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式2</h3>
-<img loading="lazy" src="img/02.png"  class=PreviewImg>
+<img src="img/2.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(2)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式3</h3>
-<img loading="lazy" src="img/03.png"  class=PreviewImg>
+<img src="img/3.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(3)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式4</h3>
-<img loading="lazy" src="img/04.png"  class=PreviewImg>
+<img src="img/4.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(4)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式5</h3>
-<img loading="lazy" src="img/05.png"  class=PreviewImg>
+<img src="img/5.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(5)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式6</h3>
-<img loading="lazy" src="img/06.png"  class=PreviewImg>
+<img src="img/6.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(6)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式7</h3>
-<img loading="lazy" src="img/07.png"  class=PreviewImg>
+<img src="img/7.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(7)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式8</h3>
-<img loading="lazy" src="img/08.png"  class=PreviewImg>
+<img src="img/8.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(8)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式9</h3>
-<img loading="lazy" src="img/09.png"  class=PreviewImg>
+<img src="img/9.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(9)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式10</h3>
-<img loading="lazy" src="img/10.png"  class=PreviewImg>
+<img src="img/10.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(10)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式11</h3>
-<img loading="lazy" src="img/11.png"  class=PreviewImg>
+<img src="img/11.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(11)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式12</h3>
-<img loading="lazy" src="img/12.png"  class=PreviewImg>
+<img src="img/12.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(12)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式13</h3>
-<img loading="lazy" src="img/13.png"  class=PreviewImg>
+<img src="img/13.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(13)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式14</h3>
-<img loading="lazy" src="img/14.png"  class=PreviewImg>
+<img src="img/14.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(14)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式15</h3>
-<img loading="lazy" src="img/15.png"  class=PreviewImg>
+<img src="img/15.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(15)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式16</h3>
-<img loading="lazy" src="img/16.png"  class=PreviewImg>
+<img src="img/16.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(16)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式17</h3>
-<img loading="lazy" src="img/17.png"  class=PreviewImg>
+<img src="img/17.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(17)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式18</h3>
-<img loading="lazy" src="img/18.png"  class=PreviewImg>
+<img src="img/18.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(18)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式19</h3>
-<img loading="lazy" src="img/19.png"  class=PreviewImg>
+<img src="img/19.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(19)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式20</h3>
-<img loading="lazy" src="img/20.png"  class=PreviewImg>
+<img src="img/20.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(20)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式21</h3>
-<img loading="lazy" src="img/21.png"  class=PreviewImg>
+<img src="img/21.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(21)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式22</h3>
-<img loading="lazy" src="img/22.png"  class=PreviewImg>
+<img src="img/22.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(22)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式23</h3>
-<img loading="lazy" src="img/23.png"  class=PreviewImg>
+<img src="img/23.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(23)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式24</h3>
-<img loading="lazy" src="img/24.png"  class=PreviewImg>
+<img src="img/24.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(24)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式25</h3>
-<img loading="lazy" src="img/25.png"  class=PreviewImg>
+<img src="img/25.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(25)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式26</h3>
-<img loading="lazy" src="img/26.png"  class=PreviewImg>
+<img src="img/26.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(26)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式27</h3>
-<img loading="lazy" src="img/27.png"  class=PreviewImg>
+<img src="img/27.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(27)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式28</h3>
-<img loading="lazy" src="img/28.png"  class=PreviewImg>
+<img src="img/28.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(28)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式29</h3>
-<img loading="lazy" src="img/29.png"  class=PreviewImg>
+<img src="img/29.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(29)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式30</h3>
-<img loading="lazy" src="img/30.png"  class=PreviewImg>
+<img src="img/30.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(30)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式31</h3>
-<img loading="lazy" src="img/31.png"  class=PreviewImg>
+<img src="img/31.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(31)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式32</h3>
-<img loading="lazy" src="img/32.png"  class=PreviewImg>
+<img src="img/32.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(32)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式33</h3>
-<img loading="lazy" src="img/33.png"  class=PreviewImg>
+<img src="img/33.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(33)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式34</h3>
-<img loading="lazy" src="img/34.png"  class=PreviewImg>
+<img src="img/34.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(34)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式35</h3>
-<img loading="lazy" src="img/35.png"  class=PreviewImg>
+<img src="img/35.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(35)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式36</h3>
-<img loading="lazy" src="img/36.png"  class=PreviewImg>
+<img src="img/36.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(36)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式37</h3>
-<img loading="lazy" src="img/37.png"  class=PreviewImg>
+<img src="img/37.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(37)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式38</h3>
-<img loading="lazy" src="img/38.png"  class=PreviewImg>
+<img src="img/38.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(38)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式39</h3>
-<img loading="lazy" src="img/39.png"  class=PreviewImg>
+<img src="img/39.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(39)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式40</h3>
-<img loading="lazy" src="img/40.png"  class=PreviewImg>
+<img src="img/40.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(40)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式41</h3>
-<img loading="lazy" src="img/41.png"  class=PreviewImg>
+<img src="img/41.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(41)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式42</h3>
-<img loading="lazy" src="img/42.png"  class=PreviewImg>
+<img src="img/42.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(42)">打印/下载</button>
 </div>
 </div>
 <div align="center" class=PreviewDiv >
 <h3>样式43</h3>
-<img loading="lazy" src="img/43.png"  class=PreviewImg>
+<img src="img/43.jpg"  class=PreviewImg>
 <div  style="padding:5px;">
 <button onClick="printDiv(43)">打印/下载</button>
 </div>
@@ -369,11 +434,11 @@
 <div align="center">
 <div align="center" style="display:inline-block;">
 	<h2>下载二维码方式</h2>
-	<img loading="lazy" src="img/jc.gif"   style="padding:10px 80px;width:350px;">
+	<img  src="img/jc.gif"   style="padding:10px 80px;width:350px;">
 </div>
 <div id=firefoximg align="center" style="display:none;">
 	<h2>关闭“打印页眉和页脚”</h2>
-	<img loading="lazy" src="img/jc1.gif"  style="padding:10px 80px;height:598px;">
+	<img  src="img/jc1.gif"  style="padding:10px 80px;height:598px;">
 </div>
 </div>
  
@@ -381,7 +446,7 @@
 
 </div>
 <div id="d1" style="display:none;">
- <img loading="lazy" src="img/01.png"  class=PrintImg>
+ <img id=img1  src=""  class=PrintImg>
  <div id=c1 >
  <img src="" class=PrintQC style="left:219px;top:130px;" ><img src="" class=PrintQC style="left:593px;top:130px;" >
  <img src="" class=PrintQC style="left:219px;top:335px;" ><img src="" class=PrintQC style="left:593px;top:335px;" >
@@ -398,7 +463,7 @@
  </div>
 </div>
 <div id="d2" style="display:none">
- <img loading="lazy" src="img/02.png"  class=PrintImg>
+ <img id=img2  src=""  class=PrintImg style="display:block">
  <div id=c2>
  <img src="" class=PrintQC style="left:167px;top:108px;" ><img src="" class=PrintQC style="left:543px;top:108px;" >
  <img src="" class=PrintQC style="left:167px;top:313px;" ><img src="" class=PrintQC style="left:543px;top:313px;" >
@@ -415,7 +480,7 @@
 </div>
 </div>
 <div id="d3" style="display:none">
- <img loading="lazy" src="img/03.png"  class=PrintImg>
+ <img id=img3  src=""  class=PrintImg>
  <div id=c3>
  <img src="" class=PrintQC style="left:167px;top:108px;" ><img src="" class=PrintQC style="left:543px;top:108px;" >
  <img src="" class=PrintQC style="left:167px;top:313px;" ><img src="" class=PrintQC style="left:543px;top:313px;" >
@@ -424,15 +489,15 @@
  <img src="" class=PrintQC style="left:167px;top:928px;" ><img src="" class=PrintQC style="left:543px;top:928px;" >
 </div>
  <div id=b3>
- <img src="" class=PrintQC style="left:164px;top:107px;" ><img src="" class=PrintQC style="left:538px;top:107px;" >
- <img src="" class=PrintQC style="left:164px;top:310px;" ><img src="" class=PrintQC style="left:538px;top:310px;" >
- <img src="" class=PrintQC style="left:164px;top:510px;" ><img src="" class=PrintQC style="left:538px;top:510px;" >
- <img src="" class=PrintQC style="left:164px;top:712px;" ><img src="" class=PrintQC style="left:538px;top:712px;" >
- <img src="" class=PrintQC style="left:164px;top:908px;" ><img src="" class=PrintQC style="left:538px;top:908px;" >
+ <img src="" class=PrintQC style="left:164px;top:107px;" ><img src="" class=PrintQC style="left:535px;top:107px;" >
+ <img src="" class=PrintQC style="left:164px;top:310px;" ><img src="" class=PrintQC style="left:535px;top:310px;" >
+ <img src="" class=PrintQC style="left:164px;top:510px;" ><img src="" class=PrintQC style="left:535px;top:510px;" >
+ <img src="" class=PrintQC style="left:164px;top:712px;" ><img src="" class=PrintQC style="left:535px;top:712px;" >
+ <img src="" class=PrintQC style="left:164px;top:908px;" ><img src="" class=PrintQC style="left:535px;top:908px;" >
 </div>
 </div>
 <div id="d4" style="display:none">
- <img loading="lazy" src="img/04.png"  class=PrintImg>
+ <img id=img4  src=""  class=PrintImg>
  <div id=c4>
  <img src="" class=PrintQC style="left:93px;top:106px;" ><img src="" class=PrintQC style="left:469px;top:106px;" >
  <img src="" class=PrintQC style="left:93px;top:311px;" ><img src="" class=PrintQC style="left:469px;top:311px;" >
@@ -449,7 +514,7 @@
 </div>
 </div>
 <div id="d5" style="display:none">
- <img loading="lazy" src="img/05.png"  class=PrintImg>
+ <img id=img5  src=""  class=PrintImg>
  <div id=c5>
  <img src="" class=PrintQC style="left:220px;top:73px;" ><img src="" class=PrintQC style="left:597px;top:73px;" >
  <img src="" class=PrintQC style="left:220px;top:278px;" ><img src="" class=PrintQC style="left:597px;top:278px;" >
@@ -466,7 +531,7 @@
 </div>
 </div>
 <div id="d6" style="display:none">
- <img loading="lazy" src="img/06.png"  class=PrintImg>
+ <img id=img6  src=""  class=PrintImg>
  <div id="c6">
  <img src="" class=PrintQC style="left:83px;top:107px;" ><img src="" class=PrintQC style="left:462px;top:107px;" >
  <img src="" class=PrintQC style="left:83px;top:312px;" ><img src="" class=PrintQC style="left:462px;top:312px;" >
@@ -483,7 +548,7 @@
 </div>
 </div>
 <div id="d7" style="display:none">
- <img loading="lazy" src="img/07.png"  class=PrintImg>
+ <img id=img7  src=""  class=PrintImg>
   <div id="c7">
  <img src="" class=PrintQC style="left:80px;top:113px;" ><img src="" class=PrintQC style="left:457px;top:113px;" >
  <img src="" class=PrintQC style="left:80px;top:318px;" ><img src="" class=PrintQC style="left:457px;top:318px;" >
@@ -500,7 +565,7 @@
 </div>
 </div>
 <div id="d8" style="display:none">
- <img loading="lazy" src="img/08.png"  class=PrintImg>
+ <img id=img8  src=""  class=PrintImg>
  <div id="c8">
  <img src="" class=PrintQC style="left:120px;top:112px;" ><img src="" class=PrintQC style="left:498px;top:112px;" >
  <img src="" class=PrintQC style="left:120px;top:317px;" ><img src="" class=PrintQC style="left:498px;top:317px;" >
@@ -517,7 +582,7 @@
 </div>
 </div>
 <div id="d9" style="display:none">
- <img loading="lazy" src="img/09.png"  class=PrintImg>
+ <img id=img9  src=""  class=PrintImg>
  <div id="c9">
  <img src="" class=PrintQC style="left:186px;top:106px;" ><img src="" class=PrintQC style="left:563px;top:106px;" >
  <img src="" class=PrintQC style="left:186px;top:311px;" ><img src="" class=PrintQC style="left:563px;top:311px;" >
@@ -534,7 +599,7 @@
 </div>
 </div>
 <div id="d10" style="display:none">
- <img loading="lazy" src="img/10.png"  class=PrintImg>
+ <img id=img10  src=""  class=PrintImg>
  <div id="c10">
  <img src="" class=PrintQC style="left:165px;top:76px;" ><img src="" class=PrintQC style="left:543px;top:76px;" >
  <img src="" class=PrintQC style="left:165px;top:281px;" ><img src="" class=PrintQC style="left:543px;top:281px;" >
@@ -551,7 +616,7 @@
 </div>
 </div>
 <div id="d11" style="display:none">
- <img loading="lazy" src="img/11.png"  class=PrintImg>
+ <img id=img11  src=""  class=PrintImg>
  <div id="c11">
  <img src="" class=PrintQC style="left:44px;top:45px;" ><img src="" class=PrintQC style="left:422px;top:45px;" >
  <img src="" class=PrintQC style="left:44px;top:250px;" ><img src="" class=PrintQC style="left:422px;top:250px;" >
@@ -568,7 +633,7 @@
 </div>
 </div>
 <div id="d12" style="display:none">
- <img loading="lazy" src="img/12.png"  class=PrintImg>
+ <img id=img12  src=""  class=PrintImg>
  <div id="c12">
  <img src="" class=PrintQC style="left:206px;top:26px;" ><img src="" class=PrintQC style="left:584px;top:26px;" >
  <img src="" class=PrintQC style="left:206px;top:231px;" ><img src="" class=PrintQC style="left:584px;top:231px;" >
@@ -584,7 +649,7 @@
  <img src="" class=PrintQC style="left:203px;top:826px;" ><img src="" class=PrintQC style="left:574px;top:826px;" >
 </div></div>   
 <div id="d13" style="display:none">
- <img loading="lazy" src="img/13.png"  class=PrintImg>
+ <img id=img13  src=""  class=PrintImg>
  <div id="c13">
  <img src="" class=PrintQC style="left:201px;top:27px;" ><img src="" class=PrintQC style="left:578px;top:27px;" >
  <img src="" class=PrintQC style="left:201px;top:231px;" ><img src="" class=PrintQC style="left:578px;top:232px;" >
@@ -601,7 +666,7 @@
 </div> 
 </div>
 <div id="d14" style="display:none">
- <img loading="lazy" src="img/14.png"  class=PrintImg>
+ <img id=img14  src=""  class=PrintImg>
  <div id="c14">
  <img src="" class=PrintQC style="left:247px;top:99px;" ><img src="" class=PrintQC style="left:625px;top:99px;" >
  <img src="" class=PrintQC style="left:247px;top:303px;" ><img src="" class=PrintQC style="left:625px;top:303px;" >
@@ -618,7 +683,7 @@
 </div>
 </div>    
 <div id="d15" style="display:none">
- <img loading="lazy" src="img/15.png"  class=PrintImg>
+ <img id=img15  src=""  class=PrintImg>
  <div id="c15">
  <img src="" class=PrintQC style="left:160px;top:55px;" ><img src="" class=PrintQC style="left:537px;top:55px;" >
  <img src="" class=PrintQC style="left:160px;top:260px;" ><img src="" class=PrintQC style="left:537px;top:260px;" >
@@ -635,7 +700,7 @@
 </div>
 </div>
 <div id="d16" style="display:none">
- <img loading="lazy" src="img/16.png"  class=PrintImg>
+ <img id=img16  src=""  class=PrintImg>
  <div id="c16">
  <img src="" class=PrintQC style="left:224px;top:99px;" ><img src="" class=PrintQC style="left:600px;top:98px;" >
  <img src="" class=PrintQC style="left:224px;top:304px;" ><img src="" class=PrintQC style="left:600px;top:303px;" >
@@ -652,7 +717,7 @@
 </div>
 </div>
 <div id="d17" style="display:none">
- <img loading="lazy" src="img/17.png"  class=PrintImg>
+ <img id=img17  src=""  class=PrintImg>
 <div id="c17">
  <img src="" class=PrintQC style="left:70px;top:35px;" ><img src="" class=PrintQC style="left:447px;top:35px;" >
  <img src="" class=PrintQC style="left:70px;top:240px;" ><img src="" class=PrintQC style="left:447px;top:240px;" >
@@ -669,7 +734,7 @@
 </div>
 </div>
 <div id="d18" style="display:none">
- <img loading="lazy" src="img/18.png"  class=PrintImg>
+ <img id=img18  src=""  class=PrintImg>
  <div id="c18">
  <img src="" class=PrintQC style="left:133px;top:85px;" ><img src="" class=PrintQC style="left:511px;top:85px;" >
  <img src="" class=PrintQC style="left:133px;top:290px;" ><img src="" class=PrintQC style="left:511px;top:290px;" >
@@ -686,7 +751,7 @@
 </div>
 </div>
 <div id="d19" style="display:none">
- <img loading="lazy" src="img/19.png"  class=PrintImg>
+ <img id=img19  src=""  class=PrintImg>
  <div id="c19">
  <img src="" class=PrintQC style="left:65px;top:38px;" ><img src="" class=PrintQC style="left:443px;top:38px;" >
  <img src="" class=PrintQC style="left:65px;top:243px;" ><img src="" class=PrintQC style="left:443px;top:243px;" >
@@ -703,7 +768,7 @@
 </div>
 </div>
 <div id="d20" style="display:none">
- <img loading="lazy" src="img/20.png"  class=PrintImg>
+ <img id=img20  src=""  class=PrintImg>
  <div id="c20">
  <img src="" class=PrintQC style="left:143px;top:106px;" ><img src="" class=PrintQC style="left:519px;top:106px;" >
  <img src="" class=PrintQC style="left:143px;top:311px;" ><img src="" class=PrintQC style="left:519px;top:311px;" >
@@ -720,7 +785,7 @@
 </div>
 </div>
 <div id="d21" style="display:none">
- <img loading="lazy" src="img/21.png"  class=PrintImg>
+ <img id=img21  src=""  class=PrintImg>
  <div id="c21">
  <img src="" class=PrintQC style="left:215px;top:105px;" ><img src="" class=PrintQC style="left:592px;top:105px;" >
  <img src="" class=PrintQC style="left:215px;top:310px;" ><img src="" class=PrintQC style="left:592px;top:310px;" >
@@ -737,7 +802,7 @@
 </div>
 </div>
 <div id="d22" style="display:none">
- <img loading="lazy" src="img/22.png"  class=PrintImg>
+ <img id=img22  src=""  class=PrintImg>
  <div id="c22">
  <img src="" class=PrintQC style="left:64px;top:104px;" ><img src="" class=PrintQC style="left:442px;top:104px;" >
  <img src="" class=PrintQC style="left:64px;top:309px;" ><img src="" class=PrintQC style="left:442px;top:309px;" >
@@ -754,7 +819,7 @@
 </div> 
 </div> 
 <div id="d23" style="display:none">
- <img loading="lazy" src="img/23.png"  class=PrintImg>
+ <img id=img23  src=""  class=PrintImg>
  <div id="c23">
  <img src="" class=PrintQC style="left:90px;top:37px;" ><img src="" class=PrintQC style="left:467px;top:37px;" >
  <img src="" class=PrintQC style="left:90px;top:242px;" ><img src="" class=PrintQC style="left:467px;top:242px;" >
@@ -771,7 +836,7 @@
 </div>
 </div>
 <div id="d24" style="display:none">
- <img loading="lazy" src="img/24.png"  class=PrintImg>
+ <img id=img24  src=""  class=PrintImg>
  <div id="c24">
  <img src="" class=PrintQC style="left:246px;top:85px;" ><img src="" class=PrintQC style="left:624px;top:85px;" >
  <img src="" class=PrintQC style="left:246px;top:290px;" ><img src="" class=PrintQC style="left:624px;top:290px;" >
@@ -788,7 +853,7 @@
 </div>
 </div>
 <div id="d25" style="display:none">
- <img loading="lazy" src="img/25.png"  class=PrintImg>
+ <img id=img25  src=""  class=PrintImg>
  <div id="c25">
  <img src="" class=PrintQC style="left:215px;top:105px;" ><img src="" class=PrintQC style="left:592px;top:105px;" >
  <img src="" class=PrintQC style="left:215px;top:310px;" ><img src="" class=PrintQC style="left:592px;top:310px;" >
@@ -805,7 +870,7 @@
 </div>
 </div>
 <div id="d26" style="display:none">
- <img loading="lazy" src="img/26.png"  class=PrintImg>
+ <img id=img26  src=""  class=PrintImg>
  <div id="c26">
  <img src="" class=PrintQC style="left:44px;top:104px;" ><img src="" class=PrintQC style="left:422px;top:104px;" >
  <img src="" class=PrintQC style="left:44px;top:309px;" ><img src="" class=PrintQC style="left:422px;top:309px;" >
@@ -822,7 +887,7 @@
 </div> 
 </div>
 <div id="d27" style="display:none">
- <img loading="lazy" src="img/27.png"  class=PrintImg>
+ <img id=img27  src=""  class=PrintImg>
  <div id="c27">
  <img src="" class=PrintQC style="left:215px;top:105px;" ><img src="" class=PrintQC style="left:592px;top:105px;" >
  <img src="" class=PrintQC style="left:215px;top:310px;" ><img src="" class=PrintQC style="left:592px;top:310px;" >
@@ -839,7 +904,7 @@
 </div>
 </div>
 <div id="d28" style="display:none">
- <img loading="lazy" src="img/28.png"  class=PrintImg>
+ <img id=img28  src=""  class=PrintImg>
  <div id="c28">
  <img src="" class=PrintQC style="left:245px;top:41px;" ><img src="" class=PrintQC style="left:624px;top:41px;" >
  <img src="" class=PrintQC style="left:246px;top:246px;" ><img src="" class=PrintQC style="left:624px;top:246px;" >
@@ -856,7 +921,7 @@
 </div>
 </div>
 <div id="d29" style="display:none">
- <img loading="lazy" src="img/29.png"  class=PrintImg>
+ <img id=img29  src=""  class=PrintImg>
  <div id="c29">
  <img src="" class=PrintQC style="left:228px;top:104px;" ><img src="" class=PrintQC style="left:606px;top:104px;" >
  <img src="" class=PrintQC style="left:228px;top:309px;" ><img src="" class=PrintQC style="left:606px;top:309px;" >
@@ -873,7 +938,7 @@
 </div>
 </div>
 <div id="d30" style="display:none">
- <img loading="lazy" src="img/30.png"  class=PrintImg>
+ <img id=img30  src=""  class=PrintImg>
  <div id="c30">
  <img src="" class=PrintQC style="left:215px;top:105px;" ><img src="" class=PrintQC style="left:592px;top:105px;" >
  <img src="" class=PrintQC style="left:215px;top:310px;" ><img src="" class=PrintQC style="left:592px;top:310px;" >
@@ -890,7 +955,7 @@
 </div>
 </div>
 <div id="d31" style="display:none">
- <img loading="lazy" src="img/31.png"  class=PrintImg>
+ <img id=img31  src=""  class=PrintImg>
  <div id="c31">
  <img src="" class=PrintQC style="left:65px;top:91px;" ><img src="" class=PrintQC style="left:443px;top:91px;" >
  <img src="" class=PrintQC style="left:65px;top:296px;" ><img src="" class=PrintQC style="left:443px;top:296px;" >
@@ -907,7 +972,7 @@
 </div>
 </div>
 <div id="d32" style="display:none">
- <img loading="lazy" src="img/32.png"  class=PrintImg>
+ <img id=img32  src=""  class=PrintImg>
  <div id="c32">
  <img src="" class=PrintQC style="left:198px;top:85px;" ><img src="" class=PrintQC style="left:576px;top:85px;" >
  <img src="" class=PrintQC style="left:198px;top:290px;" ><img src="" class=PrintQC style="left:576px;top:290px;" >
@@ -924,7 +989,7 @@
 </div>
 </div>
 <div id="d33" style="display:none">
- <img loading="lazy" src="img/33.png"  class=PrintImg>
+ <img id=img33  src=""  class=PrintImg>
  <div id="c33">
  <img src="" class=PrintQC style="left:38px;top:124px;" ><img src="" class=PrintQC style="left:415px;top:124px;" >
  <img src="" class=PrintQC style="left:38px;top:329px;" ><img src="" class=PrintQC style="left:415px;top:329px;" >
@@ -941,7 +1006,7 @@
 </div>
 </div>
 <div id="d34" style="display:none">
- <img loading="lazy" src="img/34.png"  class=PrintImg>
+ <img id=img34  src=""  class=PrintImg>
  <div id="c34">
  <img src="" class=PrintQC style="left:198px;top:113px;" ><img src="" class=PrintQC style="left:576px;top:113px;" >
  <img src="" class=PrintQC style="left:198px;top:318px;" ><img src="" class=PrintQC style="left:576px;top:318px;" >
@@ -958,7 +1023,7 @@
 </div>
 </div>
 <div id="d35" style="display:none">
- <img loading="lazy" src="img/35.png"  class=PrintImg>
+ <img id=img35  src=""  class=PrintImg>
  <div id="c35">
  <img src="" class=PrintQC style="left:206px;top:84px;" ><img src="" class=PrintQC style="left:584px;top:84px;" >
  <img src="" class=PrintQC style="left:206px;top:290px;" ><img src="" class=PrintQC style="left:584px;top:289px;" >
@@ -975,7 +1040,7 @@
 </div>
 </div>
 <div id="d36" style="display:none">
- <img loading="lazy" src="img/36.png"  class=PrintImg>
+ <img id=img36  src=""  class=PrintImg>
  <div id="c36">
  <img src="" class=PrintQC style="left:79px;top:34px;" ><img src="" class=PrintQC style="left:456px;top:34px;" >
  <img src="" class=PrintQC style="left:79px;top:239px;" ><img src="" class=PrintQC style="left:456px;top:239px;" >
@@ -992,7 +1057,7 @@
 </div>
 </div>
 <div id="d37" style="display:none">
- <img loading="lazy" src="img/37.png"  class=PrintImg>
+ <img id=img37  src=""  class=PrintImg>
  <div id="c37">
  <img src="" class=PrintQC style="left:212px;top:34px;" ><img src="" class=PrintQC style="left:590px;top:34px;" >
  <img src="" class=PrintQC style="left:212px;top:239px;" ><img src="" class=PrintQC style="left:590px;top:239px;" >
@@ -1009,7 +1074,7 @@
 </div> 
 </div>   
 <div id="d38" style="display:none">
- <img loading="lazy" src="img/38.png"  class=PrintImg>
+ <img id=img38  src=""  class=PrintImg>
  <div id="c38">
  <img src="" class=PrintQC style="left:83px;top:54px;" ><img src="" class=PrintQC style="left:461px;top:54px;" >
  <img src="" class=PrintQC style="left:83px;top:259px;" ><img src="" class=PrintQC style="left:461px;top:259px;" >
@@ -1026,7 +1091,7 @@
 </div>
 </div>
 <div id="d39" style="display:none">
- <img loading="lazy" src="img/39.png"  class=PrintImg>
+ <img id=img39  src=""  class=PrintImg>
  <div id="c39">
  <img src="" class=PrintQC style="left:248px;top:114px;" ><img src="" class=PrintQC style="left:625px;top:114px;" >
  <img src="" class=PrintQC style="left:248px;top:319px;" ><img src="" class=PrintQC style="left:625px;top:319px;" >
@@ -1043,7 +1108,7 @@
 </div>
 </div>
 <div id="d40" style="display:none">
- <img loading="lazy" src="img/40.png"  class=PrintImg>
+ <img id=img40  src=""  class=PrintImg>
   <div id="c40">
  <img src="" class=PrintQC style="left:228px;top:132px;" ><img src="" class=PrintQC style="left:605px;top:132px;" >
  <img src="" class=PrintQC style="left:228px;top:337px;" ><img src="" class=PrintQC style="left:605px;top:337px;" >
@@ -1058,8 +1123,9 @@
  <img src="" class=PrintQC style="left:225px;top:733px;" ><img src="" class=PrintQC style="left:594px;top:733px;" >
  <img src="" class=PrintQC style="left:225px;top:933px;" ><img src="" class=PrintQC style="left:594px;top:933px;" >
 </div>
+</div>
 <div id="d41" style="display:none">
- <img loading="lazy" src="img/41.png"  class=PrintImg>
+ <img id=img41  src=""  class=PrintImg>
  <div id="c41">
  <img src="" class=PrintQC style="left:36px;top:126px;" ><img src="" class=PrintQC style="left:414px;top:126px;" >
  <img src="" class=PrintQC style="left:36px;top:331px;" ><img src="" class=PrintQC style="left:414px;top:331px;" >
@@ -1076,7 +1142,7 @@
 </div>
 </div>
 <div id="d42" style="display:none">
- <img loading="lazy" src="img/42.png"  class=PrintImg>
+ <img id=img42  src=""  class=PrintImg>
  <div id="c42">
  <img src="" class=PrintQC style="left:234px;top:115px;" ><img src="" class=PrintQC style="left:611px;top:114px;" >
  <img src="" class=PrintQC style="left:234px;top:320px;" ><img src="" class=PrintQC style="left:611px;top:320px;" >
@@ -1093,7 +1159,7 @@
 </div>
 </div>
 <div id="d43" style="display:none;">
- <img loading="lazy" src="img/43.png"  class=PrintImg>
+ <img id=img43  src="" class=PrintImg >
  <div id="c43">
  <img src="" class=PrintQC style="left:234px;top:115px;" ><img src="" class=PrintQC style="left:611px;top:114px;" >
  <img src="" class=PrintQC style="left:234px;top:320px;" ><img src="" class=PrintQC style="left:611px;top:320px;" >
@@ -1110,38 +1176,100 @@
 </div>
 </div>
 
- </div>
+ <div id="show" style="display:block;"></div>
+
 <script>
-	//浏览器判断
+	//文本输入
+	document.addEventListener("DOMContentLoaded", function() {
+    var input = document.getElementById('qrtext');
+    input.value = '请在此输入翻墙网址'; 
+	input.style.fontSize = '1em'; 
+    input.addEventListener('focus', function() { 
+        if (this.value === '请在此输入翻墙网址') { 
+            this.value = ''; 
+            this.style.color = 'black'; 
+        }
+    });
+    input.addEventListener('blur', function() { 
+        if (this.value === '') {
+            this.value = '请在此输入翻墙网址'; 
+            this.style.color = 'gray'; 
+        }
+    });
+});
+	 //浏览器判断
     var ua = navigator.userAgent;
     var M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+	var y = document.getElementsByClassName("PrintQC");
+
     if (M[1] == 'Firefox') {
 	var firefoxdiv = document.getElementById("firefoxdiv"),
 		firefoximg = document.getElementById("firefoximg");
 		firefoxdiv.style.display="block";
 		firefoximg.style.display="inline-block";
-		for (i = 1; i < 44; i++) {	
-			eval('b'+i).style.display="block";
- 			}
-	} else {
-		for (i = 1; i < 44; i++) {
-			eval('c'+i).style.display="block";
- 			}
-	}
-
+	} 
+	//打印输出
     function printDiv(i) {
-		var divToPrint = eval('d'+i).innerHTML;
 		var originalContents = document.body.innerHTML;
-		document.body.innerHTML = divToPrint;
-		window.print();
-		document.body.innerHTML = originalContents;
-  	  }
+		openModal();
+		const container = document.getElementById('show');
+		const m = eval('c'+i);
+		const n = eval('b'+i);
+		const y = document.getElementsByClassName("PrintQC");
+		const img = new Image();
+  		const style = document.createElement('style');
+  		style.textContent = `
+    	@page {
+		size: A4;
+ 		@top-center {
+		 content:"" ; /* 设置页眉内容 */
+		 font-size: 12pt;
+		 }
+		 @bottom-center {
+		 content:""; /* 设置页脚内容，包含页码 */
+		 font-size: 10pt;
+		 }
+	 	}
+	 	}
+  		`;
+		img.src = 'img/'+i+'.png';
+		img.style.position='absolute';
+		img.style.display='block';
+		img.style.height='98%';
+		for (i = 0; i < y.length; i++) {
+			y[i].style.position='absolute';
+			y[i].style.display='block';
+			y[i].style.height='55px';
+ 		}
+         img.onload = function()  {
+			container.appendChild(style);
+        	container.appendChild(img); // 将图片添加到容器
+			
+			if (M[1] == 'Firefox') {
+				container.appendChild(n); 
+			} else {
+				container.appendChild(m); 
+			}
+			//newWin = window.open('');
+			var divToPrint = container.innerHTML;
+			
+			document.body.innerHTML = divToPrint;
+			window.print();
+			document.body.innerHTML = originalContents;
+			//newWin.close();
+			closeModal();
+			};
+			img.onerror = function() {
+  			 alert("图片加载失败，请重新刷新页面再试。");
+			};
+	 }
+
+//二维码选择
 	function QCButton(o) {
 		var f1=document.getElementById("f1"),
 		f2=document.getElementById("f2"),
+		f3=document.getElementById("f3"),
 		x = document.getElementsByClassName("PrintQC");
-		f1.style.backgroundColor = o == 1 ? "#f67900" : "white" ;
-		f2.style.backgroundColor = o == 2 ? "#f67900" : "white" ;
 		if (o==1) {
  			for (i = 0; i < x.length; i++) {
 				x[i].src = "http://www.szzd.org/4fJ7V";
@@ -1152,12 +1280,73 @@
 				x[i].src = "http://www.szzd.org/kF9uk";
  			}
 		}
+		if (o==3) {
+		if (qrcodetext.innerHTML == "") {
+		alert("请先生成翻墙二维码！");
+		return;
+		}
+		var qrauto = document.getElementById('qrauto').src;
+		for (i = 0; i < x.length; i++) {
+			x[i].src = qrauto;
+ 		}
+		}
+		f1.style.backgroundColor = o == 1 ? "#f67900" : "white" ;
+		f2.style.backgroundColor = o == 2 ? "#f67900" : "white" ;
+		f3.style.backgroundColor = o == 3 ? "#f67900" : "white" ;
 		
     }
 	QCButton(1);
+    function showQRCode(id, text, size){
+        if(!window.QRCode){
+            return;
+        }
+        var div = document.getElementById(id);
+		if(div){
+			div.innerHTML = '';
+			new QRCode(div, {
+				text: text,
+				width: size,
+				height: size,
+				colorDark: "#000000",
+				colorLight: "#ffffff",
+				correctLevel: QRCode.CorrectLevel.L
+			});
+		}
+    }
+	
+	function qrinput (){
+	showQRCode('qrcodetext', qrtext.value, 105);
+	}
 
 </script>
-
+<script>	//提示框
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+ 
+function openModal() {
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+  modal.style.display = "block"; // 显示模态框
+}
+ 
+function closeModal() {
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+  modal.style.display = "none"; // 隐藏模态框
+}
+ 
+span.onclick = function() {
+  closeModal(); // 点击关闭按钮关闭模态框
+}
+ 
+window.onclick = function(event) { // 点击模态框外部关闭模态框（可选）
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+</script>
  
 </body>
 </html>
