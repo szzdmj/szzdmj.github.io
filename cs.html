@@ -3063,15 +3063,15 @@ function FoundSite(site){
 		}	
 	}
 	//处理电子书链接
-	var	szmjlinkebook=document.querySelectorAll('.szmjlinkebook');
-	for (var i = 0; i<szmjlinkebook.length; i++) {
-		var alinkebook=szmjlinkebook[i].getElementsByTagName('a');
-		for (var j = 0; j<alinkebook.length; j++) {	
-			var lbnumebook=alinkebook[j].href.lastIndexOf("/",alinkebook.length -2),
-				lblinks=alinkebook[j].href.substring(lbnumebook);
-			alinkebook[j].href = window.szsite + lblinks;
-		}	
-	}
+	//var	szmjlinkebook=document.querySelectorAll('.szmjlinkebook');
+	//for (var i = 0; i<szmjlinkebook.length; i++) {
+	//	var alinkebook=szmjlinkebook[i].getElementsByTagName('a');
+	//	for (var j = 0; j<alinkebook.length; j++) {	
+	//		var lbnumebook=alinkebook[j].href.lastIndexOf("/",alinkebook.length -2),
+	//			lblinks=alinkebook[j].href.substring(lbnumebook);
+	//		alinkebook[j].href = window.szsite + lblinks;
+	//	}	
+	//}
 	
 	try{
 		$("#qrcode_text").html('<a href="'+site+'/0/" target="_blank">'+site+'/0/</a>');
@@ -3127,15 +3127,15 @@ function NotFoundSite(){
 			}	
 		}
 		//处理电子书链接
-		var	szmjlinkebook=document.querySelectorAll('.szmjlinkebook');
-		for (var i = 0; i<szmjlinkebook.length; i++) {
-			var alinkebook=szmjlinkebook[i].getElementsByTagName('a');
-			for (var j = 0; j<alinkebook.length; j++) {	
-				var lbnumebook=alinkebook[j].href.lastIndexOf("/",alinkebook.length -2),
-					lblinks=alinkebook[j].href.substring(lbnumebook);
-				alinkebook[j].href = "http://www.szzd.org" + lblinks;
-			}	
-		}
+		//var	szmjlinkebook=document.querySelectorAll('.szmjlinkebook');
+		//for (var i = 0; i<szmjlinkebook.length; i++) {
+		//	var alinkebook=szmjlinkebook[i].getElementsByTagName('a');
+		//	for (var j = 0; j<alinkebook.length; j++) {	
+		//		var lbnumebook=alinkebook[j].href.lastIndexOf("/",alinkebook.length -2),
+		//			lblinks=alinkebook[j].href.substring(lbnumebook);
+		//		alinkebook[j].href = "http://www.szzd.org" + lblinks;
+		//	}	
+		//}
 	}
 	console.log(url,domain,tld);
 	$('#loading').text("未找到节点");
@@ -3266,7 +3266,7 @@ function checkScreenWidth() {
 	var width = window.innerWidth || document.documentElement.clientWidth;
 	var height = window.innerHeight || document.documentElement.clientHeight;
 	var newstdCount = document.getElementsByClassName("newstd").length;
-	//处理轮播放新闻
+	//处理轮播新闻
 	if (width < 680) {
 		wipper.style.width="700vw";
 		lblis.style.width="100%";
