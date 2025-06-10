@@ -3120,9 +3120,9 @@ function NotFoundSite(){
 		var	szmjlink=document.querySelectorAll('.szmjlink');
 		for (var i = 0; i<szmjlink.length; i++) {
 			var alinkebook=szmjlink[i].getElementsByTagName('a');
-			for (var j = 0; j<alink.length; j++) {	
-				var lbnum=alink[j].href.lastIndexOf("/"),
-					lblinks=alink[j].href.substring(lbnum);
+			for (var j = 0; j<alinkebook.length; j++) {	
+				var lbnum=alinkebook[j].href.lastIndexOf("/"),
+					lblinks=alinkebook[j].href.substring(lbnum);
 				alinkebook[j].href = "http://www.szzd.org" + lblinks;
 			}	
 		}
@@ -3260,6 +3260,7 @@ var x = document.getElementsByClassName("lbnews"),
 	lbnews = document.getElementById('lbnews'),
 	lis=document.getElementsByClassName('lis')[0],
 	lblisspan=lis.getElementsByTagName('span'),
+	lblisimg=lis.querySelectorAll('span img'),
 	vpheight = '403px';
 function checkScreenWidth() {
 	var gjwdiv = document.getElementById("gjwdiv");
@@ -3272,15 +3273,19 @@ function checkScreenWidth() {
 		lblis.style.width="100%";
 		for (var i = 0; i<lbimgs.length; i++) {
  			 lbimgs[i].style.width="100vw";
+			 lbimgs[i].style.height=lbimgs[i].offsetWidth * 0.562 +"px";
 			 lbimgs[i].classList.remove("max-height");
-			 lbdiv[i].style.width="100vw";
+			 lbdiv[i].style.maxWidth="100vw";
 			 if ( i<lblisspan.length ) {
 			 lblisspan[i].style.width="14.5vw";
+			 lblisimg[i].style.height=lblisspan[i].offsetWidth * 0.562 +"px";
 			 lblisspan[i].style.margin=0;
 			 }
 			if (i == 0) {
-				lbbox.style.height = lbdiv[0].offsetHeight + 140 - 15000/lbdiv[0].offsetHeight + "px";
-				lbnews.style.height = lbdiv[0].offsetHeight + 190 - 15000/lbdiv[0].offsetHeight + "px";
+			lbbox.style.height = width-270+((5950-width)/width)*15 + "px";
+			lbnews.style.height = width-220+((5950-width)/width)*15 + "px";
+				//lbbox.style.height = lbdiv[0].offsetHeight + 140 - 15000/lbdiv[0].offsetHeight + "px";
+				//lbnews.style.height = lbdiv[0].offsetHeight + 190 - 15000/lbdiv[0].offsetHeight + "px";
 			}
 		}	
 	} else {
@@ -3288,7 +3293,7 @@ function checkScreenWidth() {
 		lblis.style.width="680px";
 		for (var i = 0; i<lbimgs.length; i++) {
  			 lbimgs[i].style.width="100%";
-			 lbimgs[i].style.maxheight="382px";
+			 lbimgs[i].style.maxHeight="382px";
 			 lbdiv[i].style.width="680px";
 			 if ( i<lblisspan.length ) {
 				lblisspan[i].style.width="107px";
@@ -3296,6 +3301,7 @@ function checkScreenWidth() {
 			 }
 			 if (i == 0) {
 				lbbox.style.height= "528px";
+				lblisimg[i].style.maxHeight= "60px";
 				lbnews.style.height = "580px";
 			}
 		}	
