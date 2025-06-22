@@ -756,8 +756,7 @@ li{list-style: none;}
 <div style="width:100%;padding:20px 0;">
 <h4 style="font-weight:bold">《话说当年四二五》</h4>
 <div style="max-width:90%;padding-top:10px;margin:auto;color:#666666" >
-节选：十四年前，即一九九九年四月二十五日，逾万法
-节选：轮功学员自愿到北京和平上访。这个出现在中共统治下的民众大规模和平上访，震动了世界，被视为中国历史上的奇迹。随后，江泽民集团在七月二十日在全国范围内发动了对法轮功学员的大抓捕，对修炼人的惨烈迫害从此开始…
+节选：十四年前，即一九九九年四月二十五日，逾万法轮功学员自愿到北京和平上访。这个出现在中共统治下的民众大规模和平上访，震动了世界，被视为中国历史上的奇迹。随后，江泽民集团在七月二十日在全国范围内发动了对法轮功学员的大抓捕，对修炼人的惨烈迫害从此开始…
 <p style="color:#f67900;padding-top:5px">下载：
 <a href="/book_html/话说当年四二五.pdf"target="_blank">pdf</a>
 </p>
@@ -949,8 +948,8 @@ li{list-style: none;}
 <div style="clear: both;"></div >
 <div id=vedio2 style="width:100%;">
 	<div style="height:2.5em;z-index:1000;table-layout:fixed;font-family:黑体;font-size:1.3em;" >神州明见-干净世界视频</div>
-	<div id="ganjingVideo" style="background-color:white;display:inline-block;width:80%" class=shadow0>
-		<table cellspacing=0 cellpadding=0 class=tb4 width=100% class="szmjlink">
+	<div id="ganjingVideo" style="background-color:white;display:inline-block;width:80%;font-weight:normal;" class=shadow0>
+		<table cellspacing=0 cellpadding=0 class=tb4 width=100% >
 		<tr>
 		<td><h3 style="color:#001fc6;">主要媒体</h3></td>
 		</tr>
@@ -1173,11 +1172,11 @@ li{list-style: none;}
 * 可以使用化名三退<br>
 </div>
 </div>
-<div align="center" class="santui szmjlink">
+<div align="center" class="santui">
 	<a href="/10" target="_blank" noproxy><span style="color:#003399">我 要 声 明 三 退</span></a>
 </div>
 <div style="color:#666666;margin-top:10px;padding-bottom:30px;">
-<a href="/10" target="_blank" style="color:#666666;" noproxy class="szmjlink">点击进入“全球退党服务中心”官网</a><br>或发邮件到三退邮箱（有人值守）<a href="mailto:feedback@shenzhouzhengdao.org" style="color:#666666;">feedback@shenzhouzhengdao.org</a>
+<a href="/10" target="_blank" style="color:#666666;" noproxy>点击进入“全球退党服务中心”官网</a><br>或发邮件到三退邮箱（有人值守）<a href="mailto:feedback@shenzhouzhengdao.org" style="color:#666666;">feedback@shenzhouzhengdao.org</a>
 </div>
 	<div align=center id=stcenter style="display:none;padding-bottom:20px;width:100%">
 		<div align="left" style="width:90%">
@@ -2110,6 +2109,8 @@ function start_marquee(html){
 }
 </script>
 <script >
+//关闭代理时的导航条
+var force_btmnv=0;
 // 修改软件的文件名和说明，每个文件一行。file 为源文件名，title 为文件说明。type 是分类，dir 是该分类所在目录。
 var g_aList1 = [
 	{type:"电脑、安卓、苹果设备点击直接翻墙网址",dir:"网络直连"},
@@ -2145,7 +2146,7 @@ var g_aList3 = [
 	{file:"https://video1-us-west.cloudokyo.cloud/video/v9/17/2b/51/172b517e-fc89-4229-bebc-06d113f6d1a1/master.m3u8",title:"“四·二五”北京府右街万人大上访"},
 	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/84/eb/10/84eb10f8-aef4-4902-8ccb-6da5c6c4ff14/master.m3u8",title:"伪火:“天安门自焚”真相"},
 	{file:"https://video5-us-west.cloudokyo.cloud/video/v4/ed/80/9e/ed809ec0-bbe6-464d-8d24-39cc9b5aa4a3/master.m3u8",title:"解析“1400例”"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v5/d0/47/ed/d047ed89-b0c8-4bde-95c5-730f79956034/master.m3u8",title:"红朝阴谋<br>-这个星球上从未有过的邪恶"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v5/d0/47/ed/d047ed89-b0c8-4bde-95c5-730f79956034/master.m3u8",title:"红朝阴谋<br>— 这个星球上从未有过的邪恶"},
 	{file:"https://video5-us-east.cloudokyo.cloud/video/v7/94/5d/cc/945dccbb-1814-490d-b8c9-856ad7afb12d/master.m3u8",title:"法轮大法功法介绍 "},
 	{file:"https://video5-us-west.cloudokyo.cloud/video/v5/4b/3d/99/4b3d9939-c8c6-48f9-a4d5-42ab7ac9f714/master.m3u8",title:"法轮功创始人李洪志大师发表<br>《为什么会有人类》"},
 	{file:"https://video4-us-east.cloudokyo.cloud/video/v5/32/89/ef/3289eff2-1eb7-4107-9d33-6ab068da3f5c/master.m3u8",title:"法轮功创始人李洪志大师发表<br>《为什么要救度众生》"},
@@ -2153,52 +2154,52 @@ var g_aList3 = [
 	//{file:"https://video3-us-east.cloudokyo.cloud/video/v12/6f/c1/8e/6fc18e41-731a-4de3-bb82-120eaadbc3a9/master.m3u8",title:"【特稿】法轮功创始人传功和生活的故事"},
 	//{file:"https://video5-us-east.cloudokyo.cloud/video/v12/77/3c/4b/773c4b4d-5c8e-4c47-be60-83ba141af28c/master.m3u8",title:"【特别报导】李洪志师父工作和生活点滴"},
 	//{file:"https://video5-us-east.cloudokyo.cloud/video/v12/31/a7/46/31a74659-4678-46dc-bb80-aff45103c7a2/master.m3u8",title:"新唐人特别节目 《5·13 话师恩》"},
-	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8",title:"【传奇时代纪录片】<br>雪中梅"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/b2/9a/a2/b29aa2f0-be40-43ba-b3a2-d25fe1ab54b6/master.m3u8",title:"【传奇时代纪录片】<br>红墙的记忆"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/48/88/5a/48885a51-244e-4f90-923e-66197a1ebd33/master.m3u8",title:"【传奇时代纪录片】<br>通往天安门的旅程"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/a5/92/46/a5924680-047e-4d17-ad3a-26afc54eba8d/master.m3u8",title:"【传奇时代纪录片】<br>欧洲的抉择 "},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/a1/39/d2/a139d20d-0418-404f-8989-1396bbd0466b/master.m3u8",title:"【传奇时代纪录片】<br>义诉"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/db/87/7e/db877eb0-5f27-47ac-9252-02de0a4e9f67/master.m3u8",title:"【传奇时代纪录片】<br>从头再来"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/87/cc/f2/87ccf27c-1e89-4925-84cd-9ba1d4453223/master.m3u8",title:"【传奇时代纪录片】<br>御风而行（上）香港人不怕"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/85/ef/f2/85eff259-da77-43dd-b73b-4135b398de64/master.m3u8",title:"【传奇时代纪录片】<br>御风而行（下集）：逆境追光"},
-	{file:"https://video2-us-west.cloudokyo.cloud/video/v3/e7/7b/d6/e77bd6fc-95b3-4122-904a-c1ad396c0a96/master.m3u8",title:"【传奇时代纪录片】<br>街对面的烛光"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/85/5e/6f/855e6f5c-72ca-45c6-a27c-5c5ebafe9133/master.m3u8",title:"【传奇时代纪录片】<br>扶摇直上 "},
-	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/9e/b5/89/9eb58900-22a5-4b16-b508-cd74e7fe3e08/master.m3u8",title:"【传奇时代纪录片】<br>罗大厨的百味人生"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/50/ba/3a/50ba3ab7-0739-4849-986e-85a5c79e5000/master.m3u8",title:"【传奇时代纪录片】<br>漫漫团圆路"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/17/8d/e5/178de5ec-68f4-40f9-afca-e0ec0ee21681/master.m3u8",title:"【传奇时代纪录片】<br>天国乐团"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/32/87/73/32877323-7be2-49a7-b83a-7f6f756ce528/master.m3u8",title:"【传奇时代纪录片】<br>功夫 - 寻道"},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8",title:"【传奇时代纪录片】<br>— 雪中梅"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/b2/9a/a2/b29aa2f0-be40-43ba-b3a2-d25fe1ab54b6/master.m3u8",title:"【传奇时代纪录片】<br>— 红墙的记忆"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/48/88/5a/48885a51-244e-4f90-923e-66197a1ebd33/master.m3u8",title:"【传奇时代纪录片】<br>— 通往天安门的旅程"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/a5/92/46/a5924680-047e-4d17-ad3a-26afc54eba8d/master.m3u8",title:"【传奇时代纪录片】<br>— 欧洲的抉择 "},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/a1/39/d2/a139d20d-0418-404f-8989-1396bbd0466b/master.m3u8",title:"【传奇时代纪录片】<br>— 义诉"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/db/87/7e/db877eb0-5f27-47ac-9252-02de0a4e9f67/master.m3u8",title:"【传奇时代纪录片】<br>— 从头再来"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/87/cc/f2/87ccf27c-1e89-4925-84cd-9ba1d4453223/master.m3u8",title:"【传奇时代纪录片】<br>— 御风而行（上）香港人不怕"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/85/ef/f2/85eff259-da77-43dd-b73b-4135b398de64/master.m3u8",title:"【传奇时代纪录片】<br>— 御风而行（下集）：逆境追光"},
+	{file:"https://video2-us-west.cloudokyo.cloud/video/v3/e7/7b/d6/e77bd6fc-95b3-4122-904a-c1ad396c0a96/master.m3u8",title:"【传奇时代纪录片】<br>— 街对面的烛光"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/85/5e/6f/855e6f5c-72ca-45c6-a27c-5c5ebafe9133/master.m3u8",title:"【传奇时代纪录片】<br>— 扶摇直上 "},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/9e/b5/89/9eb58900-22a5-4b16-b508-cd74e7fe3e08/master.m3u8",title:"【传奇时代纪录片】<br>— 罗大厨的百味人生"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/50/ba/3a/50ba3ab7-0739-4849-986e-85a5c79e5000/master.m3u8",title:"【传奇时代纪录片】<br>— 漫漫团圆路"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/17/8d/e5/178de5ec-68f4-40f9-afca-e0ec0ee21681/master.m3u8",title:"【传奇时代纪录片】<br>— 天国乐团"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/32/87/73/32877323-7be2-49a7-b83a-7f6f756ce528/master.m3u8",title:"【传奇时代纪录片】<br>— 功夫 - 寻道"},
 	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/ca/f9/6b/caf96b08-d40c-41ca-9ca1-cff916f22e45/master.m3u8",title:"飞向自由的海鸥"},
-	{file:"https://video4-us-east.cloudokyo.cloud/video/v6/64/78/55/6478550a-385e-412f-904c-5151f8eeca29/master.m3u8",title:"【为你而来】<br>-根据一个影响了一亿人的真实故事改编"},
-	{file:"https://video3-us-east.cloudokyo.cloud/video/v5/e7/76/ae/e776ae85-76b7-4e31-8111-146505a8d41c/master.m3u8",title:"【为你而来II】<br>-永恒的五十分钟"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v6/64/78/55/6478550a-385e-412f-904c-5151f8eeca29/master.m3u8",title:"【为你而来】<br>— 根据一个影响了一亿人的真实故事改编"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v5/e7/76/ae/e776ae85-76b7-4e31-8111-146505a8d41c/master.m3u8",title:"【为你而来II】<br>— 永恒的五十分钟"},
 	{file:"https://video2-us-east.cloudokyo.cloud/video/v6/0b/d8/b3/0bd8b3df-8ce6-4dd2-927e-70d7700fb83e/master.m3u8",title:"四亿人的觉醒"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/06/dc/93/06dc93ef-98f2-4182-886c-6268b490a37c/master.m3u8",title:"【欺世伪火】<br>－揭开天安门自焚伪案的震撼内幕和来龙去脉"},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/6b/77/62/6b776280-1178-4b07-a050-ca5bbec1a421/master.m3u8",title:"【风雨天地行】<br>片头 "},
-	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/69/bc/38/69bc389a-0622-444a-860f-3199ed119ade/master.m3u8",title:"【风雨天地行】<br>之「清音」篇"},
-	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/a4/25/31/a4253134-0e7f-4d0b-ab33-736d817bc176/master.m3u8",title:"【风雨天地行】<br>之「审判」篇"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/3c/d4/2f/3cd42f02-9422-43f3-b2fa-e517e91f2dfa/master.m3u8",title:"【风雨天地行】<br>之「历劫」篇"},
-	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/be/f3/e4/bef3e411-b742-4f5a-847c-37f065b9160c/master.m3u8",title:"【风雨天地行】<br>之「风雨」篇"},
-	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/88/4d/42/884d4242-c3d6-486a-8507-6fdbabc9a34e/master.m3u8",title:"【风雨天地行】<br>之「同心」篇"},
-	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/0e/07/a1/0e07a114-4d1b-4fb3-8093-d9356af6f7d9/master.m3u8",title:"【九评之一】<br>评共产党是什么"},
-	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/08/cb/09/08cb09e7-4cf7-4619-8284-34d2ddf29540/master.m3u8",title:"【九评之二】<br>评中国共产党是怎样起家的"},
-	{file:"https://video3-us-east.cloudokyo.cloud/video/v5/1b/45/14/1b4514a7-7b14-400d-8ae1-c69d9b04b71f/master.m3u8",title:"【九评之三】<br>评中国共产党的暴政 "},
-	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/f6/ed/f1/f6edf128-3ca2-4268-896e-71aae06a75a5/master.m3u8",title:"【九评之四】<br>评共产党是反宇宙的力量"},
-	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/24/56/54/2456545a-cfb1-4e15-9325-6161fe8e8bd4/master.m3u8",title:"【九评之五】<br>评江泽民与中共相互利用迫害法轮功"},
-	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/9f/7e/47/9f7e4797-1acf-4630-95ba-0f685efec852/master.m3u8",title:"【九评之六】<br>评中国共产党破坏民族文化"},
-	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/06/54/b6/0654b6a7-c504-46c4-9c70-cf5b27da852b/master.m3u8",title:"【九评之七】<br>评中国共产党的杀人历史"},
-	{file:"https://video4-us-east.cloudokyo.cloud/video/v5/41/33/7a/41337af6-7918-4b5c-b5a7-bcdf8448c62c/master.m3u8",title:"【九评之八】<br>评中国共产党的邪教本质"},
-	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/e4/44/90/e4449082-1143-4947-abdd-8cef65c84ea4/master.m3u8",title:"【九评之九】<br>评中国共产党的流氓本性"},
-	{file:"https://video5-us-east.cloudokyo.cloud/video/v9/c7/01/91/c7019185-2239-4211-8d65-89b6e0714799/master.m3u8",title:"【我们告诉未来】<br>第一集： 气功铺路"},
-	{file:"https://video5-us-east.cloudokyo.cloud/video/v9/b9/a8/0e/b9a80ec4-8c7f-4fda-bcc4-13d39348e345/master.m3u8",title:"【我们告诉未来】<br>第二集：大法开传"},
-	{file:"https://video3-us-east.cloudokyo.cloud/video/v10/a2/80/c5/a280c5b9-8f56-4ab1-9e93-69905e2aa7fc/master.m3u8",title:"【我们告诉未来】<br>第三集：破谜与正心"},
-	{file:"https://video3-us-east.cloudokyo.cloud/video/v10/a7/08/44/a70844fe-a222-40e4-9620-a0a1b93359c7/master.m3u8",title:"【我们告诉未来】<br>第四集：从常人到修炼人"},
-	{file:"https://video1-us-east.cloudokyo.cloud/video/v6/1f/43/e3/1f43e37c-135c-446d-8257-e347d6d6106c/master.m3u8",title:"【我们告诉未来】<br>第五集：山雨欲来"},
-	{file:"https://video1-us-east.cloudokyo.cloud/video/v6/6a/50/08/6a5008d5-3573-4b5b-bc77-f412e46d2fb7/master.m3u8",title:"【我们告诉未来】<br>第六集：在魔难中"},
-	{file:"https://video2-us-east.cloudokyo.cloud/video/v6/3b/e2/8c/3be28cf6-4038-4078-b1b5-ce3f20520e5e/master.m3u8",title:"【我们告诉未来】<br>第七集：艰难岁月"},
-	{file:"https://video3-us-east.cloudokyo.cloud/video/v6/55/f0/aa/55f0aabf-5251-4f17-9e7b-3dd260f60184/master.m3u8",title:"【我们告诉未来】<br>第八集：真相与人心"},
-	{file:"https://video1-us-east.cloudokyo.cloud/video/v7/db/a5/e8/dba5e824-c5be-4600-a5da-28735c57874c/master.m3u8",title:"【我们告诉未来】<br>第九集：来源与使命"},
-	{file:"https://video4-us-east.cloudokyo.cloud/video/v9/8d/e4/d8/8de4d842-8a0d-40bc-aac5-e6ac367c87c7/master.m3u8",title:"【我们告诉未来】<br>第十集：封锁与反封锁"},
-	{file:"https://video3-us-east.cloudokyo.cloud/video/v6/4d/b4/e0/4db4e052-ef4c-4aa0-89dd-39f0ab0d3555/master.m3u8",title:"【我们告诉未来】<br>第十一集：慈悲与威严"},
-	{file:"https://video4-us-east.cloudokyo.cloud/video/v6/2e/24/a1/2e24a121-67f4-46ef-a989-4f1fa096e847/master.m3u8",title:"【我们告诉未来】<br>第十二集：生命的抉择"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/06/dc/93/06dc93ef-98f2-4182-886c-6268b490a37c/master.m3u8",title:"【欺世伪火】<br>— 揭开天安门自焚伪案的震撼内幕和来龙去脉"},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/6b/77/62/6b776280-1178-4b07-a050-ca5bbec1a421/master.m3u8",title:"【风雨天地行】<br>— 片头 "},
+	{file:"https://video4-us-west.cloudokyo.cloud/video/v3/69/bc/38/69bc389a-0622-444a-860f-3199ed119ade/master.m3u8",title:"【风雨天地行】<br>— 之「清音」篇"},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/a4/25/31/a4253134-0e7f-4d0b-ab33-736d817bc176/master.m3u8",title:"【风雨天地行】<br>— 之「审判」篇"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/3c/d4/2f/3cd42f02-9422-43f3-b2fa-e517e91f2dfa/master.m3u8",title:"【风雨天地行】<br>— 之「历劫」篇"},
+	{file:"https://video5-us-west.cloudokyo.cloud/video/v3/be/f3/e4/bef3e411-b742-4f5a-847c-37f065b9160c/master.m3u8",title:"【风雨天地行】<br>— 之「风雨」篇"},
+	{file:"https://video3-us-west.cloudokyo.cloud/video/v3/88/4d/42/884d4242-c3d6-486a-8507-6fdbabc9a34e/master.m3u8",title:"【风雨天地行】<br>— 之「同心」篇"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/0e/07/a1/0e07a114-4d1b-4fb3-8093-d9356af6f7d9/master.m3u8",title:"【九评之一】<br>— 评共产党是什么"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/08/cb/09/08cb09e7-4cf7-4619-8284-34d2ddf29540/master.m3u8",title:"【九评之二】<br>— 评中国共产党是怎样起家的"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v5/1b/45/14/1b4514a7-7b14-400d-8ae1-c69d9b04b71f/master.m3u8",title:"【九评之三】<br>— 评中国共产党的暴政 "},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/f6/ed/f1/f6edf128-3ca2-4268-896e-71aae06a75a5/master.m3u8",title:"【九评之四】<br>— 评共产党是反宇宙的力量"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v5/24/56/54/2456545a-cfb1-4e15-9325-6161fe8e8bd4/master.m3u8",title:"【九评之五】<br>— 评江泽民与中共相互利用迫害法轮功"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/9f/7e/47/9f7e4797-1acf-4630-95ba-0f685efec852/master.m3u8",title:"【九评之六】<br>— 评中国共产党破坏民族文化"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/06/54/b6/0654b6a7-c504-46c4-9c70-cf5b27da852b/master.m3u8",title:"【九评之七】<br>— 评中国共产党的杀人历史"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v5/41/33/7a/41337af6-7918-4b5c-b5a7-bcdf8448c62c/master.m3u8",title:"【九评之八】<br>— 评中国共产党的邪教本质"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v5/e4/44/90/e4449082-1143-4947-abdd-8cef65c84ea4/master.m3u8",title:"【九评之九】<br>— 评中国共产党的流氓本性"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v9/c7/01/91/c7019185-2239-4211-8d65-89b6e0714799/master.m3u8",title:"【我们告诉未来】<br>— 第一集： 气功铺路"},
+	{file:"https://video5-us-east.cloudokyo.cloud/video/v9/b9/a8/0e/b9a80ec4-8c7f-4fda-bcc4-13d39348e345/master.m3u8",title:"【我们告诉未来】<br>— 第二集：大法开传"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v10/a2/80/c5/a280c5b9-8f56-4ab1-9e93-69905e2aa7fc/master.m3u8",title:"【我们告诉未来】<br>— 第三集：破谜与正心"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v10/a7/08/44/a70844fe-a222-40e4-9620-a0a1b93359c7/master.m3u8",title:"【我们告诉未来】<br>— 第四集：从常人到修炼人"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v6/1f/43/e3/1f43e37c-135c-446d-8257-e347d6d6106c/master.m3u8",title:"【我们告诉未来】<br>— 第五集：山雨欲来"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v6/6a/50/08/6a5008d5-3573-4b5b-bc77-f412e46d2fb7/master.m3u8",title:"【我们告诉未来】<br>— 第六集：在魔难中"},
+	{file:"https://video2-us-east.cloudokyo.cloud/video/v6/3b/e2/8c/3be28cf6-4038-4078-b1b5-ce3f20520e5e/master.m3u8",title:"【我们告诉未来】<br>— 第七集：艰难岁月"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v6/55/f0/aa/55f0aabf-5251-4f17-9e7b-3dd260f60184/master.m3u8",title:"【我们告诉未来】<br>— 第八集：真相与人心"},
+	{file:"https://video1-us-east.cloudokyo.cloud/video/v7/db/a5/e8/dba5e824-c5be-4600-a5da-28735c57874c/master.m3u8",title:"【我们告诉未来】<br>— 第九集：来源与使命"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v9/8d/e4/d8/8de4d842-8a0d-40bc-aac5-e6ac367c87c7/master.m3u8",title:"【我们告诉未来】<br>— 第十集：封锁与反封锁"},
+	{file:"https://video3-us-east.cloudokyo.cloud/video/v6/4d/b4/e0/4db4e052-ef4c-4aa0-89dd-39f0ab0d3555/master.m3u8",title:"【我们告诉未来】<br>— 第十一集：慈悲与威严"},
+	{file:"https://video4-us-east.cloudokyo.cloud/video/v6/2e/24/a1/2e24a121-67f4-46ef-a989-4f1fa096e847/master.m3u8",title:"【我们告诉未来】<br>— 第十二集：生命的抉择"},
 ];</script>
 <script>
 var g_sBGColor = "#f0f0f0",	// 背景色
@@ -2950,14 +2951,14 @@ function lbjmp(i){
 </div>
 <script>top12.style.backgroundImage = 'url('+top1_png.src+')';</script>
 <script type="text/javascript">
-//如果是直接访问，在取得节点前修改随机网址的默认链接
+//如果是直接访问shenzhouzhengdao.org，在取得节点前修改随机网址的默认链接为http://www.szzd.io
 	var url = window.location.href;
 	var domain = url.match(/:\/\/(.[^/]+)/)[1];
 	var tld = domain.split('.').slice(-2).join('.');
 	var topload = document.getElementById('topload');
 	var lunbo = document.getElementsByClassName("lunbo"),
 		xsb = document.getElementById("xsb");
-	if (tld == "shenzhengzhengdao.org") {
+	if (tld == "shenzhouzhengdao.org") {
 		//处理链接
 		var	szmjlink=document.querySelectorAll('.szmjlink');
 		for (var i = 0; i<szmjlink.length; i++) {
@@ -3394,8 +3395,8 @@ function checkScreenWidth() {
 	//处理三退新闻
 	if (width < 600) {
 		for (var i = 0; i<stdiv.length; i++) {
-			stimg[i].style.height= "260px";
-			stdiv[i].style.width= "462px";
+			stimg[i].style.height= "100%";
+			stdiv[i].style.width= "95%";
 		}
 	} else {
 		for (var i = 0; i<stdiv.length; i++) {
