@@ -1,0 +1,18 @@
+# 忽略 Git 元数据（必须）
+.git/
+.git/**
+
+# CI/仓库元数据
+.github/
+.gitignore
+.gitattributes
+
+# Node 依赖（如存在）
+node_modules/
+
+# 构建/工具配置（如不希望上传）
+wrangler.jsonc
+
+# 其他常见无需上传的文件
+README.md
+LICENSE
