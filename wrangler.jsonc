@@ -4,7 +4,17 @@
   "compatibility_date": "2025-09-04",
   "assets": {
     "directory": "./",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "exclude": [
+      ".git/**",
+      ".github/**",
+      "node_modules/**",
+      "book_html/media/**",
+      ".wranglerignore",
+      "wrangler.jsonc",
+      "README.md",
+      "LICENSE"
+    ]
   },
   "r2_buckets": [
     { "binding": "SRC_R2", "bucket_name": "php-src" }
