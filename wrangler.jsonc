@@ -1,7 +1,12 @@
 {
   "name": "szzdmj-github-io",
+  "main": "src/index.js",
   "compatibility_date": "2025-09-04",
   "assets": {
-    "directory": "./"
-  }
+    "directory": "./",
+    "binding": "ASSETS"
+  },
+  "r2_buckets": [
+    { "binding": "SRC_R2", "bucket_name": "php-src" }
+  ]
 }
