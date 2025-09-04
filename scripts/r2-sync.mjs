@@ -6,7 +6,7 @@ import mime from "mime-types";
 
 /**
  * 环境变量：
- * - R2_ACCOUNT_ID: 你的 Cloudflare 账号 ID（用于 R2 endpoint）
+ * - R2_ACCOUNT_ID: Cloudflare 账号 ID（用于 R2 endpoint）
  * - R2_ACCESS_KEY_ID: R2 Access Key ID
  * - R2_SECRET_ACCESS_KEY: R2 Secret Access Key
  * - R2_BUCKET: 目标桶名（默认 php-src）
@@ -30,7 +30,6 @@ const s3 = new S3Client({
   region: "auto",
   endpoint: `https://${ACCOUNT_ID}.r2.cloudflarestorage.com`,
   credentials: { accessKeyId: ACCESS_KEY_ID, secretAccessKey: SECRET_ACCESS_KEY },
-  // 使用 path-style 以确保兼容
   forcePathStyle: true
 });
 
@@ -110,7 +109,6 @@ async function runPool(limit, items, worker) {
         await worker(item);
       } catch (err) {
         console.error("Upload failed:", item, err);
-        // 不中断整体流程，如需严格失败可抛出
       }
     }
   });
