@@ -1,7 +1,13 @@
 {
-  "name": "szzdmj-github-io-assets",
+  "name": "szzdmj-github-io",
   "compatibility_date": "2025-09-04",
   "assets": {
-    "directory": "./"
+    "directory": "./",
+    "exclude": [
+      ".git/**",
+      ".github/**",
+      ".gitignore",
+      "wrangler.jsonc"
+    ]
   }
 }
