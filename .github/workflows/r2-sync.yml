@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          filter: blob:none   # 关键：不取大文件 blob，防止卡住
+          filter: blob:none
           fetch-depth: 1
           lfs: false
 
