@@ -6,7 +6,7 @@ on:
     paths:
       - "book_html/media/**"
       - "scripts/r2-sync.mjs"
-      - "package.json"
+      - ".github/workflows/r2-sync.yml"
   workflow_dispatch: {}
 
 jobs:
@@ -18,8 +18,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      - name: Install deps (no lock, no save)
+        run: npm i --no-save --no-package-lock @aws-sdk/client-s3 mime-types
       - name: Upload to R2
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
@@ -29,5 +29,4 @@ jobs:
           SRC_DIR: book_html/media
           R2_PREFIX: book_html/media
           CONCURRENCY: 8
-        run: npm run r2:sync
-        
+        run: node scripts/r2-sync.mjs
