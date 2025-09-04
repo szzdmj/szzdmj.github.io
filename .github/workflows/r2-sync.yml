@@ -12,14 +12,24 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 关键：部分克隆，先不下载任何 blob，避免 fetch 阶段卡住
+          filter: blob:none
+          fetch-depth: 1
+          # 如果你用了 Git LFS，可显式关闭
+          lfs: false
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      # 无 package.json 的轻量做法：临时安装依赖，不生成 lock
       - name: Install deps (no lock, no save)
         run: npm i --no-save --no-package-lock @aws-sdk/client-s3 mime-types
+
       - name: Upload to R2
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
