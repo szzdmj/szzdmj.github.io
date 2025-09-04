@@ -16,3 +16,4 @@ wrangler.jsonc
 # 其他常见无需上传的文件
 README.md
 LICENSE
+book_html/media/**
