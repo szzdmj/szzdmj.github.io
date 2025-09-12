@@ -5,7 +5,7 @@ REPO_ROOT="$(pwd)"
 BOOK_DIR="book_html"
 DIST_DIR="${REPO_ROOT}/dist"
 
-# 总上限（MB），可在 Pages 环境变量里设置 LIMIT_MB 覆盖
+# 总上限（MB），可在 Pages 环境变量 LIMIT_MB 覆盖
 LIMIT_MB="${LIMIT_MB:-950}"
 LIMIT_BYTES=$(( LIMIT_MB * 1024 * 1024 ))
 
@@ -67,7 +67,7 @@ SKIP_LIST="${REPO_ROOT}/not_uploaded_manifest.txt"
 
 TOTAL=0
 
-# 阶段1：纳入仓库根文件（不含 book_html）
+# 阶段1：纳入仓库根文件（不含 ${BOOK_DIR}）
 echo "阶段1：根目录文件..."
 find "$REPO_ROOT" -maxdepth 1 -mindepth 1 -type f -printf '%p\n' | while IFS= read -r f; do
   [ -f "$f" ] || continue
@@ -86,7 +86,7 @@ find "$REPO_ROOT" -maxdepth 1 -mindepth 1 -type f -printf '%p\n' | while IFS= re
   echo "纳入(根): $f (+$(human "$sz")) 累计 $(human "$TOTAL") / $(human "$LIMIT_BYTES")"
 done
 
-# 阶段2：从 book_html 里按 mtime 降序挑 非媒体 且 <=20MB
+# 阶段2：从 ${BOOK_DIR} 里按 mtime 降序挑 非媒体 且 <=20MB
 echo
 echo "阶段2：${BOOK_DIR} 非媒体、<=20MB、按修改时间新到旧..."
 find "$BOOK_DIR" -type f -printf '%T@;%p\n' | sort -nr -t';' -k1,1 | while IFS=';' read -r _mt path; do
