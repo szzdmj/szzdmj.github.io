@@ -15,14 +15,34 @@ MAX_SINGLE_BYTES=$(( 20 * 1024 * 1024 ))
 # 判断媒体扩展名（忽略大小写）
 is_media_ext() {
   case "$1" in
+    # 图片
     jpg|jpeg|png|gif|webp|svg|avif|heic|ico|JPG|JPEG|PNG|GIF|WEBP|SVG|AVIF|HEIC|ICO) return 0 ;;
+    # 视频
     mp4|webm|mov|mkv|m4v|ts|m3u8|avi|flv|wmv|mpg|mpeg|3gp|ogv|MP4|WEBM|MOV|MKV|M4V|TS|M3U8|AVI|FLV|WMV|MPG|MPEG|3GP|OGV) return 0 ;;
+    # 音频
     wav|mp3|ogg|m4a|aac|flac|WAV|MP3|OGG|M4A|AAC|FLAC) return 0 ;;
     *) return 1 ;;
   esac
 }
 
-bytes_of() { stat -c%s "$1"; }
+# 取文件字节数，带兜底（GNU stat、BSD stat、wc -c）
+bytes_of() {
+  stat -c%s "$1" 2>/dev/null || stat -f%z "$1" 2>/dev/null || wc -c < "$1"
+}
+
+# 人类可读格式（使用 awk，不依赖 bc）
+human() {
+  bytes="$1"
+  if [ "$bytes" -lt 1024 ]; then
+    printf "%dB" "$bytes"
+  elif [ "$bytes" -lt $((1024*1024)) ]; then
+    awk -v b="$bytes" 'BEGIN{printf "%.1fKB", b/1024}'
+  elif [ "$bytes" -lt $((1024*1024*1024)) ]; then
+    awk -v b="$bytes" 'BEGIN{printf "%.1fMB", b/1048576}'
+  else
+    awk -v b="$bytes" 'BEGIN{printf "%.2fGB", b/1073741824}'
+  fi
+}
 
 copy_preserve_path() {
   src="$1"
@@ -32,15 +52,9 @@ copy_preserve_path() {
   cp -p "$src" "$dst"
 }
 
-human() {
-  bytes=$1
-  if [ "$bytes" -lt 1024 ]; then echo "${bytes}B"; return; fi
-  if [ "$bytes" -lt $((1024*1024)) ]; then awk "BEGIN{printf(\"%.1fKB\", $bytes/1024)}"; return; fi
-  if [ "$bytes" -lt $((1024*1024*1024)) ]; then awk "BEGIN{printf(\"%.1fMB\", $bytes/1048576)}"; return; fi
-  awk "BEGIN{printf(\"%.2fGB\", $bytes/1073741824)}"
-}
-
-echo "Pages 受控拣选构建: 上限=${LIMIT_MB}MB"
+echo "Pages 受控拣选构建: 上限=$(human "$LIMIT_BYTES")"
+echo "单文件上限: $(human "$MAX_SINGLE_BYTES")"
+echo
 
 # 清理 dist
 rm -rf "$DIST_DIR"
@@ -58,8 +72,14 @@ echo "阶段1：根目录文件..."
 find "$REPO_ROOT" -maxdepth 1 -mindepth 1 -type f -printf '%p\n' | while IFS= read -r f; do
   [ -f "$f" ] || continue
   sz=$(bytes_of "$f" 2>/dev/null || echo 0)
-  if [ "$sz" -le 0 ]; then echo "$f" >> "$SKIP_LIST"; continue; fi
-  if [ $((TOTAL + sz)) -gt "$LIMIT_BYTES" ]; then echo "$f" >> "$SKIP_LIST"; continue; fi
+  if [ "$sz" -le 0 ]; then
+    echo "$f" >> "$SKIP_LIST"
+    continue
+  fi
+  if [ $((TOTAL + sz)) -gt "$LIMIT_BYTES" ]; then
+    echo "$f" >> "$SKIP_LIST"
+    continue
+  fi
   cp -p "$f" "$DIST_DIR/"
   echo "$f" >> "$UP_LIST"
   TOTAL=$((TOTAL + sz))
@@ -67,23 +87,34 @@ find "$REPO_ROOT" -maxdepth 1 -mindepth 1 -type f -printf '%p\n' | while IFS= re
 done
 
 # 阶段2：从 book_html 里按 mtime 降序挑 非媒体 且 <=20MB
-echo "阶段2：book_html 非媒体、<=20MB、按修改时间新到旧..."
+echo
+echo "阶段2：${BOOK_DIR} 非媒体、<=20MB、按修改时间新到旧..."
 find "$BOOK_DIR" -type f -printf '%T@;%p\n' | sort -nr -t';' -k1,1 | while IFS=';' read -r _mt path; do
   [ -f "$path" ] || continue
   ext="${path##*.}"
-  if is_media_ext "$ext"; then echo "$path" >> "$SKIP_LIST"; continue; fi
+  if is_media_ext "$ext"; then
+    echo "$path" >> "$SKIP_LIST"
+    continue
+  fi
   sz=$(bytes_of "$path" 2>/dev/null || echo 0)
-  if [ "$sz" -le 0 ] || [ "$sz" -gt "$MAX_SINGLE_BYTES" ]; then echo "$path" >> "$SKIP_LIST"; continue; fi
-  if [ $((TOTAL + sz)) -gt "$LIMIT_BYTES" ]; then echo "$path" >> "$SKIP_LIST"; continue; fi
+  if [ "$sz" -le 0 ] || [ "$sz" -gt "$MAX_SINGLE_BYTES" ]; then
+    echo "$path" >> "$SKIP_LIST"
+    continue
+  fi
+  if [ $((TOTAL + sz)) -gt "$LIMIT_BYTES" ]; then
+    echo "$path" >> "$SKIP_LIST"
+    continue
+  fi
   copy_preserve_path "$path"
   echo "$path" >> "$UP_LIST"
   TOTAL=$((TOTAL + sz))
   echo "纳入(book): $path (+$(human "$sz")) 累计 $(human "$TOTAL") / $(human "$LIMIT_BYTES")"
 done
 
-# 把清单带上，便于线上校对
+# 把清单也放入 dist 便于线上校对
 cp -p "$UP_LIST"   "${DIST_DIR}/uploaded_manifest.txt"
 cp -p "$SKIP_LIST" "${DIST_DIR}/not_uploaded_manifest.txt"
 
+echo
 echo "完成：已纳入 $(human "$TOTAL") / $(human "$LIMIT_BYTES")"
 echo "输出目录：$DIST_DIR"
