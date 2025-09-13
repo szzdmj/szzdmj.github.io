@@ -1,8 +1,12 @@
 {
   "name": "szzdmj-github-io",
-  "compatibility_date": "2025-09-12",
+  "compatibility_date": "2025-08-01",
+  "compatibility_flags": ["nodejs_compat"],
+    "placement": {
+    "mode": "smart"
+  },
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist/",
     "binding": "ASSETS"
   }
 }
