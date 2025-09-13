@@ -1,5 +1,6 @@
 {
   "name": "szzdmj-github-io",
+  "main": "src/index.ts",
   "compatibility_date": "2025-08-01",
   "compatibility_flags": ["nodejs_compat"],
     "placement": {
