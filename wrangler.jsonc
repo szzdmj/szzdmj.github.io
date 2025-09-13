@@ -5,6 +5,6 @@
     "directory": "./dist"
   },
   "build": {
-    "command": "bash pages-build.sh"
+    "command": "sh pages-build.sh"
   }
 }
