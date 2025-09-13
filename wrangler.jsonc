@@ -6,7 +6,6 @@
     "mode": "smart"
   },
   "assets": {
-    "directory": "./dist/",
-    "binding": "ASSETS"
+    "directory": "./dist/"
   }
 }
