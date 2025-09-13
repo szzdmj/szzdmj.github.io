@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+export LANG=C.UTF-8; export LC_ALL=C.UTF-8
 REPO_ROOT="$(pwd)"
 BOOK_DIR="book_html"
 DIST_DIR="${REPO_ROOT}/dist"
