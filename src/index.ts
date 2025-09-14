@@ -1,46 +1,45 @@
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
-    // 配置：允许 fallback 归一化的静态目录
+    // 允许 fallback 的静态目录
     const STATIC_DIRS = ["/book_html/"];
     const url = new URL(request.url);
 
-    // 只处理静态资源目录
-    const matchStatic = STATIC_DIRS.some(dir => url.pathname.startsWith(dir));
-    if (!matchStatic) {
+    if (!STATIC_DIRS.some(dir => url.pathname.startsWith(dir))) {
       return new Response("Not Found", { status: 404 });
     }
 
-    // Fallback 检查列表：原始、decode、NFC、NFD、.html后缀
+    // Fallback 检查列表：原始、decode、NFC、NFD、.html后缀、无后缀
     const candidates: string[] = [];
     candidates.push(url.pathname);
 
-    // decodeURIComponent
     try {
       const decoded = decodeURIComponent(url.pathname);
       if (decoded !== url.pathname) candidates.push(decoded);
+
       // NFC/NFD
       if (decoded.normalize("NFC") !== decoded) candidates.push(decoded.normalize("NFC"));
       if (decoded.normalize("NFD") !== decoded) candidates.push(decoded.normalize("NFD"));
 
       // .html补全
-      if (!decoded.endsWith(".html")) {
-        candidates.push(decoded + ".html");
-        candidates.push(decoded.normalize("NFC") + ".html");
-        candidates.push(decoded.normalize("NFD") + ".html");
+      for (const base of [decoded, decoded.normalize("NFC"), decoded.normalize("NFD")]) {
+        if (!base.endsWith(".html")) candidates.push(base + ".html");
+        // 无后缀
+        if (base.endsWith(".html")) candidates.push(base.replace(/\.html$/, ''));
       }
     } catch {}
 
     // 去重
     const uniqCandidates = [...new Set(candidates)];
-    // 尝试每个候选，注意要加 redirect: "follow"
+
+    // 每个候选都尝试，自动跟随重定向
     for (const path of uniqCandidates) {
       const staticURL = new URL(request.url);
       staticURL.pathname = path;
-      const resp = await fetch(staticURL.toString(), { ...request, redirect: "follow" });
+      const resp = await fetch(staticURL.toString(), { method: request.method, headers: request.headers, redirect: "follow" });
       if (resp.status === 200) return resp;
     }
 
     // 全部失败，返回404
-    return new Response("Not Found (Unicode fallback exhausted)", { status: 404 });
+    return new Response("Not Found (Unicode & .html fallback exhausted)", { status: 404 });
   }
 };
