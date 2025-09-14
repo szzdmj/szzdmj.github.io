@@ -32,11 +32,11 @@ export default {
 
     // 去重
     const uniqCandidates = [...new Set(candidates)];
-    // 尝试每个候选
+    // 尝试每个候选，注意要加 redirect: "follow"
     for (const path of uniqCandidates) {
       const staticURL = new URL(request.url);
       staticURL.pathname = path;
-      const resp = await fetch(staticURL, request);
+      const resp = await fetch(staticURL.toString(), { ...request, redirect: "follow" });
       if (resp.status === 200) return resp;
     }
 
