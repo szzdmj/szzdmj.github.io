@@ -1,45 +1,68 @@
-export default {
-  async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
-    // 允许 fallback 的静态目录
-    const STATIC_DIRS = ["/book_html/"];
-    const url = new URL(request.url);
+// Unicode/static fallback Worker for szzdmj.github.io on Cloudflare Workers
+// 自动支持 /book_html/中文.html, /book_html/%E4%B9%9D%E8%AF%84%E5%85%B1%E4%BA%A7%E5%85%9A.html 等多种路径访问
+// 只处理静态目录（如 /book_html/），其它路径直接 404
 
-    if (!STATIC_DIRS.some(dir => url.pathname.startsWith(dir))) {
-      return new Response("Not Found", { status: 404 });
-    }
+function encodeBySegments(s: string): string {
+  return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
+}
 
-    // Fallback 检查列表：原始、decode、NFC、NFD、.html后缀、无后缀
-    const candidates: string[] = [];
-    candidates.push(url.pathname);
+// 归一化静态兜底 fetch，适配 szzdmj.github.io 的 assets 目录
+async function fetchStaticWithUnicodeFallback(request: Request, staticRoot: string = "/book_html/"): Promise<Response> {
+  const origURL = new URL(request.url);
+  const origPath = origURL.pathname;
 
+  // 只允许静态目录
+  if (!origPath.startsWith(staticRoot)) {
+    return new Response("Not Found (not a static asset request)", { status: 404 });
+  }
+
+  // 构造候选路径列表
+  const hasExt = /\.[A-Za-z0-9]{1,8}$/.test(origPath);
+  const candidates = new Set<string>([origPath]);
+  if (!hasExt && !origPath.endsWith("/")) candidates.add(origPath + ".html");
+
+  let decoded = origPath;
+  try { decoded = decodeURIComponent(origPath); } catch {}
+  const forms = new Set<string>([decoded, decoded.normalize("NFC"), decoded.normalize("NFD")]);
+  for (const s of forms) {
+    candidates.add(encodeBySegments(s));
+    if (!hasExt && !s.endsWith("/")) candidates.add(encodeBySegments(s + ".html"));
+    try { candidates.add(encodeURI(s)); } catch {}
+    // 无扩展名 fallback
+    if (s.endsWith(".html")) candidates.add(encodeBySegments(s.replace(/\.html$/, "")));
+    else candidates.add(encodeBySegments(s + ".html"));
+  }
+
+  // 去重并尝试每个候选
+  for (const path of [...candidates]) {
+    const staticURL = new URL(origURL.toString());
+    staticURL.pathname = path;
+    // 注意：Cloudflare Pages/Worker 默认 assets 目录是 /dist/book_html 或 /book_html
+    // 使用 fetch 时自动跟随重定向
     try {
-      const decoded = decodeURIComponent(url.pathname);
-      if (decoded !== url.pathname) candidates.push(decoded);
-
-      // NFC/NFD
-      if (decoded.normalize("NFC") !== decoded) candidates.push(decoded.normalize("NFC"));
-      if (decoded.normalize("NFD") !== decoded) candidates.push(decoded.normalize("NFD"));
-
-      // .html补全
-      for (const base of [decoded, decoded.normalize("NFC"), decoded.normalize("NFD")]) {
-        if (!base.endsWith(".html")) candidates.push(base + ".html");
-        // 无后缀
-        if (base.endsWith(".html")) candidates.push(base.replace(/\.html$/, ''));
-      }
-    } catch {}
-
-    // 去重
-    const uniqCandidates = [...new Set(candidates)];
-
-    // 每个候选都尝试，自动跟随重定向
-    for (const path of uniqCandidates) {
-      const staticURL = new URL(request.url);
-      staticURL.pathname = path;
       const resp = await fetch(staticURL.toString(), { method: request.method, headers: request.headers, redirect: "follow" });
       if (resp.status === 200) return resp;
+      // 某些静态资源 304，也算成功
+      if (resp.status === 304) return resp;
+    } catch (err) {}
+  }
+
+  // 全部失败，返回404
+  return new Response("Not Found (Unicode static fallback exhausted)", { status: 404 });
+}
+
+export default {
+  async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url);
+    const pathname = url.pathname;
+
+    // 仅处理静态资源目录（可自定义多个）
+    const STATIC_DIRS = ["/book_html/"];
+    if (STATIC_DIRS.every(dir => !pathname.startsWith(dir))) {
+      return new Response("Not Found (not a static asset request)", { status: 404 });
     }
 
-    // 全部失败，返回404
-    return new Response("Not Found (Unicode & .html fallback exhausted)", { status: 404 });
+    // 移植 routenewcontainer 的 Unicode fallback 兜底
+    return await fetchStaticWithUnicodeFallback(request, STATIC_DIRS.find(dir => pathname.startsWith(dir))!);
   }
 };
