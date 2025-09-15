@@ -50,6 +50,11 @@ async function fetchStaticWithFallback(request: Request): Promise<Response> {
 
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
-    return await fetchStaticWithFallback(request);
+    const staticResp = await fetchStaticWithFallback(request);
+    if (staticResp.status === 200 || staticResp.status === 304) {
+      return staticResp;
+    }
+    // 404时直接转发给绑定的 CONTAINER Worker
+    return await env.CONTAINER.fetch(request);
   }
 };
