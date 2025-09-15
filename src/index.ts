@@ -1,5 +1,12 @@
+// Cloudflare Worker for szzdmj.github.io: 支持静态分发、404自动容器转发、根路径随机query直接到容器
 const STATIC_ROOT = "/book_html/";
+
+// 容器允许的路径正则（可根据实际调整）
 const ALLOW_CONTAINER_REGEX = /^\/([A-Za-z0-9\-]{1,18})\/?$|^\/zh-CN\/video\/.*$|^\/.+\.php(?:\/.*)?$/;
+
+function encodeBySegments(s: string): string {
+  return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
+}
 
 // 判断是否根路径且query为随机字段（防DDOS/反爬）
 function isRandomNoiseRootQuery(u: URL): boolean {
@@ -10,59 +17,31 @@ function isRandomNoiseRootQuery(u: URL): boolean {
   for (const [k, v] of sp.entries()) {
     count++;
     if (count > 12) return false; // 太多字段也不合理
+    // 字段名和值都必须是疑似随机串
     if (!/^[A-Za-z0-9_\-]{4,16}$/.test(k)) return false;
-    if (!/^[A-Za-z0-9_\-]{1,16}$/.test(v)) return false;
+    if (!/^[A-Za-z0-9_\-]{4,16}$/.test(v)) return false;
   }
   return true;
 }
 
-function encodeBySegments(s: string): string {
-  return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
-}
-
+// 判断是否容器允许的路径
 function allowContainerPath(pathname: string): boolean {
   return ALLOW_CONTAINER_REGEX.test(pathname);
-}
-
-// 桥页
-function buildBridgeHtml(url: URL): Response {
-  const html = `<!doctype html>
-<html><head>
-<meta charset="utf-8"><title>中转桥页</title>
-<style>
-body{background:#f8fafc;color:#222;font:16px system-ui;margin:0;padding:48px 16px}
-.card{background:#fff;max-width:600px;margin:auto;padding:28px 18px;border-radius:16px;box-shadow:0 2px 12px #0002}
-h1{font-size:22px}
-p{margin:1em 0}
-</style>
-</head><body>
-<div class="card">
-  <h1>中转页面/翻墙助手</h1>
-  <p>您请求的资源不可直接访问，已进入桥接模式。</p>
-  <p>原始路径：<code>${url.pathname + url.search}</code></p>
-  <p>如需访问，请使用代理/VPN等方式，或尝试刷新。</p>
-</div>
-</body></html>`;
-  return new Response(html, {
-    status: 404,
-    headers: {
-      "content-type": "text/html; charset=utf-8",
-      "cache-control": "no-store",
-      "x-bridge": "1"
-    }
-  });
 }
 
 async function fetchStaticWithFallback(request: Request): Promise<Response> {
   const origURL = new URL(request.url);
   const origPath = origURL.pathname;
+
   if (!origPath.startsWith(STATIC_ROOT)) {
     return new Response("Not Found (not a static asset request)", { status: 404 });
   }
+
   const hasExt = /\.[A-Za-z0-9]{1,8}$/.test(origPath);
   const candidates = new Set<string>();
   candidates.add(origPath);
   if (!hasExt && !origPath.endsWith("/")) candidates.add(origPath + ".html");
+
   let decoded = origPath;
   try { decoded = decodeURIComponent(origPath); } catch {}
   const forms = new Set<string>([decoded, decoded.normalize("NFC"), decoded.normalize("NFD")]);
@@ -73,6 +52,7 @@ async function fetchStaticWithFallback(request: Request): Promise<Response> {
     if (s.endsWith(".html")) candidates.add(encodeBySegments(s.replace(/\.html$/, "")));
     else candidates.add(encodeBySegments(s + ".html"));
   }
+
   for (const path of [...candidates]) {
     const staticURL = new URL(request.url);
     staticURL.pathname = path;
@@ -81,6 +61,7 @@ async function fetchStaticWithFallback(request: Request): Promise<Response> {
       if (resp.status === 200 || resp.status === 304) return resp;
     } catch {}
   }
+
   return new Response("Not Found (Unicode static fallback exhausted)", { status: 404 });
 }
 
@@ -94,31 +75,18 @@ export default {
       if (staticResp.status === 200 || staticResp.status === 304) {
         return staticResp;
       }
-      // 404且静态失败时，自动转发到容器
-      const resp = await env.CONTAINER.fetch(request);
-      // 如果容器返回404且桥页开关（env.BRIDGE_ON_404 === "1"），返回桥页
-      if (resp.status === 404 && env.BRIDGE_ON_404 === "1") {
-        return buildBridgeHtml(url);
-      }
-      return resp;
+      // 404时自动转发到容器
+      return await env.CONTAINER.fetch(request);
     }
 
     // 2. 根路径随机query直接转发容器
     if (url.pathname === "/" && isRandomNoiseRootQuery(url)) {
-      const resp = await env.CONTAINER.fetch(request);
-      if (resp.status === 404 && env.BRIDGE_ON_404 === "1") {
-        return buildBridgeHtml(url);
-      }
-      return resp;
+      return await env.CONTAINER.fetch(request);
     }
 
     // 3. 其它路径按正则允许则转发容器
     if (allowContainerPath(url.pathname)) {
-      const resp = await env.CONTAINER.fetch(request);
-      if (resp.status === 404 && env.BRIDGE_ON_404 === "1") {
-        return buildBridgeHtml(url);
-      }
-      return resp;
+      return await env.CONTAINER.fetch(request);
     }
 
     // 4. 主页 "/" 或其它都直接 404 或返回主页（可定制）
