@@ -4,7 +4,7 @@
   "compatibility_date": "2025-08-01",
   "compatibility_flags": ["nodejs_compat"],
   "services": [
-    { "binding": "CONTAINER", "service": "szwd-starter" }
+    { "binding": "CONTAINER", "service": "szc-starter" }
   ],
     "placement": {
     "mode": "smart"
