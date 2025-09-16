@@ -62,18 +62,5 @@ export default {
       if (s.endsWith(".html")) candidates.add(encodeBySegments(s.replace(/\.html$/, "")));
       else candidates.add(encodeBySegments(s + ".html"));
     }
-
-    // 依次尝试本地静态资源
-    for (const path of [...candidates]) {
-      const staticURL = new URL(request.url);
-      staticURL.pathname = path;
-      try {
-        const resp = await fetch(staticURL.toString(), { method: request.method, headers: request.headers, redirect: "follow" });
-        if (resp.status === 200 || resp.status === 304) return resp;
-      } catch {}
-    }
-
-    // 全部失败，返回444
-    return new Response("Not Found (Unicode static fallback exhausted)", { status: 444 });
   }
 };
