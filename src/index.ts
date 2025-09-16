@@ -1,35 +1,64 @@
-//V12
+//bad11e2
 function encodeBySegments(s: string): string {
   return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
+}
+
+// 用于缓存 manifest 内容
+let staticManifestPaths: Set<string> = new Set();
+let manifestLoaded = false;
+
+// 加载 manifest 文件并缓存（只在第一次请求时加载一次）
+async function ensureManifest(env: any) {
+  if (!manifestLoaded) {
+    try {
+      const resp = await env.STATIC.fetch(new Request("/uploaded_manifest.txt"));
+      if (resp && resp.ok) {
+        const text = await resp.text();
+        staticManifestPaths = new Set(text.split('\n').map(s => s.trim()).filter(Boolean));
+        manifestLoaded = true;
+      }
+    } catch (e) {
+      staticManifestPaths = new Set();
+      manifestLoaded = true;
+    }
+  }
 }
 
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const pathname = url.pathname;
-    const STATIC_DIR = "/book_html/";
+    const pathNoSlash = pathname.startsWith("/") ? pathname.slice(1) : pathname;
+    const STATIC_DIR = "/book_html";
 
-    // 1. 用正则直接判断 /?xxx=yyy
-    if (/^\/\?.+/.test(url.pathname + url.search)) {
+    // 1. `/` 和 `/book_html` 无 query 走静态
+    if (
+      (pathname === "/" || pathname === STATIC_DIR) &&
+      !url.search
+    ) {
+      return await env.STATIC.fetch(request);
+    }
+
+    // 2. `/` 和 `/book_html` 带 query才走容器
+    if (
+      (pathname === "/" || pathname === STATIC_DIR) &&
+      url.search
+    ) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 2. 非静态目录全部走容器
-    if (!pathname.startsWith(STATIC_DIR)) {
-      return await env.CONTAINER.fetch(request);
+    // 3. 其它静态资源，检查 manifest，只允许 manifest 列出的路径
+    if (
+      staticManifestPaths.size === 0 ||
+      !manifestLoaded
+    ) {
+      await ensureManifest(env);
+    }
+    if (staticManifestPaths.has(pathNoSlash)) {
+      return await env.STATIC.fetch(request);
     }
 
-    // 3. 静态目录下 .html 自动 302 到无扩展名
-    if (pathname.endsWith(".html") && !url.search && !url.hash) {
-      let baseName = pathname.slice(STATIC_DIR.length, -5);
-      try { baseName = decodeURIComponent(baseName); } catch {}
-      const noExtPath = STATIC_DIR + encodeBySegments(baseName);
-      return Response.redirect(noExtPath, 302);
-    }
-
-    // 4. 静态目录 fallback（略）
-
-    // 5. fallback: 全部走容器
+    // 4. 其它路径全部走容器
     return await env.CONTAINER.fetch(request);
   }
 };
