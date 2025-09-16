@@ -19,7 +19,13 @@ export default {
     if (!pathname.startsWith(STATIC_DIR)) {
       return await env.CONTAINER.fetch(request);
     }
-
+    // 2.１ / 或 /book_html 且无 query，走静态
+    if (
+      (pathname === "/" || pathname === STATIC_DIR) &&
+      (!url.search || url.search.length === 0)
+    ) {
+      return await env.STATIC.fetch(request);
+    }
     // 3. 静态目录下 .html 自动 302 到无扩展名
     if (pathname.endsWith(".html") && !url.search && !url.hash) {
       let baseName = pathname.slice(STATIC_DIR.length, -5);
