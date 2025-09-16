@@ -7,12 +7,14 @@ function encodeBySegments(s: string): string {
 
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
-    const url = new URL(request.url);
+    const reqUrl = request.url; // 完整的请求字符串
+    const url = new URL(reqUrl);
     const pathname = url.pathname;
     const STATIC_DIR = "/book_html/";
 
-    // 优先：根路径带 query 直接转发容器，不落静态分支
-    if (pathname === "/" && url.search.length > 0) {
+    // 用正则判断 /? 开头（即根路径并带有 query）
+    if (/^https?:\/\/[^\/]+\/\?.+/.test(reqUrl)) {
+      // 只要是 /?xxx=yyy 就直接走容器！
       return await env.CONTAINER.fetch(request);
     }
 
