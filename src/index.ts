@@ -7,25 +7,23 @@ function encodeBySegments(s: string): string {
 
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
-    const reqUrl = request.url; // 完整的请求字符串
-    const url = new URL(reqUrl);
+    const url = new URL(request.url);
     const pathname = url.pathname;
     const STATIC_DIR = "/book_html/";
 
-    // 用正则判断 /? 开头（即根路径并带有 query）
-    if (/^https?:\/\/[^\/]+\/\?.+/.test(reqUrl)) {
-      // 只要是 /?xxx=yyy 就直接走容器！
+    // 1. 用正则直接判断 /?xxx=yyy
+    if (/^\/\?.+/.test(url.pathname + url.search)) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 优先：非静态目录全部转发容器
+    // 2. 非静态目录全部走容器
     if (!pathname.startsWith(STATIC_DIR)) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 优先：静态目录下 .html 自动 302 到无扩展名
+    // 3. 静态目录下 .html 自动 302 到无扩展名
     if (pathname.endsWith(".html") && !url.search && !url.hash) {
-      let baseName = pathname.slice(STATIC_DIR.length, -5); // 去掉前缀和 .html
+      let baseName = pathname.slice(STATIC_DIR.length, -5);
       try { baseName = decodeURIComponent(baseName); } catch {}
       const noExtPath = STATIC_DIR + encodeBySegments(baseName);
       return Response.redirect(noExtPath, 302);
@@ -56,10 +54,7 @@ export default {
       // break;
     }
 
-    // fallback: 全部走容器
+    // 5. fallback: 全部走容器
     return await env.CONTAINER.fetch(request);
   }
 };
-function encodeBySegments(s: string): string {
-  return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
-}
