@@ -14,7 +14,7 @@ export default {
     const resp = await env.CONTAINER.fetch(request);
 
     // 1. 用正则直接判断 /?xxx=yyy
-    if (/^\/\?.+/.test(url.pathname + url.search)) {
+    if (/^\/\?.+/.test(url.pathname)) {
       return resp;
     }
 
