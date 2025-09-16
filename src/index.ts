@@ -1,4 +1,4 @@
-//基于V12
+//V12
 function encodeBySegments(s: string): string {
   return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
 }
@@ -7,8 +7,7 @@ export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const pathname = url.pathname;
-    const pathNoSlash = pathname.startsWith("/") ? pathname.slice(1) : pathname;
-    const STATIC_DIR = "/book_html";
+    const STATIC_DIR = "/book_html/";
 
     // 1. 用正则直接判断 /?xxx=yyy
     if (/^\/\?.+/.test(url.pathname + url.search)) {
@@ -19,13 +18,7 @@ export default {
     if (!pathname.startsWith(STATIC_DIR)) {
       return await env.CONTAINER.fetch(request);
     }
-    // 2.１ / 或 /book_html 且无 query，走静态
-    if (
-      (pathname === "/" || pathname === STATIC_DIR) &&
-      (!url.search || url.search.length === 0)
-    ) {
-      return await env.STATIC.fetch(request);
-    }
+
     // 3. 静态目录下 .html 自动 302 到无扩展名
     if (pathname.endsWith(".html") && !url.search && !url.hash) {
       let baseName = pathname.slice(STATIC_DIR.length, -5);
