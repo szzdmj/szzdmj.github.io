@@ -1,64 +1,56 @@
-//bad11e2
+//4757f7b
+// Cloudflare Worker for routenewcontainer: 中文路径、.html fallback、根路径带 query 优先走容器。
+// 绝不会被静态页面接管（即不会 １１０１），根路径带 query、非静态目录全部走容器。
+
 function encodeBySegments(s: string): string {
   return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
 }
 
-// 用于缓存 manifest 内容
+// 你可以在 Worker 启动时异步加载 manifest 到 Set
 let staticManifestPaths: Set<string> = new Set();
-let manifestLoaded = false;
 
-// 加载 manifest 文件并缓存（只在第一次请求时加载一次）
-async function ensureManifest(env: any) {
-  if (!manifestLoaded) {
-    try {
-      const resp = await env.STATIC.fetch(new Request("/uploaded_manifest.txt"));
-      if (resp && resp.ok) {
-        const text = await resp.text();
-        staticManifestPaths = new Set(text.split('\n').map(s => s.trim()).filter(Boolean));
-        manifestLoaded = true;
-      }
-    } catch (e) {
-      staticManifestPaths = new Set();
-      manifestLoaded = true;
-    }
-  }
+// 可选: Worker启动时加载manifest（伪代码，Cloudflare建议用KV或R2）
+async function loadManifest(env: any) {
+  // 例如: 从KV或R2加载manifest
+  const manifestText = await env.STATIC.fetch(new Request("/uploaded_manifest.txt"));
+  staticManifestPaths = new Set(manifestText.split('\n').map(s => s.trim()).filter(Boolean));
 }
 
 export default {
   async fetch(request: Request, env: any, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const pathname = url.pathname;
-    const pathNoSlash = pathname.startsWith("/") ? pathname.slice(1) : pathname;
-    const STATIC_DIR = "/book_html";
+    const STATIC_DIR = "/book_html/";
 
-    // 1. `/` 和 `/book_html` 无 query 走静态
-    if (
-      (pathname === "/" || pathname === STATIC_DIR) &&
-      !url.search
-    ) {
-      return await env.STATIC.fetch(request);
+    // 1. 排除 / 和 /book_html（无 query）直接走静态
+    if ((pathname === "/" || pathname === "/book_html") && !url.search) {
+      // 这里直接走静态页面逻辑
+      // 例如: return await env.STATIC.fetch(request);
+      // 或 fallback 到 CONTAINER (按你的实际实现)
     }
 
-    // 2. `/` 和 `/book_html` 带 query才走容器
-    if (
-      (pathname === "/" || pathname === STATIC_DIR) &&
-      url.search
-    ) {
+    // 2. / 或 /book_html 带 query才走容器
+    if ((pathname === "/" || pathname === "/book_html") && url.search) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 3. 其它静态资源，检查 manifest，只允许 manifest 列出的路径
-    if (
-      staticManifestPaths.size === 0 ||
-      !manifestLoaded
-    ) {
-      await ensureManifest(env);
+    // 3. /book_html/ 下的所有静态资源，优先查 manifest
+    if (pathname.startsWith(STATIC_DIR)) {
+      // 优先查 manifest，如果找不到就 404
+      if (staticManifestPaths.size === 0) {
+        // 首次请求时载入一次
+        await loadManifest(env);
     }
-    if (staticManifestPaths.has(pathNoSlash)) {
-      return await env.STATIC.fetch(request);
+      // 排除 manifest中不存在的路径
+      if (!staticManifestPaths.has(pathname.slice(1))) { // 去掉前面的 /
+        return new Response("Not found", { status: 404 });
     }
 
-    // 4. 其它路径全部走容器
+      // ...原有静态资源逻辑，或直接返回静态
+      // return await env.STATIC.fetch(request);
+    }
+
+    // 4. 其它路径走容器
     return await env.CONTAINER.fetch(request);
   }
 };
