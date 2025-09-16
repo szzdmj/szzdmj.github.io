@@ -24,7 +24,7 @@ export default {
     // 1. 排除 / 和 /book_html（无 query）直接走静态
     if ((pathname === "/" || pathname === "/book_html") && !url.search) {
       // 这里直接走静态页面逻辑
-      // 例如: return await env.STATIC.fetch(request);
+     return await env.STATIC.fetch(request);
       // 或 fallback 到 CONTAINER (按你的实际实现)
     }
 
@@ -33,16 +33,28 @@ export default {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 3. /book_html/ 下的所有静态资源，优先查 manifest
-    if (pathname.startsWith(STATIC_DIR)) {
-      // 优先查 manifest，如果找不到就 404
-      if (staticManifestPaths.size === 0) {
-        // 首次请求时载入一次
-        await loadManifest(env);
+    // 3. 静态目录下 .html 自动 302 到无扩展名
+    if (pathname.endsWith(".html") && !url.search && !url.hash) {
+      let baseName = pathname.slice(STATIC_DIR.length, -5);
+      try { baseName = decodeURIComponent(baseName); } catch {}
+      const noExtPath = STATIC_DIR + encodeBySegments(baseName);
+      return Response.redirect(noExtPath, 302);
     }
-      // 排除 manifest中不存在的路径
-      if (!staticManifestPaths.has(pathname.slice(1))) { // 去掉前面的 /
-        return new Response("Not found", { status: 404 });
+
+    // 静态目录 fallback: 多种编码和补全
+    const hasExt = /\.[A-Za-z0-9]{1,8}$/.test(pathname);
+    const candidates = new Set<string>([pathname]);
+    if (!hasExt && !pathname.endsWith("/")) candidates.add(pathname + ".html");
+
+    let decoded = pathname;
+    try { decoded = decodeURIComponent(pathname); } catch {}
+    const forms = new Set<string>([decoded, decoded.normalize("NFC"), decoded.normalize("NFD")]);
+    for (const s of forms) {
+      candidates.add(encodeBySegments(s));
+      if (!hasExt && !s.endsWith("/")) candidates.add(encodeBySegments(s + ".html"));
+      try { candidates.add(encodeURI(s)); } catch {}
+      if (s.endsWith(".html")) candidates.add(encodeBySegments(s.replace(/\.html$/, "")));
+      else candidates.add(encodeBySegments(s + ".html"));
     }
 
       // ...原有静态资源逻辑，或直接返回静态
