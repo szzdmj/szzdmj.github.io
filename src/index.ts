@@ -2,11 +2,9 @@ function encodeBySegments(s: string): string {
   return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
 }
 
-// 用于缓存 manifest 内容
+// manifest缓存与加载
 let staticManifestPaths: Set<string> = new Set();
 let manifestLoaded = false;
-
-// 加载 manifest 文件并缓存（只在第一次请求时加载一次）
 async function ensureManifest(env: any) {
   if (!manifestLoaded) {
     try {
@@ -16,10 +14,7 @@ async function ensureManifest(env: any) {
         staticManifestPaths = new Set(text.split('\n').map(s => s.trim()).filter(Boolean));
         manifestLoaded = true;
       }
-    } catch (e) {
-      staticManifestPaths = new Set();
-      manifestLoaded = true;
-    }
+    } catch { manifestLoaded = true; }
   }
 }
 
@@ -30,34 +25,31 @@ export default {
     const pathNoSlash = pathname.startsWith("/") ? pathname.slice(1) : pathname;
     const STATIC_DIR = "/book_html";
 
-    // 1. `/` 和 `/book_html` 无 query 走静态
+    // 1. / 或 /book_html 且有 query，走容器
     if (
       (pathname === "/" || pathname === STATIC_DIR) &&
-      !url.search
-    ) {
-      return await env.STATIC.fetch(request);
-    }
-
-    // 2. `/` 和 `/book_html` 带 query才走容器
-    if (
-      (pathname === "/" || pathname === STATIC_DIR) &&
-      url.search
+      url.search && url.search.length > 0
     ) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 3. 其它静态资源，检查 manifest，只允许 manifest 列出的路径
+    // 2. / 或 /book_html 且无 query，走静态
     if (
-      staticManifestPaths.size === 0 ||
-      !manifestLoaded
+      (pathname === "/" || pathname === STATIC_DIR) &&
+      (!url.search || url.search.length === 0)
     ) {
+      return await env.STATIC.fetch(request);
+    }
+
+    // 3. 其它静态资源，manifest允许才静态
+    if (!manifestLoaded) {
       await ensureManifest(env);
     }
     if (staticManifestPaths.has(pathNoSlash)) {
       return await env.STATIC.fetch(request);
     }
 
-    // 4. 其它路径全部走容器
+    // 4. 其它全部走容器
     return await env.CONTAINER.fetch(request);
   }
 };
