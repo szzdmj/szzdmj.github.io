@@ -58,3 +58,6 @@ export default {
     return await env.CONTAINER.fetch(request);
   }
 };
+function encodeBySegments(s: string): string {
+  return s.split("/").map(seg => (seg === "" ? "" : encodeURIComponent(seg))).join("/");
+}
