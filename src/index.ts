@@ -22,6 +22,7 @@ export default {
 　　　if (!pathname.startsWith(STATIC_DIR) ) {
       return resp;
     }
-
+    // 4. 其它路径全部走容器
+    return resp;
   }
 };
