@@ -3,7 +3,22 @@ export default {
     const url = new URL(request.url);
     const pathname = url.pathname;
     const STATIC_DIR = "/book_html/";
-
+// 根路径随机 query 优先分支
+if (p === "/" && hasQuery && isRandomNoiseRootQuery(url)) {
+  const req2 = withContainerEntryIfNeeded(request, env);
+  let reason = "root_random_query";
+  let target = "UPSTREAM";
+  const fo = await fetchWithFailover(req2, env, "UPSTREAM");
+  if (fo.resp.status === 404 && env.BRIDGE_ON_404 === "1") {
+    return buildBridgeHtmlAdvanced(url, env, reason || "container_404");
+  }
+  const h = new Headers(fo.resp.headers);
+  h.set("x-router","routenewcontainer");
+  h.set("x-target", target);
+  h.set("x-reason", reason);
+  tagVersion(h);
+  return new Response(fo.resp.body, { status: fo.resp.status, headers: h });
+}
     // 优先：根路径带 query 直接转发容器，不落静态分支
     if (pathname === "/" && url.search.length > 0) {
       return await env.CONTAINER.fetch(request);
