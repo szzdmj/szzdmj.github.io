@@ -13,8 +13,14 @@ export default {
     const ALLOW_CONTAINER_REGEX = /^\/([A-Za-z0-9\-]{1,18})\/?$|^\/zh-CN\/video\/.*$|^\/.+\.php(?:\/.*)?$/;
     const resp = await env.CONTAINER.fetch(request);
 
-    // 1. 用正则直接判断 /?xxx=yyy
-    if (/^\/\?.+/.test(url.pathname)) {
+    // 1. 用＝直接判断 /?xxx=yyy
+  function hasParams(url) {
+  const questionMarkIndex = url.indexOf('?');
+  if (questionMarkIndex === -1) return false;
+  const paramsPart = url.substring(questionMarkIndex + 1);
+  return paramsPart.includes('=');
+}
+if (hasParams(url.pathname) ) {
       return resp;
     }
 
