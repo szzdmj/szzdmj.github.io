@@ -1,4 +1,4 @@
-//2bdaf39
+//399f2fd
 // Cloudflare Worker for routenewcontainer: 中文路径、.html fallback、根路径带 query 优先走容器。
 // 绝不会被静态页面接管（即不会 １１０１），根路径带 query、非静态目录全部走容器。
 
@@ -12,19 +12,19 @@ export default {
     const pathname = url.pathname;
     const STATIC_DIR = "/book_html/";
 
-    // 1. 用正则直接判断 /?xxx=yyy
-    if (/^\/\?.+/.test(url.pathname + url.search)) {
+    // 优先：根路径带 query 直接转发容器，不落静态分支
+    if (pathname === "/" && url.search.length > 0) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 2. 非静态目录全部走容器
+    // 优先：非静态目录全部转发容器
     if (!pathname.startsWith(STATIC_DIR)) {
       return await env.CONTAINER.fetch(request);
     }
 
-    // 3. 静态目录下 .html 自动 302 到无扩展名
+    // 优先：静态目录下 .html 自动 302 到无扩展名
     if (pathname.endsWith(".html") && !url.search && !url.hash) {
-      let baseName = pathname.slice(STATIC_DIR.length, -5);
+      let baseName = pathname.slice(STATIC_DIR.length, -5); // 去掉前缀和 .html
       try { baseName = decodeURIComponent(baseName); } catch {}
       const noExtPath = STATIC_DIR + encodeBySegments(baseName);
       return Response.redirect(noExtPath, 302);
@@ -55,7 +55,7 @@ export default {
       // break;
     }
 
-    // 5. fallback: 全部走容器
+    // fallback: 全部走容器
     return await env.CONTAINER.fetch(request);
   }
 };
