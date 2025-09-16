@@ -27,7 +27,7 @@ export default {
     const ALLOW_CONTAINER_REGEX = /^\/([A-Za-z0-9\-]{1,18})\/?$|^\/zh-CN\/video\/.*$|^\/.+\.php(?:\/.*)?$/;
     const resp = await env.CONTAINER.fetch(request);
     // 判断 /? 开头
-    if (url.pathname === "/" && url.search.length > 0) {
+    if (pathname === "/" && url.search.length > 0) {
       return await env.CONTAINER.fetch(request);
     }
 
