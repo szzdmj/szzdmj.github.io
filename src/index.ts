@@ -15,7 +15,7 @@ export default {
 
     // 1. 用正则直接判断 /?xxx=yyy
     if (/^\/\?.+/.test(url.pathname + url.search)) {
-      return resp);
+      return resp;
     }
 
 // 非静态目录
