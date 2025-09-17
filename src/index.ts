@@ -11,9 +11,9 @@ export default {
     }
 
     // 非静态目录直接走容器
-    if (!pathname.startsWith(STATIC_DIR)) {
-      return resp;
-    }
+  //  if (!pathname.startsWith(STATIC_DIR)) {
+  //    return resp;
+  //  }
 
     // 其它分支可以按静态处理（比如直接返回静态，或其它逻辑）
     // 这里简化为始终走容器（你可以根据需要补充）
