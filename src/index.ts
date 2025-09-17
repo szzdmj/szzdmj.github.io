@@ -13,7 +13,8 @@ async function fetchStaticWithFallback(request: Request): Promise<Response> {
 
   // 只允许静态目录
   if (!origPath.startsWith(STATIC_ROOT)) {
-    return new Response("Not Found (not a static asset request)", { status: 404 });
+    const h = new Headers({ "x-target": "CONTAINER" });
+    return new Response("Not Found (not a static asset request)", { status: 404, headers: h });
   }
 
   // 构造候选路径列表
@@ -40,12 +41,18 @@ async function fetchStaticWithFallback(request: Request): Promise<Response> {
     staticURL.pathname = path;
     try {
       const resp = await fetch(staticURL.toString(), { method: request.method, headers: request.headers, redirect: "follow" });
-      if (resp.status === 200 || resp.status === 304) return resp;
+      if (resp.status === 200 || resp.status === 304) {
+        // 静态资源命中
+        const h = new Headers(resp.headers);
+        h.set("x-target", "STATIC");
+        return new Response(resp.body, { status: resp.status, headers: h });
+      }
     } catch {}
   }
 
-  // 全部失败，返回444
-  return new Response("Not Found (Unicode static fallback exhausted)", { status: 444 });
+  // 全部失败，返回444，标记 x-target
+  const h = new Headers({ "x-target": "STATIC" });
+  return new Response("Not Found (Unicode static fallback exhausted)", { status: 444, headers: h });
 }
 
 export default {
