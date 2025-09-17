@@ -6,7 +6,7 @@ export default {
     const resp = await env.CONTAINER.fetch(request);
 
     // 根路径带 query参数就走容器
-    if (pathname === "/" && url.search && url.search.includes("=")) {
+    if (pathname === "/" && url.search.includes("=")) {
       return resp;
     }
 
