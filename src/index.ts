@@ -5,10 +5,10 @@ export default {
     const resp = await env.CONTAINER.fetch(request);
 
     // 1. 根路径带参数时，禁止一切静态资源（尤其 JS/CSS/图片等）
-    if (pathname === "/" && url.search && url.search.includes("=")) {
+    if (pathname === "/" && url.search.includes("=")) {
       // 如果是静态资源请求（.js/.css/.html/图片等），直接 404
       if (/\.(js|css|html|png|jpe?g|gif|webp|ico|svg)$/i.test(pathname)) {
-        return new Response("Blocked static resource", { status: 404 });
+        return resp;
       }
       // 其它所有请求直接转发容器
       return resp;
