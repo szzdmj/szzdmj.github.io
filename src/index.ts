@@ -25,7 +25,7 @@ if (hasParams(url.pathname) ) {
     }
 
 // 非静态目录
-　　　if (!pathname.startsWith(STATIC_DIR) ) {
+　　　if (!pathname.startsWith(STATIC_DIR)　|| pathname.startsWith(ALLOW_CONTAINER_REGEX)  ) {
       return resp;
     }
     // 4. 其它路径全部走容器
