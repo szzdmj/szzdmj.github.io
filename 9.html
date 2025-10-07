@@ -4507,7 +4507,6 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			santuiword.innerHTML = "<a href=" + url + " target='_blank'>退党(团,队)总人数:" + count + "</a>";
 		}
 		/*回调函数--当显示或隐藏進度条时触发。show为1表示显示進度条，0表示隐藏進度条*/
-		console.log("NoNetworkjs="+NoNetworkjs);
 		function ShowLoading(show) {
 			//无网络时的显示
 			var top12 = document.getElementById('top12'),
@@ -4608,6 +4607,54 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			var hash = location.hash || '' /*可以在这里设置默认值*/;
 			var match = hash.match(/#(gj_\w+)$/);
 			var matchplay = hash.match(/#gjplay_(\w+)$/);
+			var bdplay = hash.match(/#bdplay_(\w+)$/);
+			var aplay = 0;
+			var bplay = 0;
+			//选择播放本地视频
+			
+			if (bdplay) {
+			//经文
+				if (bdplay[1]=='jw') {
+					aplay = 7;	//位置号
+					bplay = 3;	//共移几个视频
+				};
+				//传奇时代
+				if (bdplay[1]=='cqsd') {
+					aplay = 21;	//位置号
+					bplay = 14;	//共移几个视频
+				};
+				//风雨天地行
+				if (bdplay[1]=='fytdx') {
+					aplay = 32;	//位置号
+					bplay = 6;	//共移几个视频
+				};
+				//九评
+				if (bdplay[1]=='9q') {
+					aplay = 41;	//位置号
+					bplay = 9;	//共移几个视频
+				};
+				//为你而来
+				if (bdplay[1]=='wnel') {
+					aplay = 24;	//位置号
+					bplay = 2;	//共移几个视频
+				};
+				//我们告诉未来
+				if (bdplay[1]=='wmgswl') {
+					aplay = 59;	//位置号
+					bplay = 12;	//共移几个视频
+				};
+				//终极目的
+				if (bdplay[1]=='zjmd') {
+					aplay = 47;	//位置号
+					bplay = 6;	//共移几个视频
+				};
+				for (var i = 0; i < bplay; i++) {
+					const item = g_aList3.splice(aplay, 1)[0];
+					g_aList3.unshift(item); 
+				}
+				jmp(d2);
+			
+			}
 			//本地播放干净世界视频
 			//{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8", img:"img_", title: "【传奇时代纪录片】<br>— 雪中梅" },
 			var gjtitle="【传奇时代纪录片】<br>— 雪中梅",gjimage='1.gif',gjvideo="https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8";
