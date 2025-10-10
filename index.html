@@ -85,7 +85,7 @@
 
 		.santui {
 			background-color: rgba(243, 244, 246, 0.8);
-			margin-top: 60px;
+			margin-top: 10px;
 			font-size: 1.4em;
 			font-weight: bold;
 			border-radius: 5px;
@@ -1032,6 +1032,23 @@
 		<div id=divapp><a id="btn-install" href="javascript:"></a></div>
 	</div>
 	</div>
+	<!-- 无网络时加载 -->
+	<div style="display:none"><img  id=img1 onerror="offline();" /><img  id=img2 onerror="offline();" /><img  id=img3 onerror="offline();" /></div>
+	<script>
+		var NoNetworkjs = 0,NNjs = 0;
+		img1.src="https://www.baidu.com/img/flexible/logo/pc/result.png?v=" + Math.random();
+		img2.src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?v=" + Math.random();
+		img3.src="https://www.gstatic.com/marketing-cms/assets/images/f5/d3/a7f9db7045429cb6dc6be56bdcbe/google-logo-about.svg?v=" + Math.random();
+		function offline()  {
+		NNjs = NNjs + 1;
+		if (NNjs == 3)	NoNetworkjs = 1;
+		}
+		
+	</script>
+	<div id=NoNetwork style="display:none;padding-top:20px;max-width:1200px;margin: auto;border-radius:10px;" align=center>
+			<img alt=img_61 class=mw>
+			<div style="padding:20px 0;max-width:1200px;background:white;" ><h3>您的设备可能无法访问网络，请检查连接后<span onClick="location.reload()" style="color:#0033CC;cursor:pointer;" >刷新页面</span></h3><br>您还可以浏览以下电子书籍。</div>
+	</div>
 
 	<!-- 头图 -->
 	<div id=top12 class=topMain>
@@ -1054,6 +1071,7 @@
 	</div>
 
 	<div id=divMain1 style="max-width:1200px;background:white;	margin:auto;" class="content">
+		<div id=d01>
 		<div id=d0 align="center" style="background:#efd09a;display:none;">
 			<table id=mintbMenu cellspacing=0 cellpadding=0 width=80%
 				style="height:2.0em;z-index:1000;table-layout:fixed;background:#efd09a">
@@ -1070,6 +1088,7 @@
 					</td>
 				</tr>
 			</table>
+		</div>
 		</div>
 		<div style="clear: both;"></div>
 		<!-- 主页 -->
@@ -1225,7 +1244,7 @@
 						<div id="demo2"></div>
 					</div>
 				</div>
-
+				<div id=xsb1>
 				<div style="padding-top:10px;background:white;">
 					<div id=xsb style="display:none">
 						<ul id="circle">
@@ -1236,11 +1255,13 @@
 						</ul>
 					</div>
 				</div>
+				</div>
+		</div>
 				<div class="d1Main">
 					<div id=Mainleft class="d1Mainright" style="float:left;width:73%;margin-bottom:15px; "
 						align="center">
 						<div id="loading"></div>
-						<div id=MainleftContent style="width:90%;" align="left">
+						<div id=MainleftContent style="width:100%;" align="left">
 							<!-- 无网络时显示 -->
 							<blockquote id=bq>
 								<table id=tbNav cellpadding=0 cellspacing=0>
@@ -1295,6 +1316,7 @@
 							<!-- 可修改下面的提示内容-->
 
 							<pre id=help>
+							
 本站主要有以下目录：
 【<a href="javascript:jmp(d2);">视频</a>】mp4 视频和 mp3 音频文件。
 【<a href="javascript:jmp(d3);">书籍</a>】html 和 epub 等格式的电子书。
@@ -1303,13 +1325,13 @@
 
 本网页有以上内容的索引和简介，请点页面顶部的不同栏目浏览。
 您也可以先浏览一些真相文章:
-<span id=spAndroid></span>
+<div></div>
 </pre>
 							<div style="clear: both;"></div>
 						</div>
 					</div>
 				</div>
-
+			<div id=Mainright1>
 				<div id=Mainright class="diMainleft"
 					style="float:left;width:26%;border-left:2px solid #b3b3b3;margin-bottom:10px;" align="center">
 					<div class=szmjlink>
@@ -1383,6 +1405,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 			<div style="clear: both;"></div>
 			<div id=qrcode1 align="center">
 				<p style="color:black;font-weight:bold;padding-top:5px;">本平台二维码和网址</p>
@@ -1395,7 +1418,7 @@
 					</script>
 				</p>
 			</div>
-		</div>
+
 
 
 		<!-- 软件-->
@@ -1419,7 +1442,7 @@
 		<div id=d3 style="display:none;max-width:1000px;margin:auto;padding-top:40px;">
 			<div id=divPicList align=center style="color:blue;font-size:1.1em"></div>
 			<div id=divPic style="color:blue;font-size:1.2em;font-weight:bold;display:none" align=center></div>
-			<h2 align=center>精彩电子书下载</h2>
+			<h2 id=d3ebook align=center>精彩电子书下载</h2>
 			<div align=center style="color:#999999">部分电子书点击标题可在线阅读</div>
 			<div id=bookpage1 class="szmjlinkebook" style="padding:40px;">
 
@@ -1430,9 +1453,9 @@
 					<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666">
 						节选：纵观八十多年的中国共产党历史，其所到之处永远伴随着谎言、战乱、饥荒、独裁、屠杀和恐惧；传统的信仰和价值观被共产党强力破坏；原有的伦理观念和社会体系被强制解体；人与人之间的关爱与和谐被扭曲成斗争与仇恨；对天地自然的敬畏与珍惜变成妄自尊大的“战天斗地”，由此带来的社会道德体系和生态体系的全面崩溃，将中华民族乃至整个人类拖向深重的危机...
 						<p style="color:#f67900;padding-top:5px;">下载：
-							<a href="/book_html/九评共产党.html" class="preload-page"
+							<a href="/book_html/九评共产党.html" class="preload-page preloaded"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/九评共产党.pdf" target="_blank">pdf</a>
+							<a href="/book_html/九评共产党.pdf" class="preload-page" target="_blank">pdf</a>
 							<!--
 <a href="/book_html/九评共产党.chm" download="九评共产党.chm" class="preload-download" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;
 <a href="/book_html/九评共产党.epub" download="九评共产党.epub" class="preload-download" target="_blank">epub</a>-->
@@ -1449,7 +1472,7 @@
 						<p style="color:#f67900;padding-top:5px">下载：
 							<a href="/book_html/风雨天地行.html" class="preload-page"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/风雨天地行.chm" target="_blank">chm</a>
+							<span class=filecache><a href="/book_html/风雨天地行.chm" target="_blank">chm</a></span>
 							<!--
 <a href="/book_html/风雨天地行.epub" download="风雨天地行.epub" class="preload-download" target="_blank">epub</a>
 -->
@@ -1462,7 +1485,7 @@
 					<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666">
 						节选：十四年前，即一九九九年四月二十五日，逾万法轮功学员自愿到北京和平上访。这个出现在中共统治下的民众大规模和平上访，震动了世界，被视为中国历史上的奇迹。随后，江泽民集团在七月二十日在全国范围内发动了对法轮功学员的大抓捕，对修炼人的惨烈迫害从此开始…
 						<p style="color:#f67900;padding-top:5px">下载：
-							<a href="/book_html/话说当年四二五.pdf" target="_blank">pdf</a>
+							<a href="/book_html/话说当年四二五.pdf" class="preload-page" target="_blank">pdf</a>
 						</p>
 					</div>
 				</div>
@@ -1476,7 +1499,7 @@
 						<p style="color:#f67900;padding-top:5px">下载：
 							<a href="/book_html/江泽民其人.html" class="preload-page"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/江泽民其人.chm" target="_blank">chm</a>
+							<span class=filecache><a href="/book_html/江泽民其人.chm" target="_blank">chm</a></span>
 							<!--
 <a href="/book_html/江泽民其人.epub" download="江泽民其人.epub" class="preload-download" target="_blank">epub</a>
 -->
@@ -1493,7 +1516,7 @@
 						<p style="color:#f67900;padding-top:5px;">下载：
 							<a href="/book_html/共产主义的终极目的.html" class="preload-page"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/共产主义的终极目的.chm" target="_blank">chm</a>
+							<span class=filecache><a href="/book_html/共产主义的终极目的.chm" target="_blank">chm</a></span>
 							<!--
 <a href="/book_html/共产主义的终极目的.epub" download="共产主义的终极目的.epub" class="preload-download" target="_blank">epub</a>
 -->
@@ -1501,7 +1524,7 @@
 					</div>
 				</div>
 
-				<div style="width:100%;padding:20px 0;">
+				<div class=filecache style="width:100%;padding:20px 0;">
 					<h4 style="font-weight:bold">《揭开恶魔的面纱》</h4>
 					<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666">
 						节选：国际共产主义运动发起至今已有一百多年，在这期间，它给世界人民带来了无尽的灾难。从谎言到杀戮，从侵略到独裁，所到之处无不血流成河，生灵涂炭，其声名之狼藉比纳粹更有过之而无不及。如今，民主已成为世界潮流，马列主义已在全球范围内被证明彻底失败，只有残存的中国共产党和几个共产主义小兄弟还在艰难挣扎...
@@ -1520,7 +1543,7 @@
 						<p style="color:#f67900;padding-top:5px">下载：
 							<a href="/book_html/解体党文化.html" class="preload-page"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/解体党文化.chm" target="_blank">chm</a>
+							<span class=filecache><a href="/book_html/解体党文化.chm" target="_blank">chm</a></span>
 							<!--
 <a href="/book_html/解体党文化.epub" download="解体党文化.epub" class="preload-download" target="_blank">epub</a>
 -->
@@ -1528,7 +1551,7 @@
 					</div>
 				</div>
 
-				<div style="width:100%;padding:20px 0;">
+				<div class=filecache style="width:100%;padding:20px 0;">
 					<h4 style="font-weight:bold">《马克思的成魔之路》</h4>
 					<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666">
 						节选：被“马克思主义者”奉为神明的马克思，早年曾经是基督徒，后来加入魔鬼撒旦教，他自己也承认与撒旦签了契约。其后马克思大行魔鬼所为之事：诅咒全人类下地狱，包括工人和那些为共产主义而战的人。“马克思主义”正是在其加入魔教后诞生...
@@ -1546,12 +1569,12 @@
 					<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666">
 						节选：共产主义并非一种思潮、学说，或者在人类寻找出路时一个失败了的尝试。它是魔鬼，亦称共产邪灵，由恨和宇宙低层空间各种败坏物质构成。它原本是一条蛇，到了表层空间的体现形式则是一条红龙。它与仇视正神的撒旦为伍，同时利用各种低灵和魔祸乱人间。这个邪灵的终极目的就是要毁灭人类，在神归来挽救众生的最后关头，让人不信神，让人的道德败坏到背弃神和传统，听不懂神的教诲而导致最终被淘汰...
 						<p style="color:#f67900;padding-top:5px">下载：
-							<a href="/book_html/魔鬼在统治着我们的世界.pdf" target="_blank">pdf</a>
+							<a href="/book_html/魔鬼在统治着我们的世界.pdf" class="preload-page" target="_blank">pdf</a>
 						</p>
 					</div>
 				</div>
 
-				<div style="width:100%;padding:20px 0;">
+				<div class=filecache style="width:100%;padding:20px 0;">
 					<h4 style="font-weight:bold">《起诉江泽民》</h4>
 					<div style="max-width:90%;padding-top:10px;margin:auto;color:#666666">
 						节选：一九九九年，江泽民一手挑起了针对法轮功学员的迫害运动，在中国大陆对修炼真善忍的法轮功群众施行“名誉上搞臭、经济上搞垮、肉体上消灭”“打死白打、打死算自杀”等灭绝政策，导致十年来众多法轮功学员广泛遭受酷刑折磨、被活摘器官、及被其它方式迫害致死等。江泽民及其政治流氓集团，对这场迫害的发生、推行和延续，有着不可逃脱的罪责...
@@ -1570,7 +1593,7 @@
 						<p style="color:#f67900;padding-top:5px">下载：
 							<a href="/book_html/死刑犯遮不住器官市场的蘑菇云.html" class="preload-page"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/死刑犯遮不住器官市场的蘑菇云.pdf" target="_blank">pdf</a>
+							<span class=filecache><a href="/book_html/死刑犯遮不住器官市场的蘑菇云.pdf" target="_blank">pdf</a></span>
 							<!--
 &nbsp;&nbsp;&nbsp;
 <a href="/book_html/死刑犯遮不住器官市场的蘑菇云.epub" download="死刑犯遮不住器官市场的蘑菇云.epub" class="preload-download" target="_blank">epub</a>
@@ -1588,7 +1611,7 @@
 						<p style="color:#f67900;padding-top:5px">下载：
 							<a href="/book_html/退党手册.html" class="preload-download"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/退党手册.chm" target="_blank">chm</a>
+							<span class=filecache><a href="/book_html/退党手册.chm" target="_blank">chm</a></span>
 						</p>
 					</div>
 				</div>
@@ -1658,7 +1681,7 @@
 						&nbsp;</div>
 					<div id=vediodiv style="position:relative;width:100%;">
 						<figure id=fp style="margin:0;padding:0;display: flex;"><video id=vp
-								style="object-fit:contain;outline:none" crossorigin playsinline
+								style="object-fit:contain;outline:none" crossorigin playsinline 
 								webkit-playsinline></video></figure>
 						<div id=play_begin_middle style="position:absolute;top:42%;right:42%;" onClick="play(1);"><svg
 								viewBox="0 0 48 48" class=pl1>
@@ -1750,7 +1773,8 @@
 					<table cellspacing=0 cellpadding=0 class=tb4 width=100%>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">主要媒体</h3>
+								<h3 style="color:#001fc6;padding:10px 0">主要媒体</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -1832,7 +1856,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">GJW独家 时政</h3>
+								<h3 style="color:#001fc6;padding:10px 0">GJW独家 时政</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -1913,7 +1938,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">自媒体 时政</h3>
+								<h3 style="color:#001fc6;padding:10px 0">自媒体 时政</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -1998,7 +2024,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;"> 神秘现象</h3>
+								<h3 style="color:#001fc6;padding:10px 0"> 神秘现象</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -2043,7 +2070,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">健康</h3>
+								<h3 style="color:#001fc6;padding:10px 0">健康</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -2064,7 +2092,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">神韻</h3>
+								<h3 style="color:#001fc6;padding:10px 0">神韻</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -2081,7 +2110,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">自媒体 文史</h3>
+								<h3 style="color:#001fc6;padding:10px 0">自媒体 文史</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -2130,7 +2160,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">GJW独家 故事</h3>
+								<h3 style="color:#001fc6;padding:10px 0">GJW独家 故事</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -2163,7 +2194,8 @@
 						</tr>
 						<tr>
 							<td>
-								<h3 style="color:#001fc6;">GJW独家 文化</h3>
+								<h3 style="color:#001fc6;padding:10px 0">GJW独家 文化</h3>
+								<hr style="width: 95%; margin-left: auto; margin-right: auto;border: 1px dashed; ">
 							</td>
 						</tr>
 						<tr>
@@ -2239,23 +2271,23 @@
 			<br>
 		</div>
 		<!-- 三退-->
-		<div id=d5 style="max-wdith:1200px;padding-top:70px;" align=center>
+		<div id=d5 style="max-wdith:1200px;padding-top:20px;" align=center>
 			<script>d5.style.display = "none";</script>
 			<h2>自2004年12月3日起</h2>
 			<h2>三退（退党、团、队）人数</h2>
 			<p style="font-size:3.0em;color:#f67900;font-weight:bold">4.5 <span
 					style="color:black;font-size:0.7em;">亿</span></p>
 
-			<font style="letter-spacing:0.1em;font-size:1.2em;">
-				<div align=center style="line-height:1.5;padding-top:60px;"><b>大纪元郑重声明</b></div><br>
+			<font style="letter-spacing:0.1em;font-size:1.1em;">
+				<div align=center style="padding-top:5px;"><b>大纪元郑重声明</b></div><br>
 				<div align="left" style="width:90%;">
 					　　广大的中国民众：共产党的末日就要到了。但是这个邪恶的党（魔教）在历史上却对众生、对神佛犯下了滔天大罪，神一定要清算这个恶魔。
-					<br><br>
+					<br>
 					　　如果有一天，神指使人类的谁对共产党清算时，也一定不会放过那些所谓坚定的邪恶党徒。我们郑重声明：所有参加过共产党与共产党其它组织的
 					(被邪恶打上兽的印记的)人，赶快退出，抹去邪恶的印记。一旦谁对这个魔教清算时，大纪元储存的记录可以为声明退出共产党和共产党其它组织的人作证。
-					<br><br>
+					<br>
 					　　天网恢恢，善恶分明；苦海有边，生死一念。曾被历史上最邪恶的魔教所欺骗的人，曾被邪恶打上兽的印记的人，请抓住这稍纵即逝的良机！
-					<br><br>
+					
 				</div>
 				<div align=right style="width:100%">
 					<div align=center style="width:45%">大纪元<br>2005年1月12日</div>
@@ -2269,12 +2301,14 @@
 					* 可以使用化名三退<br>
 				</div>
 			</div>
-			<div align="center" class="santui">
+			<div id=sttj>
+			<div align="center" class="santui" >
 				<a href="/10" target="_blank" noproxy><span style="color:#003399">我 要 声 明 三 退</span></a>
 			</div>
-			<div style="color:#666666;margin-top:10px;padding-bottom:30px;">
+			<div style="color:#666666;margin-top:10px;padding-bottom:5px;">
 				<a href="/10" target="_blank" style="color:#666666;" noproxy>点击进入“全球退党服务中心”官网</a><br>或发邮件到三退邮箱（有人值守）<a
 					href="mailto:feedback@shenzhouzhengdao.org" style="color:#666666;">feedback@shenzhouzhengdao.org</a>
+			</div>
 			</div>
 			<div align=center id=stcenter style="display:none;padding-bottom:20px;width:100%">
 				<div align="left" style="width:90%">
@@ -2282,7 +2316,7 @@
 						<div style="max-width:100px;align-items: center;margin:auto;">
 							<img alt=img_67 class=mw>
 						</div>
-						<div style="align-items: center;padding-left:20px;width:90%; margin-top:20px;">
+						<div style="align-items: center;padding-left:20px;width:90%; ">
 							<h2 style=" padding-bottom:10px;align-items: center; ">退党中心<br> Global Quit CCP Center</h2>
 						</div>
 					</div>
@@ -2314,13 +2348,15 @@
 	</div>
 	</div>
 	<!-- 友好链接-->
+	<div id=BottomTop1>
 	<div id=BottomTop style="max-width:1200px;height:3px;background:#dab678;margin:auto;"></div>
 	<div id=InBottomMain style="max-width:1200px;min-height:160px;background:#f9f2e3;margin:auto;">
 		<div style="padding:10px 30px 0;" align="left;">
 			<h3>友好链接:</h3>
 		</div>
 		<div style="line-height: 2.4em;spaced-texe:20px;padding:0 60px 10px;" class="szmjlink">
-			<span style="color:#f67900;">网络媒体:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/GnoF"
+			<table cellspacing=0 cellpadding=0 width=100%>
+			<tr><td width="10%"><span style="color:#f67900;">网络媒体:</span> </td><td width="90%"><a href="/GnoF"
 				target="_blank" noproxy>明慧网</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/6N6N" target="_blank" noproxy>大纪元</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ENBg" target="_blank" noproxy>看中国</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
 				href="/brXY2" target="_blank" noproxy>人民报</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/5kU6" target="_blank"
@@ -2328,18 +2364,18 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="/7DSY" target="_blank" noproxy>新生网</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
 				href="/kbWVA" target="_blank" noproxy>明慧之窗</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/Pyc62" target="_blank"
 				noproxy>干净世界</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/S5mFc" target="_blank"
-				noproxy>明见网</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/MLfDo" target="_blank" noproxy>神州明见</a><br>
-
-			<span style="color:#f67900;">音频视频:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/9ggw"
+				noproxy>明见网</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="/MLfDo" target="_blank" noproxy>神州明见</a><br><td></tr>
+			<tr><td>
+			<span style="color:#f67900;">音频视频:</span></td><td><a href="/9ggw"
 				target="_blank" noproxy>明慧广播</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/ZHo8" target="_blank" noproxy>新唐人</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="/ZHo8" target="_blank" noproxy>中文电视台</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
 				href="/E6kW" target="_blank" noproxy>希望之声广播电台</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/5ceP"
 				target="_blank" noproxy>放光明</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/ovDh" target="_blank"
 				noproxy>香港商台</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/ymMJh" target="_blank" noproxy>新唐人亚太台</a>
 			&nbsp;&nbsp;&nbsp;&nbsp; <a href="/CDeXE" target="_blank" noproxy>新境界影视</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="/TmbTY" target="_blank" noproxy>新世纪影视</a> <br>
-
-			<span style="color:#f67900;">网络杂志:</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/FYKQ9"
+				href="/TmbTY" target="_blank" noproxy>新世纪影视</a> <br></td></tr>
+			<tr><td>
+			<span style="color:#f67900;">网络杂志:</span> </td><td><a href="/FYKQ9"
 				target="_blank" noproxy>真相</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/33oi" target="_blank"
 				noproxy>明慧周报：海外版</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/RCJG" target="_blank" noproxy>新纪元周刊</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="/UJD87" target="_blank" noproxy>看杂志</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
@@ -2347,13 +2383,15 @@
 				noproxy>中国事务</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="/Pa3XW" target="_blank" noproxy>开放杂志</a>
 			&nbsp;&nbsp;&nbsp;&nbsp;<a href="/SRWro" target="_blank" noproxy>黄花岗</a> &nbsp;&nbsp;&nbsp;&nbsp;<a
 				href="/CCmLy" target="_blank" noproxy>中央社</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/RB8iA" target="_blank"
-				noproxy>自由圣火</a>
+				noproxy>自由圣火</a></td></tr>
+			</table>	
 		</div>
 	</div>
 	<div align="center" style="max-width:1200px;background:#f9f2e3; padding-bottom:5px;margin:auto;">-- <span
-			onClick="javascript:jmp(d6);" style="cursor:pointer;font-weight:bold;">关于我们</span> --</div>
-	<div
-		style="max-width:1200px;height:30px;text-align:center;padding-top:5px;background:#dab678;margin:auto;font-size:20px;font-family:黑体;color:#523105;border-radius: 0 0 10px 10px;">
+			onClick="javascript:jmp(d6);" style="cursor:pointer;font-weight:bold;">关于我们</span> --
+	</div>
+	</div>
+	<div style="max-width:1200px;height:30px;text-align:center;padding-top:5px;background:#dab678;margin:auto;font-size:20px;font-family:黑体;color:#523105;border-radius: 0 0 10px 10px;">
 		神州明见 版权所有 2023 - <span id=year></span></div>
 	</div>
 	<!-- 参照下面格式增加文章 -->
@@ -3262,6 +3300,24 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			src="data:image/png;base64,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">
 		<img id=img_67
 			src="data:image/webp;base64,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">
+			<img id=img_68
+			src="data:image/webp;base64,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"
+			>
+			<img id=img_69
+			src="data:image/webp;base64,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"
+			>
+			<img id=img_70
+			src="data:image/webp;base64,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"
+			>
+			<img id=img_71
+			src="data:image/webp;base64,UklGRugLAABXRUJQVlA4INwLAACwPACdASrwAHsAP5W2zV64rqo7rne9M3AyiWMvFubtrMWr0RXwCBTPTuwH9F7BjB3X/7hHZn/E5lsNlkp/ZTKwed8EX8P/8/WdRtYHq99qGbK5TJAFqvQWRrUFuQLq/zXghTHRvEle/MtkgjkCinKZW2i/5iVx0L6u8AmGd5SRMy+HyKOCKhUrupRryNxc1H/dCG23OY7pGN7wO62V2M5YSMMnGNek6jcrxSjrjEAvHDFuar3vGI6xo0AKP9ayI3VxkGr6ZUe9vt5fLVOXTmjWZYKd9E6dso5FV6tLH4+mwtypnS48kxC9+Tfh0zL0FqQQOJfCvympu3kONnKOf+Hv/VsXJft2AYJg45QSjuXjxwFcGjkvKH6ef3FWfYvS0bZEIpoi1e+lWYTQZksR0vRv/5SiJwNkk/oBnEDohW2nUYM58L+5ZCI4Zwzx63twlPM7tgkkT6eSi43GCY3AWGB7om13jtsIurry3YlMarntplTsnDRDrvnX8+p1+GRrDK8MQPk0Z+CwSxKQ7eOm8UXuibTW8ryxW7cAFeL6A3lauz/rP0ogPqneN7z0oyF2G0yS3hJ5p9EbELCJKNLws3iyy+KfwkEH2JqJMwFU2xCV90gh6o/0vpzJC1nstykCfpBi+Tu2EAIPRNEzOwm8AAD+2tkKxhdowm7DfpBw9ESuhN1bCFtKMo7ouLJ+73EU78eSs7zRgPymmi/s2KP8NlnD0NddVE7a6JozQZlYy1jrKthnFzlW5+eb/BdYuhYgnPrdslQ76Zf3O4wg31L11AE0q8e7FesffFR2n0yT9cUmPwaXatFoZc3LBoPdIfnzgeKkkBVg9FwBWWHNq6SmK/due+fUS0gZOLU8rI86+BIYgnlQktd1e4GHC6pyFEYBfvaAcUGauxobQ981RwaZBJLBVFSUmaW0Hz+7WZ0Edz4X/cwr5LSs1+2NOz6aMNOuzUaB2tvV6wdA5WcM1RS6SN1Am4pJytbmjkOStBgttN4xT0N/2d5PEM1raBoC/WCQ8zgMbJSWUiSE0ZFcy9IqU2unO//3z1iif0JL+x/6r4FEgmF1VHL07MJPEaW69NjPnIoQ5VOse1gSPacFxlOAIgzfbOc5lcv4SOd66DPTr+u6bU1xAjCWqY0s94cpNnvZXZIRNxnPAeevRCqy+Za/J7lZW+Igm6Bj2hZuJsIQbcf3xoEHVLBfMPYFjjFGSVu+/a/XK0N9xC7tYxT/uRqZQyzsA7Lcq07gIT8i80vLLbroL7W7VbMwfoP3A3MpqpfPAZksJi5OqHdfBfo9iXAum1JOU9pL/VUMPzNmiyfTZVBRLvKwBOspbryalAIPbGqfQ5TI8DLNenvT+Bxl71efUY1e+V0jU041fGsKkX/RECm9vTM3/8OP1CKYTGLB/MMROUvckIvBismGg+gMJGPaOULnvsDaZuY0kSYYf3aixb5pim//0SnQPD9qHkkYPK0V4B8FaPaF2Os5evB2Lo2EleZ8zRC09RQaOT52W5h2I+6mBWDCLmXQewdEK0KSjeGV9cdCikp5cxpxYMza6SIa6wrwwGFJLLytdxa5Q3mQ3JwnzFG34QLKaREREVFHyzHL22vGrmKnIa0bdt7k70JB35Cu7aGaROuxYoBTdYy+RHVZ4lKEeCGYiXzvl3Fqqj8GZgJoNUiw3XSQReTEPu2sc95XnFMpR031cZWyrrlsRO7R3qlfoVh+goPD/8xVdqgofDaQEcIQLkvDUadUzcH3S/zbFYyMANI6JhLQpS+pLds5ZXHOBD0c4O1StV+ks+/fHMXNu6djQODSFxK2c4t7WTPY1CFeBdbZtETZIA1999uYzyncGsfWRZGTSC/o5hzPdFrceZkSvlCqYYLHBDHsFQYKWlZunZPVtbL2JcnD2A4oPDk2sS1cMNWAFeMHt/X2t/uqWUqyqMxfciCuzw+6lu20Fwlv/acVEX+aUzAKgQdpg2XESE+MFFHfpBUlbak4u3J1BYGmlkWAhF882I4b0N2fpP8BoSows3rRaRroz80lKSrUM70eKZRLw6D3dRflpFbK+X1F1rJ10cn1DMyJyl9oUKJdc75rjPrQ0GL/5nULjc9yePvmsceYKPkBAQ1s4lWoUxGjoGiJ8S1/S7TIod0kgFNlu+4CQtc8Y8bvvapRf69X6oVYvxtGmKVlmW63XYwA12tjFlr3Opf7jAxL0Xd8Y9PxEctqzqaHv9hHsxLSs3P+YIW2eifOrtnEKiHjNpCU5La5h/ppBCAumXxDI0KpocQQuMpgblMSL+aMND+CK1O1BsJr/gPehHh8ECGzfBtpFm7tgCSt5lw36UZ7CULv0DHp5TWZYZjPTqCd3fVzZzTzQhKdOFxUlPGRX6M4avU9r31BIa4EKmep1lVPJvgri0ZCd/es0VXduEUStgBRGPk3OIFX7WD1NL2aRnqafJD9HKbsyvxG76634Vm2r7VASkhcTQ0nq3UllB2T1MD3/seOHWbyd0DsBGR8uERgnb+7dKPlcKQQXF/unYbWDBvZYla9QR/mMi2mg9EH/nOjpKhnT1SRDrsxCr0b1gXeD70H7L1MlhKDpALAeSMwRbryxqKUZ+lQAH2uqHQCzqzSSd2MpRmdIW6OFr/MVrDjvVj7Zha5oJkkSGgqiRnvjd004VHcoN6p/Rp2ElI89ZyBNRpNmVmMTUDzYGxEI3vDzW3mYVMOifHZ4qdv/j9elDpecZHpYcVlVLFJfx9wfphwJfqxPepyc4mSGy+kSJDWs2emLjE1ZZfS5CnPUzBk02trYWVJE6ET5JxkC2kPv9lxMy0LLg1o85TBSSdR2qfaKwdKw8lCSXS6vPd+z7SI+EWUYdhL5QqvL9tqdy7icve2adHTR+g2kDgw/RKMpAZCyUeZdPN47eJSEAXYRUaWlpVM+zzCP9Drg0WIGQ4SlK5WMgo4anJVEiAYdhHwUKfJUA7onyIf/KQFOIPcxoDf7PtEUAGs+sBD1zQbBrrcpYgsg2IZOSJMe6S0cC1NLUa7YFyXMQc23YFzXYuPNFfwuFdz3/4xkRK8mZWlEWR7sBaig1QLeTM0NSVCSzbCfsAwKF1SK9XpJWFFdZ9Yg0ubL2/YYyryCDTcm8K56tTVxHqxpdDxd7R8OG29Wc+x9WvdRm+5K6dtCwzKrJedmkV0UHmkFzO/IGmfy4+PDEEygeX2HffyFnVdZDT9HYH0Kt5DlP/n0CfWU/8N4p3VV6XxQ1AN/iYPHvChn2C+TBoWkrOzXpiB5A9EuLg0u5IQQuSMvuQeTW3QmOsX8GtGfp9MeSBeB7bTBBjybDMHj70JvFb60R7hCq2UheXudf1ZZt5U96HiiRxA5Tc/mbgXDLeOTRWrnTfhAs6VyBiS0K4U+idsU64VKdLEnoDK1RkqQslRL6maecrutgCp1qxKrPiuCsHg1oT7RwCig7Cf6VHiSfkbkgRtNPFUxejbPT8quvsdLTKidjBX7FPVqAGg1l5dXRK/lEi1pqA4I+o0XK4r5bDug5dW1pOIa2CSCLaWUPr24Po7NYaoguDhrOnzKs1siI9g+CX31LaItl/h26Vi43Oj09Epg+Bc6XyuoVaV5GeuL6TUtfVODT9oEOR0Bc0l4pWvoUgHQthYJnwHy8U2WmefvXGW4fDby8mJACTqDM15Z8mBN/FSJPccgji6BUxkXE4+55YRgu2dNera+VJ5d25nqJMpohSgblcXc703qKZDN9mwu34n2ASTvF19xHQuc/P6Juw3sDjcCezAx+klH+wEkX2IT63RlDiwFBXKqfpMK+2FZ0Yijmi22nmstZPBYkOkM+hnqGfdIYPhfUDRWe8TEL489vVgO/aWljRbrazh85cd8R5TrwxX3UYkzEpuuK4dwlSRoin3Z7cY4lj7hnJ0aQ2dI/GNjDiLWMDQROPF4K5guinDTixWveLN6LfsXYq2tiyTg6ehLNzllFvOnNwCArKLSXXDU6X2bH3ruvWyg2o6XAbeEdY530KDchvouJ+sjJNrz5+XUBp6Ku5gPwvs1j0zGXqtjQwh8m/AS3nW4bQ0Z0gWCXDFRkWAAAA="
+			>
+			<img id=img_72
+			src="data:image/webp;base64,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"
+			>
+			<img id=img_73
+			src="data:image/webp;base64,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"
+			>
 
 
 	</div>
@@ -3321,6 +3377,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			{ file: "/8HYbM.apk", title: "安卓翻墙软件：神州明见TV 7.1", download: "神州明见TV.apk" },
 			{ file: "/W8r1z.apk", title: "安卓翻墙软件：自由门VPN 1.4 - 安卓版", source: $.os.android ? "http://www.shenzhouzhengdao.org/book_html/fgvpn1_4.apk" : '', download: "自由门1_4VPN.apk" },
 			{ file: "/owVyw.apk", title: "安卓翻墙软件：自由门VPN 1.5 - 安卓版", source: $.os.android ? "http://www.shenzhouzhengdao.org/book_html/fgvpn.apk" : '', download: "自由门1_5VPN.apk" },
+			{ file: "/BUGVuYVi.apk", title: "安卓翻墙软件：自由门VPN 1.6 - 安卓版", source: $.os.android ? "http://www.shenzhouzhengdao.org/book_html/fgvpn1_6.apk" : '', download: "自由门1_6VPN.apk" },
 			{ file: "/htcx5.apk", title: "安卓翻墙软件：无界VPN - 安卓版", download: "无界VPN.apk" },
 			{ file: "/pQToV.apk", title: "安卓翻墙软件：无界一点通 - 安卓版", download: "无界一点通.apk" },
 			{ file: "65", title: "干净世界大陆Chrome手机版　Ｖ128.0.6613.146", download: "干净世界大陆Chrome手机版.apk" },
@@ -3338,63 +3395,69 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		var g_sDir3 = '视频';
 		// 修改视频的文件名和说明，每个文件一行。要不使用一行，可在行首加 //
 		var g_aList3 = [
-			{ file: "https://video1-us-west.cloudokyo.cloud/video/v9/17/2b/51/172b517e-fc89-4229-bebc-06d113f6d1a1/master.m3u8", title: "“四·二五”北京府右街万人大上访" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/84/eb/10/84eb10f8-aef4-4902-8ccb-6da5c6c4ff14/master.m3u8", title: "伪火:“天安门自焚”真相" },
-			{ file: "https://video5-us-west.cloudokyo.cloud/video/v4/ed/80/9e/ed809ec0-bbe6-464d-8d24-39cc9b5aa4a3/master.m3u8", title: "解析“1400例”" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v5/d0/47/ed/d047ed89-b0c8-4bde-95c5-730f79956034/master.m3u8", title: "红朝阴谋<br>— 这个星球上从未有过的邪恶" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v7/94/5d/cc/945dccbb-1814-490d-b8c9-856ad7afb12d/master.m3u8", title: "法轮大法功法介绍 " },
-			{ file: "https://video5-us-west.cloudokyo.cloud/video/v5/4b/3d/99/4b3d9939-c8c6-48f9-a4d5-42ab7ac9f714/master.m3u8", title: "法轮功创始人李洪志大师发表<br>《为什么会有人类》" },
-			{ file: "https://video4-us-east.cloudokyo.cloud/video/v5/32/89/ef/3289eff2-1eb7-4107-9d33-6ab068da3f5c/master.m3u8", title: "法轮功创始人李洪志大师发表<br>《为什么要救度众生》" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v11/76/73/f7/7673f78a-b1c1-4471-ad54-f3b4c4fa65da/master.m3u8", title: "法轮功创始人李洪志大师发表<br>《为什么人类是迷的社会》" },
+			{ file: "https://video1-us-west.cloudokyo.cloud/video/v9/17/2b/51/172b517e-fc89-4229-bebc-06d113f6d1a1/master.m3u8", img:"img_0", title: "“四·二五”北京府右街万人大上访" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/84/eb/10/84eb10f8-aef4-4902-8ccb-6da5c6c4ff14/master.m3u8", img:"img_1", title: "伪火:“天安门自焚”真相" },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v4/ed/80/9e/ed809ec0-bbe6-464d-8d24-39cc9b5aa4a3/master.m3u8", img:"img_2", title: "解析“1400例”" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v5/d0/47/ed/d047ed89-b0c8-4bde-95c5-730f79956034/master.m3u8", img:"img_3", title: "红朝阴谋<br>— 这个星球上从未有过的邪恶" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v7/94/5d/cc/945dccbb-1814-490d-b8c9-856ad7afb12d/master.m3u8", img:"img_4", title: "法轮大法功法介绍 " },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v5/4b/3d/99/4b3d9939-c8c6-48f9-a4d5-42ab7ac9f714/master.m3u8", img:"img_5", title: "法轮功创始人李洪志大师发表<br>《为什么会有人类》" },
+			{ file: "https://video4-us-east.cloudokyo.cloud/video/v5/32/89/ef/3289eff2-1eb7-4107-9d33-6ab068da3f5c/master.m3u8", img:"img_6", title: "法轮功创始人李洪志大师发表<br>《为什么要救度众生》" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v11/76/73/f7/7673f78a-b1c1-4471-ad54-f3b4c4fa65da/master.m3u8", img:"img_7", title: "法轮功创始人李洪志大师发表<br>《为什么人类是迷的社会》" },
 			//{file:"https://video3-us-east.cloudokyo.cloud/video/v12/6f/c1/8e/6fc18e41-731a-4de3-bb82-120eaadbc3a9/master.m3u8",title:"【特稿】法轮功创始人传功和生活的故事"},
 			//{file:"https://video5-us-east.cloudokyo.cloud/video/v12/77/3c/4b/773c4b4d-5c8e-4c47-be60-83ba141af28c/master.m3u8",title:"【特别报导】李洪志师父工作和生活点滴"},
 			//{file:"https://video5-us-east.cloudokyo.cloud/video/v12/31/a7/46/31a74659-4678-46dc-bb80-aff45103c7a2/master.m3u8",title:"新唐人特别节目 《5·13 话师恩》"},
-			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8", title: "【传奇时代纪录片】<br>— 雪中梅" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/b2/9a/a2/b29aa2f0-be40-43ba-b3a2-d25fe1ab54b6/master.m3u8", title: "【传奇时代纪录片】<br>— 红墙的记忆" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/48/88/5a/48885a51-244e-4f90-923e-66197a1ebd33/master.m3u8", title: "【传奇时代纪录片】<br>— 通往天安门的旅程" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/a5/92/46/a5924680-047e-4d17-ad3a-26afc54eba8d/master.m3u8", title: "【传奇时代纪录片】<br>— 欧洲的抉择 " },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/a1/39/d2/a139d20d-0418-404f-8989-1396bbd0466b/master.m3u8", title: "【传奇时代纪录片】<br>— 义诉" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/db/87/7e/db877eb0-5f27-47ac-9252-02de0a4e9f67/master.m3u8", title: "【传奇时代纪录片】<br>— 从头再来" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/87/cc/f2/87ccf27c-1e89-4925-84cd-9ba1d4453223/master.m3u8", title: "【传奇时代纪录片】<br>— 御风而行（上）香港人不怕" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/85/ef/f2/85eff259-da77-43dd-b73b-4135b398de64/master.m3u8", title: "【传奇时代纪录片】<br>— 御风而行（下集）：逆境追光" },
-			{ file: "https://video2-us-west.cloudokyo.cloud/video/v3/e7/7b/d6/e77bd6fc-95b3-4122-904a-c1ad396c0a96/master.m3u8", title: "【传奇时代纪录片】<br>— 街对面的烛光" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/85/5e/6f/855e6f5c-72ca-45c6-a27c-5c5ebafe9133/master.m3u8", title: "【传奇时代纪录片】<br>— 扶摇直上 " },
-			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/9e/b5/89/9eb58900-22a5-4b16-b508-cd74e7fe3e08/master.m3u8", title: "【传奇时代纪录片】<br>— 罗大厨的百味人生" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/50/ba/3a/50ba3ab7-0739-4849-986e-85a5c79e5000/master.m3u8", title: "【传奇时代纪录片】<br>— 漫漫团圆路" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/17/8d/e5/178de5ec-68f4-40f9-afca-e0ec0ee21681/master.m3u8", title: "【传奇时代纪录片】<br>— 天国乐团" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/32/87/73/32877323-7be2-49a7-b83a-7f6f756ce528/master.m3u8", title: "【传奇时代纪录片】<br>— 功夫 - 寻道" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/ca/f9/6b/caf96b08-d40c-41ca-9ca1-cff916f22e45/master.m3u8", title: "飞向自由的海鸥" },
-			{ file: "https://video4-us-east.cloudokyo.cloud/video/v6/64/78/55/6478550a-385e-412f-904c-5151f8eeca29/master.m3u8", title: "【为你而来】<br>— 根据一个影响了一亿人的真实故事改编" },
-			{ file: "https://video3-us-east.cloudokyo.cloud/video/v5/e7/76/ae/e776ae85-76b7-4e31-8111-146505a8d41c/master.m3u8", title: "【为你而来II】<br>— 永恒的五十分钟" },
-			{ file: "https://video2-us-east.cloudokyo.cloud/video/v6/0b/d8/b3/0bd8b3df-8ce6-4dd2-927e-70d7700fb83e/master.m3u8", title: "四亿人的觉醒" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/06/dc/93/06dc93ef-98f2-4182-886c-6268b490a37c/master.m3u8", title: "【欺世伪火】<br>— 揭开天安门自焚伪案的震撼内幕和来龙去脉" },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/6b/77/62/6b776280-1178-4b07-a050-ca5bbec1a421/master.m3u8", title: "【风雨天地行】<br>— 片头 " },
-			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/69/bc/38/69bc389a-0622-444a-860f-3199ed119ade/master.m3u8", title: "【风雨天地行】<br>— 之「清音」篇" },
-			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/a4/25/31/a4253134-0e7f-4d0b-ab33-736d817bc176/master.m3u8", title: "【风雨天地行】<br>— 之「审判」篇" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/3c/d4/2f/3cd42f02-9422-43f3-b2fa-e517e91f2dfa/master.m3u8", title: "【风雨天地行】<br>— 之「历劫」篇" },
-			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/be/f3/e4/bef3e411-b742-4f5a-847c-37f065b9160c/master.m3u8", title: "【风雨天地行】<br>— 之「风雨」篇" },
-			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/88/4d/42/884d4242-c3d6-486a-8507-6fdbabc9a34e/master.m3u8", title: "【风雨天地行】<br>— 之「同心」篇" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/0e/07/a1/0e07a114-4d1b-4fb3-8093-d9356af6f7d9/master.m3u8", title: "【九评之一】<br>— 评共产党是什么" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/08/cb/09/08cb09e7-4cf7-4619-8284-34d2ddf29540/master.m3u8", title: "【九评之二】<br>— 评中国共产党是怎样起家的" },
-			{ file: "https://video3-us-east.cloudokyo.cloud/video/v5/1b/45/14/1b4514a7-7b14-400d-8ae1-c69d9b04b71f/master.m3u8", title: "【九评之三】<br>— 评中国共产党的暴政 " },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/f6/ed/f1/f6edf128-3ca2-4268-896e-71aae06a75a5/master.m3u8", title: "【九评之四】<br>— 评共产党是反宇宙的力量" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/24/56/54/2456545a-cfb1-4e15-9325-6161fe8e8bd4/master.m3u8", title: "【九评之五】<br>— 评江泽民与中共相互利用迫害法轮功" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/9f/7e/47/9f7e4797-1acf-4630-95ba-0f685efec852/master.m3u8", title: "【九评之六】<br>— 评中国共产党破坏民族文化" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/06/54/b6/0654b6a7-c504-46c4-9c70-cf5b27da852b/master.m3u8", title: "【九评之七】<br>— 评中国共产党的杀人历史" },
-			{ file: "https://video4-us-east.cloudokyo.cloud/video/v5/41/33/7a/41337af6-7918-4b5c-b5a7-bcdf8448c62c/master.m3u8", title: "【九评之八】<br>— 评中国共产党的邪教本质" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/e4/44/90/e4449082-1143-4947-abdd-8cef65c84ea4/master.m3u8", title: "【九评之九】<br>— 评中国共产党的流氓本性" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v9/c7/01/91/c7019185-2239-4211-8d65-89b6e0714799/master.m3u8", title: "【我们告诉未来】<br>— 第一集： 气功铺路" },
-			{ file: "https://video5-us-east.cloudokyo.cloud/video/v9/b9/a8/0e/b9a80ec4-8c7f-4fda-bcc4-13d39348e345/master.m3u8", title: "【我们告诉未来】<br>— 第二集：大法开传" },
-			{ file: "https://video3-us-east.cloudokyo.cloud/video/v10/a2/80/c5/a280c5b9-8f56-4ab1-9e93-69905e2aa7fc/master.m3u8", title: "【我们告诉未来】<br>— 第三集：破谜与正心" },
-			{ file: "https://video3-us-east.cloudokyo.cloud/video/v10/a7/08/44/a70844fe-a222-40e4-9620-a0a1b93359c7/master.m3u8", title: "【我们告诉未来】<br>— 第四集：从常人到修炼人" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v6/1f/43/e3/1f43e37c-135c-446d-8257-e347d6d6106c/master.m3u8", title: "【我们告诉未来】<br>— 第五集：山雨欲来" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v6/6a/50/08/6a5008d5-3573-4b5b-bc77-f412e46d2fb7/master.m3u8", title: "【我们告诉未来】<br>— 第六集：在魔难中" },
-			{ file: "https://video2-us-east.cloudokyo.cloud/video/v6/3b/e2/8c/3be28cf6-4038-4078-b1b5-ce3f20520e5e/master.m3u8", title: "【我们告诉未来】<br>— 第七集：艰难岁月" },
-			{ file: "https://video3-us-east.cloudokyo.cloud/video/v6/55/f0/aa/55f0aabf-5251-4f17-9e7b-3dd260f60184/master.m3u8", title: "【我们告诉未来】<br>— 第八集：真相与人心" },
-			{ file: "https://video1-us-east.cloudokyo.cloud/video/v7/db/a5/e8/dba5e824-c5be-4600-a5da-28735c57874c/master.m3u8", title: "【我们告诉未来】<br>— 第九集：来源与使命" },
-			{ file: "https://video4-us-east.cloudokyo.cloud/video/v9/8d/e4/d8/8de4d842-8a0d-40bc-aac5-e6ac367c87c7/master.m3u8", title: "【我们告诉未来】<br>— 第十集：封锁与反封锁" },
-			{ file: "https://video3-us-east.cloudokyo.cloud/video/v6/4d/b4/e0/4db4e052-ef4c-4aa0-89dd-39f0ab0d3555/master.m3u8", title: "【我们告诉未来】<br>— 第十一集：慈悲与威严" },
-			{ file: "https://video4-us-east.cloudokyo.cloud/video/v6/2e/24/a1/2e24a121-67f4-46ef-a989-4f1fa096e847/master.m3u8", title: "【我们告诉未来】<br>— 第十二集：生命的抉择" },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8", img:"img_8", title: "【传奇时代纪录片】<br>— 雪中梅" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/b2/9a/a2/b29aa2f0-be40-43ba-b3a2-d25fe1ab54b6/master.m3u8", img:"img_9", title: "【传奇时代纪录片】<br>— 红墙的记忆" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/48/88/5a/48885a51-244e-4f90-923e-66197a1ebd33/master.m3u8", img:"img_10", title: "【传奇时代纪录片】<br>— 通往天安门的旅程" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/a5/92/46/a5924680-047e-4d17-ad3a-26afc54eba8d/master.m3u8", img:"img_11", title: "【传奇时代纪录片】<br>— 欧洲的抉择 " },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/a1/39/d2/a139d20d-0418-404f-8989-1396bbd0466b/master.m3u8", img:"img_12", title: "【传奇时代纪录片】<br>— 义诉" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/db/87/7e/db877eb0-5f27-47ac-9252-02de0a4e9f67/master.m3u8", img:"img_13", title: "【传奇时代纪录片】<br>— 从头再来" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/87/cc/f2/87ccf27c-1e89-4925-84cd-9ba1d4453223/master.m3u8", img:"img_14", title: "【传奇时代纪录片】<br>— 御风而行（上）香港人不怕" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/85/ef/f2/85eff259-da77-43dd-b73b-4135b398de64/master.m3u8", img:"img_15", title: "【传奇时代纪录片】<br>— 御风而行（下集）：逆境追光" },
+			{ file: "https://video2-us-west.cloudokyo.cloud/video/v3/e7/7b/d6/e77bd6fc-95b3-4122-904a-c1ad396c0a96/master.m3u8", img:"img_16", title: "【传奇时代纪录片】<br>— 街对面的烛光" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/85/5e/6f/855e6f5c-72ca-45c6-a27c-5c5ebafe9133/master.m3u8", img:"img_17", title: "【传奇时代纪录片】<br>— 扶摇直上 " },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/9e/b5/89/9eb58900-22a5-4b16-b508-cd74e7fe3e08/master.m3u8", img:"img_18", title: "【传奇时代纪录片】<br>— 罗大厨的百味人生" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/50/ba/3a/50ba3ab7-0739-4849-986e-85a5c79e5000/master.m3u8", img:"img_19", title: "【传奇时代纪录片】<br>— 漫漫团圆路" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/17/8d/e5/178de5ec-68f4-40f9-afca-e0ec0ee21681/master.m3u8", img:"img_20", title: "【传奇时代纪录片】<br>— 天国乐团" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/32/87/73/32877323-7be2-49a7-b83a-7f6f756ce528/master.m3u8", img:"img_21", title: "【传奇时代纪录片】<br>— 功夫 - 寻道" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/ca/f9/6b/caf96b08-d40c-41ca-9ca1-cff916f22e45/master.m3u8", img:"img_22", title: "飞向自由的海鸥" },
+			{ file: "https://video4-us-east.cloudokyo.cloud/video/v6/64/78/55/6478550a-385e-412f-904c-5151f8eeca29/master.m3u8", img:"img_23", title: "【为你而来】<br>— 根据一个影响了一亿人的真实故事改编" },
+			{ file: "https://video3-us-east.cloudokyo.cloud/video/v5/e7/76/ae/e776ae85-76b7-4e31-8111-146505a8d41c/master.m3u8", img:"img_24", title: "【为你而来II】<br>— 永恒的五十分钟" },
+			{ file: "https://video2-us-east.cloudokyo.cloud/video/v6/0b/d8/b3/0bd8b3df-8ce6-4dd2-927e-70d7700fb83e/master.m3u8", img:"img_25", title: "四亿人的觉醒" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/06/dc/93/06dc93ef-98f2-4182-886c-6268b490a37c/master.m3u8", img:"img_26", title: "【欺世伪火】<br>— 揭开天安门自焚伪案的震撼内幕和来龙去脉" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/6b/77/62/6b776280-1178-4b07-a050-ca5bbec1a421/master.m3u8", img:"img_27", title: "【风雨天地行】<br>— 片头 " },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/69/bc/38/69bc389a-0622-444a-860f-3199ed119ade/master.m3u8", img:"img_28", title: "【风雨天地行】<br>— 之「清音」篇" },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/a4/25/31/a4253134-0e7f-4d0b-ab33-736d817bc176/master.m3u8", img:"img_29", title: "【风雨天地行】<br>— 之「审判」篇" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/3c/d4/2f/3cd42f02-9422-43f3-b2fa-e517e91f2dfa/master.m3u8", img:"img_30", title: "【风雨天地行】<br>— 之「历劫」篇" },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/be/f3/e4/bef3e411-b742-4f5a-847c-37f065b9160c/master.m3u8", img:"img_31", title: "【风雨天地行】<br>— 之「风雨」篇" },
+			{ file: "https://video3-us-west.cloudokyo.cloud/video/v3/88/4d/42/884d4242-c3d6-486a-8507-6fdbabc9a34e/master.m3u8", img:"img_32", title: "【风雨天地行】<br>— 之「同心」篇" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/0e/07/a1/0e07a114-4d1b-4fb3-8093-d9356af6f7d9/master.m3u8", img:"img_33", title: "【九评之一】<br>— 评共产党是什么" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/08/cb/09/08cb09e7-4cf7-4619-8284-34d2ddf29540/master.m3u8", img:"img_34", title: "【九评之二】<br>— 评中国共产党是怎样起家的" },
+			{ file: "https://video3-us-east.cloudokyo.cloud/video/v5/1b/45/14/1b4514a7-7b14-400d-8ae1-c69d9b04b71f/master.m3u8", img:"img_35", title: "【九评之三】<br>— 评中国共产党的暴政 " },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/f6/ed/f1/f6edf128-3ca2-4268-896e-71aae06a75a5/master.m3u8", img:"img_36", title: "【九评之四】<br>— 评共产党是反宇宙的力量" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v5/24/56/54/2456545a-cfb1-4e15-9325-6161fe8e8bd4/master.m3u8", img:"img_37", title: "【九评之五】<br>— 评江泽民与中共相互利用迫害法轮功" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/9f/7e/47/9f7e4797-1acf-4630-95ba-0f685efec852/master.m3u8", img:"img_38", title: "【九评之六】<br>— 评中国共产党破坏民族文化" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/06/54/b6/0654b6a7-c504-46c4-9c70-cf5b27da852b/master.m3u8", img:"img_39", title: "【九评之七】<br>— 评中国共产党的杀人历史" },
+			{ file: "https://video4-us-east.cloudokyo.cloud/video/v5/41/33/7a/41337af6-7918-4b5c-b5a7-bcdf8448c62c/master.m3u8", img:"img_40", title: "【九评之八】<br>— 评中国共产党的邪教本质" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v5/e4/44/90/e4449082-1143-4947-abdd-8cef65c84ea4/master.m3u8", img:"img_41", title: "【九评之九】<br>— 评中国共产党的流氓本性" },
+			{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/99/a5/16/99a5168b-02d1-40d8-a9c2-a4e21573cb08/master.m3u8", img:"img_68", title: "【共产主义的终极目的】<br>第一章 中心之国 神传文化" },
+			{ file: "https://video2-us-west.cloudokyo.cloud/video/v3/aa/1d/2e/aa1d2e21-9e92-4329-9938-113c9b37f8e6/master.m3u8", img:"img_69", title: "【共产主义的终极目的】<br>第二章 红魔阴谋 毁灭人类" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/4e/02/e4/4e02e4d9-a550-4ee7-a775-4e21d952126b/master.m3u8", img:"img_70", title: "【共产主义的终极目的】<br>第三章 暴力杀戮 恶贯穹宇" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/0d/37/54/0d3754f5-4ed0-4746-91b4-eb84dbd908ad/master.m3u8", img:"img_71", title: "【共产主义的终极目的】<br>第四章 共产邪灵 毁人不倦" },
+			{ file: "https://video2-us-west.cloudokyo.cloud/video/v3/ef/13/2b/ef132b27-e7a4-4fc7-8440-c9a2c9cf5fa6/master.m3u8", img:"img_72", title: "【共产主义的终极目的】<br>第五章 邪灵篡位 文化沦丧" },
+			{ file: "https://video4-us-west.cloudokyo.cloud/video/v3/b0/09/07/b009076d-a991-4a55-a7f8-9f3f83fe38f6/master.m3u8", img:"img_73", title: "【共产主义的终极目的】<br>第六章 以「恨」立国 国已不国" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v9/c7/01/91/c7019185-2239-4211-8d65-89b6e0714799/master.m3u8", img:"img_42", title: "【我们告诉未来】<br>— 第一集： 气功铺路" },
+			{ file: "https://video5-us-east.cloudokyo.cloud/video/v9/b9/a8/0e/b9a80ec4-8c7f-4fda-bcc4-13d39348e345/master.m3u8", img:"img_43", title: "【我们告诉未来】<br>— 第二集：大法开传" },
+			{ file: "https://video3-us-east.cloudokyo.cloud/video/v10/a2/80/c5/a280c5b9-8f56-4ab1-9e93-69905e2aa7fc/master.m3u8", img:"img_44", title: "【我们告诉未来】<br>— 第三集：破谜与正心" },
+			{ file: "https://video3-us-east.cloudokyo.cloud/video/v10/a7/08/44/a70844fe-a222-40e4-9620-a0a1b93359c7/master.m3u8", img:"img_45", title: "【我们告诉未来】<br>— 第四集：从常人到修炼人" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v6/1f/43/e3/1f43e37c-135c-446d-8257-e347d6d6106c/master.m3u8", img:"img_46", title: "【我们告诉未来】<br>— 第五集：山雨欲来" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v6/6a/50/08/6a5008d5-3573-4b5b-bc77-f412e46d2fb7/master.m3u8", img:"img_47", title: "【我们告诉未来】<br>— 第六集：在魔难中" },
+			{ file: "https://video2-us-east.cloudokyo.cloud/video/v6/3b/e2/8c/3be28cf6-4038-4078-b1b5-ce3f20520e5e/master.m3u8", img:"img_48", title: "【我们告诉未来】<br>— 第七集：艰难岁月" },
+			{ file: "https://video3-us-east.cloudokyo.cloud/video/v6/55/f0/aa/55f0aabf-5251-4f17-9e7b-3dd260f60184/master.m3u8", img:"img_49", title: "【我们告诉未来】<br>— 第八集：真相与人心" },
+			{ file: "https://video1-us-east.cloudokyo.cloud/video/v7/db/a5/e8/dba5e824-c5be-4600-a5da-28735c57874c/master.m3u8", img:"img_50", title: "【我们告诉未来】<br>— 第九集：来源与使命" },
+			{ file: "https://video4-us-east.cloudokyo.cloud/video/v9/8d/e4/d8/8de4d842-8a0d-40bc-aac5-e6ac367c87c7/master.m3u8", img:"img_51", title: "【我们告诉未来】<br>— 第十集：封锁与反封锁" },
+			{ file: "https://video3-us-east.cloudokyo.cloud/video/v6/4d/b4/e0/4db4e052-ef4c-4aa0-89dd-39f0ab0d3555/master.m3u8", img:"img_52", title: "【我们告诉未来】<br>— 第十一集：慈悲与威严" },
+			{ file: "https://video4-us-east.cloudokyo.cloud/video/v6/2e/24/a1/2e24a121-67f4-46ef-a989-4f1fa096e847/master.m3u8", img:"img_53", title: "【我们告诉未来】<br>— 第十二集：生命的抉择" },
 		];</script>
 	<script>
 		var g_sBGColor = "#f0f0f0",	// 背景色
@@ -3538,7 +3601,12 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 
 			for (i = 0; i < g_nTotal; ++i) { t = g_sArticle[g_nOrd[i] - 1].title; g_sList += "<a href='javascript:showItem(" + i + ");' class=list>" + (t.length > 0 ? t : "无标题") + "</a>"; }
 			g_sList = '<h3 style="color:#03c">目录</h3>' + g_sList + "<br>";
-			g_sHelp = '<h3 style="padding-top:20px;color:#03c">说明</h3>' + help.innerHTML.trim().replace(/[\r\n]\s*/g, "<br><br>") + g_sList + "<br>";
+			if (NoNetworkjs == 1) {
+					g_sHelp = g_sList + "<h3 style='color:#03c'>下载一些翻墙软件</h3>" + a;
+				} else {
+					g_sHelp = '<h3 style="padding-top:20px;color:#03c">说明</h3>' + help.innerHTML.trim().replace(/[\r\n]\s*/g, "<br><br>") + g_sList + "<br>";
+				}
+			
 			help.innerHTML = "";
 			if (g_nTotal > 0) showItem(0);
 			if (g_nInit == 1) showItem(-1); else if (g_nInit == 2) showHelp();
@@ -3653,7 +3721,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 	</script>
 	<script>
 		var g_aFile = [];
-
+		var a = '';
 
 
 		function getURL(s, bLand) {
@@ -3670,6 +3738,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			var s = '', n = g_aList1.length, sDir;
 			var bLand = isLand();
 			var v = 0;
+			
 			for (var i = 0; i < n; ++i) {
 				var si = g_aList1[i];
 				if (si === undefined) continue;
@@ -3705,6 +3774,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					} else {
 						if (source && download) {
 							s += ' source="' + source + '" download="' + download + '" class="preload-software"><b>' + download + '</b>';
+							a += '<a href="' + si['file'] + '" target=_blank source="' + source + '" download="' + download + '" class="preload-software">' + download + '</a><br>';
 						} else {
 							s += '>' + getName(si['file']);
 						}
@@ -4000,18 +4070,20 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				hls.off(Hls.Events.FRAG_LOADED, onFirstFragmentLoaded); // 取消事件监听
 			}
 		}
-
+		var d='';
 		function initPlayer() {
 			var s = '<thead><tr><th width=30%></th><th width=70%></th><th></th></tr></thead>', n = g_aList3.length, aList = [], p = '';
 			var s1 = '<thead><tr><th width=30%></th><th width=70%></th><th></th></tr></thead>', n = g_aList3.length, aList = [], p = '';
 			var w = isLand() ? '' : ' style="max-width:' + (window.innerWidth * 4 / 10) + 'px"';
+			var gjjs = 0;
 			for (var i = 0, j = 0; i < n; ++i) {
 				var si = g_aList3[i];
 				if (si === undefined) continue; else aList.push(si);
 				var f = si['file'], t = getMediaName(si['file']), bMP3 = t.substr(-1) == "3";
+				if (j == 0 && d != '') addimg = 'src=' + d; else addimg = 'alt="' + si['img'] + '"';
 				if (!g_bOTG) g_aPL[j] = f;
-				s += '<tr class=jsvideo1><td style="padding:8px 0;text-align:center;cursor:pointer;" onclick="playItem(' + j + ',1);"><img alt="img_' + j + '" class=mw style="max-height:80px;"></td><td><div class=btn1 style="line-height:1.2em;" onclick="playItem(' + j + ',1);">' + si['title'] + '</div></td></tr>';
-				s1 += '<tr class=jsvideo2 ><td style="padding:5px 5px;text-align:center;cursor:pointer;" onclick="playItem(' + j + ',2);"><img alt="img_' + j + '" class=mw2 ></td><td><div class=btnmainvideo style="line-height:1.2em;" onclick="playItem(' + j + ',2);">' + si['title'] + '</div></td></tr>';
+				s += '<tr class=jsvideo1><td style="padding:8px 0;text-align:center;cursor:pointer;" onclick="playItem(' + j + ',1);"><img ' + addimg + ' class=mw style="max-height:80px;"></td><td><div class=btn1 style="line-height:1.2em;" onclick="playItem(' + j + ',1);">' + si['title'] + '</div></td></tr>';
+				s1 += '<tr class=jsvideo2 ><td style="padding:5px 5px;text-align:center;cursor:pointer;" onclick="playItem(' + j + ',2);"><img ' + addimg + ' class=mw2 ></td><td><div class=btnmainvideo style="line-height:1.2em;" onclick="playItem(' + j + ',2);">' + si['title'] + '</div></td></tr>';
 				++j;
 			}
 			p = '<nobr><a href="javascript:jmp(d1);">' + ' ' + "主页" + '</a></nobr>' + '<nobr><a href="javascript:jmp(d2);">' + ' ' + "视频" + '</a></nobr>' + '<nobr><a href="javascript:jmp(d3)">' + ' ' + "书籍" + '</a></nobr>' + '<nobr><a href="javascript:jmp(d4)">' + ' ' + "软件" + '</a></nobr>' + '<nobr><a href="javascript:jmp(d5)">' + ' ' + "三退" + '</a></nobr>';
@@ -4128,7 +4200,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 
 	<!--web代码开始-->
 	<img src="" style="display:none;" id="c" rel="YUhSMGNITTZMeTlrYVdObVpHdG1ZbkZ3ZEdOdExtTnNiM1ZrWm5KdmJuUXVibVYwTHl4b2RIUndjem92TDJvdWJYQXZaR1IzTWpJNE9Ec3hNanN4T3c9PQ==" nov="1" pwa="1"
-		jsonp="gj_news,gj_1eiqjdnq7goYHwdbbAum0qoAq1ua0c">
+		jsonp="gj_news,gj_1eiqjdnq7goYHwdbbAum0qoAq1ua0c,v1holiju5c7e6QTcX6dCCUi3VK1nq1c">
 	<div id="custom" style="display:none;">
 		{
 		"debug": false,
@@ -4234,9 +4306,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				}
 			}
 		}
-
 		//轮播2
-
 		//获取元素
 		var box = document.getElementsByClassName('box')[0]
 		var wipper = document.getElementsByClassName('wipper')[0]
@@ -4426,7 +4496,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		//三退数字加载
 		function FoundTui(url, count) {
 			// url是三退网址，count是三退数字
-			var santuiword = document.getElementById('santuiword');
+			var santuiword = document.getElementById('santuiword'),NoNetwork = document.getElementById('NoNetwork');
 			if (count) {
 				count = parseInt((count + '').replace(/,/g, ''), 10);
 				count = (Math.floor(count / 1e7) / 10) + ' 亿';
@@ -4438,7 +4508,57 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		}
 		/*回调函数--当显示或隐藏進度条时触发。show为1表示显示進度条，0表示隐藏進度条*/
 		function ShowLoading(show) {
-			if (show && !window.szsite) $('#loading').text("正在下载播放列表，请稍候…"); else if (!show) $('#loading').hide();
+			//无网络时的显示
+			var top12 = document.getElementById('top12'),
+			item = document.getElementById('item'),
+			topload = document.getElementById('topload'),
+			topMain2 = document.getElementsByClassName('topMain2')[0],
+			d01 = document.getElementById('d01'),
+			d1 = document.getElementById('d1'),
+			Mainright1 = document.getElementById('Mainright1'),
+			Mainleft = document.getElementById('Mainleft'),
+			divMain1 = document.getElementById('divMain1'),
+			bq = document.getElementById('bq'),
+			qrcode1 = document.getElementById('qrcode1'),
+			sttj = document.getElementById('sttj'),
+			d3ebook = document.getElementById('d3ebook'),
+			BottomTop1 = document.getElementById('BottomTop1'),
+			filecache = document.getElementsByClassName('filecache'),
+			btnMenu = document.getElementById('btnMenu');
+			if (NoNetworkjs == 1) {
+				top12.style.display = item.style.display = topload.style.display = topMain2.style.display = d01.style.display = btnMenu.style.display = Mainright1.style.display = sttj.style.display = BottomTop1.style.display = "none";
+				divMain1.style.background = '#fdfaf5';
+				bq.style.padding = '0.6em 60px';
+				bq.style.background = '#faeff2';
+				d3.style.background = '#f2effa';
+				d3.style.maxWidth = '100%';
+				d3.style.borderRadius = '10px';
+				d5.style.background = '#effaf9';
+				d5.style.borderRadius = '10px';
+				d5.style.padding = '50px 0';
+				d5.style.margin = '55px 0';
+				Mainleft.style.float = '';
+				d3ebook.innerHTML='精彩电子书阅读';
+				for (var i = 1; i < 7; ++i) {
+					var d = eval('d' + i);
+					d.style.display = "none";
+				}
+				for (var i = 0; i < filecache.length; i++) {
+					filecache[i].style.display = "none";
+				}
+				d1.style.display = "block";
+				d3.style.display = "block";
+				d5.style.display = "block";
+				//d1.width='2000px';
+				//Mainleft.width='';
+				//d1.style.display = "none";
+				NoNetwork.style.display = 'block';
+				$('#loading').hide();
+			} else {
+
+				NoNetwork.style.display = 'none';
+				if (show && !window.szsite) $('#loading').text("正在下载播放列表，请稍候…"); else if (!show) $('#loading').hide();
+			}
 		}
 		/*回调函数--加载通过web版获取到的新闻*/
 		function BeforeShowContent(html) {
@@ -4474,14 +4594,105 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		}
 
 		/*加载任意的干净世界频道页*/
+				//干净世界播放
+
+		function jsonpCallback_v1holiju5c7e6QTcX6dCCUi3VK1nq1c(json){
+			//if (json && json.data && json.data.list) {
+				//TODO: 在这里使用视频信息
+				//标题：
+
+			//}
+		 }
 		(function () {
 			var hash = location.hash || '' /*可以在这里设置默认值*/;
 			var match = hash.match(/#(gj_\w+)$/);
+			var matchplay = hash.match(/#gjplay_(\w+)$/);
+			var bdplay = hash.match(/#bdplay_(\w+)$/);
+			var aplay = 0;
+			var bplay = 0;
+			var cplay = 0;
+			//选择播放本地视频
+			
+			if (bdplay) {
+			//经文
+				if (bdplay[1]=='jw') {
+					aplay = 7;	//位置号
+					bplay = 3;	//共移几个视频
+					cplay = 1;
+				}
+				//传奇时代
+				if (bdplay[1]=='cqsd') {
+					aplay = 21;	//位置号
+					bplay = 14;	//共移几个视频
+					cplay = 1;
+				}
+				//风雨天地行
+				if (bdplay[1]=='fytdx') {
+					aplay = 32;	//位置号
+					bplay = 6;	//共移几个视频
+					cplay = 1;
+				}
+				//九评
+				if (bdplay[1]=='9q') {
+					aplay = 41;	//位置号
+					bplay = 9;	//共移几个视频
+					cplay = 1;
+				}
+				//为你而来
+				if (bdplay[1]=='wnel') {
+					aplay = 24;	//位置号
+					bplay = 2;	//共移几个视频
+				}
+				//我们告诉未来
+				if (bdplay[1]=='wmgswl') {
+					aplay = 59;	//位置号
+					bplay = 12;	//共移几个视频
+					cplay = 1;
+				}
+				//终极目的
+				if (bdplay[1]=='zjmd') {
+					aplay = 47;	//位置号
+					bplay = 6;	//共移几个视频
+					cplay = 1;
+				}
+				for (var i = 0; i < bplay; i++) {
+					const item = g_aList3.splice(aplay, 1)[0];
+					g_aList3.unshift(item); 
+				}
+				if (cplay == 1) 
+				{	
+					jmp(d2);
+				}
+			
+			}
+			//本地播放干净世界视频
+			//{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8", img:"img_", title: "【传奇时代纪录片】<br>— 雪中梅" },
+			var gjtitle="【传奇时代纪录片】<br>— 雪中梅",gjimage='1.gif',gjvideo="https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8";
+			if (matchplay) {
+				var gjplayid = 'v'+matchplay[1];
+				var cjsonpplay = $('img#c').attr('jsonp');
+				cjsonpplay = (cjsonpplay ? cjsonpplay + ',' : '') + gjplayid;
+				$('img#c').attr('jsonp', cjsonpplay);
+				//window['jsonpCallback_' + gjplayid] = function (json) {
+					//TODO: 在这里使用视频信息
+					//标题：
+					//gjtitle = json['title'];
+					//图片地址
+					//gjimage = json['image'];
+					//视频地址-
+					//gjvideo = json['video'];
+					//alert("gjvideo");
+				//}
+				g_aList3.unshift({ file: gjvideo, title: gjtitle },);
+				d=gjimage;
+				jmp(d2);
+			}
 			if (match) {
 				var gjid = match[1];
 				var cjsonp = $('img#c').attr('jsonp');
 				cjsonp = (cjsonp ? cjsonp + ',' : '') + gjid;
 				$('img#c').attr('jsonp', cjsonp);
+				
 				window['jsonpCallback_' + gjid] = function (json) {
 					if (json && json.result && json.data && json.data.list && json.data.list.length > 0) {
 						var title = '干净世界';
@@ -4550,6 +4761,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			lbbox = document.getElementById('lbbox'),
 			lblis = document.getElementById('lblis'),
 			lbnews = document.getElementById('lbnews'),
+			MainleftContent = document.getElementById('MainleftContent'),
 			lis = document.getElementsByClassName('lis')[0],
 			lblisspan = lis.getElementsByTagName('span'),
 			lblisimg = lis.querySelectorAll('span img'),
@@ -4625,7 +4837,12 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				topMainLeft.style.width = "100%";
 				Mainright.style.display = "none";
 				Mainleft.style.width = "100%";
-				qrcode1.style.display = "";
+				if (NoNetworkjs == 1) {
+					qrcode1.style.display = "none";
+				} else {
+					qrcode1.style.display = "block";
+				}
+				
 				Ebookwidth.style.maxWidth = "100%";
 				ggVideo.style.width = "100%";
 				aboutimg.style.width = "100%";
@@ -4715,7 +4932,14 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				topMainRight.style.display = "";
 				lbright.style.display = "";
 				Mainright.style.display = "";
-				Mainleft.style.width = "73%";
+				if (NoNetworkjs == 1) {
+					Mainleft.style.width = "100%";
+					MainleftContent.style.width = "100%";
+					Mainright.style.display = "none";
+				} else {
+					Mainleft.style.width = "73%";
+					MainleftContent.style.width = "90%";
+				}
 				qrcode1.style.display = "none";
 				Ebookwidth.style.maxWidth = "90%";
 				ggVideo.style.width = "80%";
