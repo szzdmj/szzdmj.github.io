@@ -1260,7 +1260,7 @@
 				<div class="d1Main">
 					<div id=Mainleft class="d1Mainright" style="float:left;width:73%;margin-bottom:15px; "
 						align="center">
-						<div id="loading"></div>
+						<div id="loading" align=""></div>
 						<div id=MainleftContent style="width:100%;" align="left">
 							<!-- 无网络时显示 -->
 							<blockquote id=bq>
@@ -4456,20 +4456,25 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		function FoundMedia(media) { }
 		/*回调函数--当找到有效节点时触发。*/
 		function FoundSite(site) {
+			if (NoNetworkjs == 1) {
+		    	window.location.reload();
+			}
 			/* site形如 http://域名 或 https://域名，尾部不带/ */
 			window.szsite = site;
 			//处理链接
 			var szmjlink = document.querySelectorAll('.szmjlink');
 			var topload = document.getElementById('topload');
 			topload.style.display = "none";
-			for (var i = 0; i < szmjlink.length; i++) {
+			
+			 for (var i = 0; i < szmjlink.length; i++) {
 				var alink = szmjlink[i].getElementsByTagName('a');
 				for (var j = 0; j < alink.length; j++) {
 					var lbnum = alink[j].href.lastIndexOf("/"),
 						lblinks = alink[j].href.substring(lbnum);
 					alink[j].href = window.szsite + lblinks;
 				}
-			}
+			 }
+			
 			//处理电子书链接
 			//var	szmjlinkebook=document.querySelectorAll('.szmjlinkebook');
 			//for (var i = 0; i<szmjlinkebook.length; i++) {
@@ -4482,6 +4487,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			//}
 			showQR(site+'/0/')
 		}
+		
 		/*回调函数--当没找到有效节点时触发。如果存在此函数，就在找不到节点时执行此函数，否则就显示默认的提示信息。*/
 		function NotFoundSite() {
 			$('#loading').text("未找到节点");
@@ -4816,6 +4822,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					lbdiv[i].style.width = "680px";
 					if (i < lblisspan.length) {
 						lblisspan[i].style.width = "107px";
+						lblisimg[i].style.height = "60px";
 						lblisspan[i].style.margin = "1px";
 					}
 					if (i == 0) {
@@ -4839,8 +4846,10 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				Mainleft.style.width = "100%";
 				if (NoNetworkjs == 1) {
 					qrcode1.style.display = "none";
+					MainleftContent.style.width = "100%";
 				} else {
 					qrcode1.style.display = "block";
+					MainleftContent.style.width = "95%";
 				}
 				
 				Ebookwidth.style.maxWidth = "100%";
@@ -4938,7 +4947,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					Mainright.style.display = "none";
 				} else {
 					Mainleft.style.width = "73%";
-					MainleftContent.style.width = "90%";
+					MainleftContent.style.width = "95%";
 				}
 				qrcode1.style.display = "none";
 				Ebookwidth.style.maxWidth = "90%";
