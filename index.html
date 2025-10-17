@@ -1331,6 +1331,17 @@
 						</div>
 					</div>
 				</div>
+							<div id=qrcode1 align="center">
+				<p style="color:black;font-weight:bold;padding-top:5px;">本平台二维码和网址</p>
+				<div id="qrcodeall"></div>
+				<p id="qrcode_text1"
+					style="padding-top:5px; max-width:200px; text-overflow:ellipsis; overflow: hidden;">
+					<script>
+						var url = location.origin && location.origin.substr(0, 4) == 'http' ? location.origin + '/0/' : location.href;
+						document.write('<a href="' + url + '" target="_blank">' + url + '</a>');
+					</script>
+				</p>
+			</div>
 			<div id=Mainright1>
 				<div id=Mainright class="diMainleft"
 					style="float:left;width:26%;border-left:2px solid #b3b3b3;margin-bottom:10px;" align="center">
@@ -1407,19 +1418,6 @@
 			</div>
 		</div>
 			<div style="clear: both;"></div>
-			<div id=qrcode1 align="center">
-				<p style="color:black;font-weight:bold;padding-top:5px;">本平台二维码和网址</p>
-				<div id="qrcodeall"></div>
-				<p id="qrcode_text1"
-					style="padding-top:5px; max-width:200px; text-overflow:ellipsis; overflow: hidden;">
-					<script>
-						var url = location.origin && location.origin.substr(0, 4) == 'http' ? location.origin + '/0/' : location.href;
-						document.write('<a href="' + url + '" target="_blank">' + url + '</a>');
-					</script>
-				</p>
-			</div>
-
-
 
 		<!-- 软件-->
 		<div id="d4" style="display:none;max-wdith:1200px;" class=shadow>
@@ -1455,7 +1453,7 @@
 						<p style="color:#f67900;padding-top:5px;">下载：
 							<a href="/book_html/九评共产党.html" class="preload-page preloaded"
 								target="_blank">html</a>&nbsp;&nbsp;&nbsp;
-							<a href="/book_html/九评共产党.pdf" class="preload-page preloaded" target="_blank">pdf</a>
+							<span class=filecache><a href="/book_html/九评共产党.pdf" target="_blank">pdf</a></span>
 							<!--
 <a href="/book_html/九评共产党.chm" download="九评共产党.chm" class="preload-download" target="_blank">chm</a>&nbsp;&nbsp;&nbsp;
 <a href="/book_html/九评共产党.epub" download="九评共产党.epub" class="preload-download" target="_blank">epub</a>-->
@@ -3375,8 +3373,8 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			{ type: "安卓软件", dir: "软件/安卓手机翻墙" },
 			{ file: "/xdkRb.apk", title: "安卓翻墙软件：神州明见 7.1", source: "https://raw.githubusercontent.com/szmj0/update/refs/heads/main/extras/szmj.apk", download: "神州明见.apk" },
 			{ file: "/8HYbM.apk", title: "安卓翻墙软件：神州明见TV 7.1", download: "神州明见TV.apk" },
-			{ file: "/W8r1z.apk", title: "安卓翻墙软件：自由门VPN 1.4 - 安卓版", source: $.os.android ? "http://www.shenzhouzhengdao.org/book_html/fgvpn1_4.apk" : '', download: "自由门1_4VPN.apk" },
-			{ file: "/owVyw.apk", title: "安卓翻墙软件：自由门VPN 1.5 - 安卓版", source: $.os.android ? "http://www.shenzhouzhengdao.org/book_html/fgvpn.apk" : '', download: "自由门1_5VPN.apk" },
+			{ file: "/W8r1z.apk", title: "安卓翻墙软件：自由门VPN 1.4 - 安卓版",  download: "自由门1_4VPN.apk" },
+			{ file: "/owVyw.apk", title: "安卓翻墙软件：自由门VPN 1.5 - 安卓版",  download: "自由门1_5VPN.apk" },
 			{ file: "/BUGVuYVi.apk", title: "安卓翻墙软件：自由门VPN 1.6 - 安卓版", source: $.os.android ? "http://www.shenzhouzhengdao.org/book_html/fgvpn1_6.apk" : '', download: "自由门1_6VPN.apk" },
 			{ file: "/htcx5.apk", title: "安卓翻墙软件：无界VPN - 安卓版", download: "无界VPN.apk" },
 			{ file: "/pQToV.apk", title: "安卓翻墙软件：无界一点通 - 安卓版", download: "无界一点通.apk" },
@@ -4080,7 +4078,12 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				var si = g_aList3[i];
 				if (si === undefined) continue; else aList.push(si);
 				var f = si['file'], t = getMediaName(si['file']), bMP3 = t.substr(-1) == "3";
-				if (j == 0 && d != '') addimg = 'src=' + d; else addimg = 'alt="' + si['img'] + '"';
+				if (j == 0 && d != '') 	{
+					addimg = 'src=' + si['img'];
+				} else {
+				
+					addimg = 'src="' + eval(si['img']).src + '"';
+				}
 				if (!g_bOTG) g_aPL[j] = f;
 				s += '<tr class=jsvideo1><td style="padding:8px 0;text-align:center;cursor:pointer;" onclick="playItem(' + j + ',1);"><img ' + addimg + ' class=mw style="max-height:80px;"></td><td><div class=btn1 style="line-height:1.2em;" onclick="playItem(' + j + ',1);">' + si['title'] + '</div></td></tr>';
 				s1 += '<tr class=jsvideo2 ><td style="padding:5px 5px;text-align:center;cursor:pointer;" onclick="playItem(' + j + ',2);"><img ' + addimg + ' class=mw2 ></td><td><div class=btnmainvideo style="line-height:1.2em;" onclick="playItem(' + j + ',2);">' + si['title'] + '</div></td></tr>';
@@ -4119,9 +4122,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		function scrollToBottom() {
 			element.scrollIntoView(false);
 		}
-		document.addEventListener('DOMContentLoaded', function () {
-			initPlayer();
-		});
+		
 	</script>
 	<script>
 		function getMargin() {
@@ -4456,6 +4457,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		function FoundMedia(media) { }
 		/*回调函数--当找到有效节点时触发。*/
 		function FoundSite(site) {
+			//如果没有网络后短时间又连上网，则刷新本页。
 			if (NoNetworkjs == 1) {
 		    	window.location.reload();
 			}
@@ -4602,14 +4604,6 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 
 		/*加载任意的干净世界频道页*/
 				//干净世界播放
-
-		function jsonpCallback_v1holiju5c7e6QTcX6dCCUi3VK1nq1c(json){
-			//if (json && json.data && json.data.list) {
-				//TODO: 在这里使用视频信息
-				//标题：
-
-			//}
-		 }
 		(function () {
 			var hash = location.hash || '' /*可以在这里设置默认值*/;
 			var match = hash.match(/#(gj_\w+)$/);
@@ -4674,25 +4668,29 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			}
 			//本地播放干净世界视频
 			//{ file: "https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8", img:"img_", title: "【传奇时代纪录片】<br>— 雪中梅" },
-			var gjtitle="【传奇时代纪录片】<br>— 雪中梅",gjimage='1.gif',gjvideo="https://video5-us-west.cloudokyo.cloud/video/v3/39/5c/fe/395cfe1e-4431-42a9-820b-e9e8c4d3ab4c/master.m3u8";
+			var gjtitle="",gjimage='',gjvideo="";
 			if (matchplay) {
 				var gjplayid = 'v'+matchplay[1];
 				var cjsonpplay = $('img#c').attr('jsonp');
 				cjsonpplay = (cjsonpplay ? cjsonpplay + ',' : '') + gjplayid;
 				$('img#c').attr('jsonp', cjsonpplay);
-				//window['jsonpCallback_' + gjplayid] = function (json) {
+				window['jsonpCallback_' + gjplayid] = function (json) {
 					//TODO: 在这里使用视频信息
 					//标题：
-					//gjtitle = json['title'];
+					gjtitle = json['title'];
 					//图片地址
-					//gjimage = json['image'];
+					gjimage = json['image'];
 					//视频地址-
-					//gjvideo = json['video'];
-					//alert("gjvideo");
-				//}
-				g_aList3.unshift({ file: gjvideo, title: gjtitle },);
-				d=gjimage;
+					gjvideo = json['video'];
+					g_aList3.unshift({ file: gjvideo, img:gjimage, title: gjtitle },);
+					d=1;
+					initPlayer();		
+				}
 				jmp(d2);
+			} else {
+				document.addEventListener('DOMContentLoaded', function () {
+					initPlayer();
+				});
 			}
 			if (match) {
 				var gjid = match[1];
