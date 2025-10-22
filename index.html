@@ -1036,9 +1036,9 @@
 	<div style="display:none"><img  id=img1 onerror="offline();" /><img  id=img2 onerror="offline();" /><img  id=img3 onerror="offline();" /></div>
 	<script>
 		var NoNetworkjs = 0,NNjs = 0;
-		img1.src="https://www.baidu.com/img/flexible/logo/pc/result.png?v=" + Math.random();
-		img2.src="https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?v=" + Math.random();
-		img3.src="https://www.gstatic.com/marketing-cms/assets/images/f5/d3/a7f9db7045429cb6dc6be56bdcbe/google-logo-about.svg?v=" + Math.random();
+		img1.src="https:"+"//www.ba"+"idu."+"com/img/flex"+"ible/logo/pc/result.png?v=" + Math.random();
+		img2.src="https:"+"//img-prod-cms-rt"+"-microsoft-com.akama"+"ized."+"net/cms/api/am/imageFileData/RE1Mu3b?v=" + Math.random();
+		img3.src="https"+"://www.gstatic"+".com/marketing-cms/ass"+"ets/images/f5/d3/a7f9db7045429cb6dc6be56bdcbe/google-logo-about.svg?v=" + Math.random();
 		function offline()  {
 		NNjs = NNjs + 1;
 		if (NNjs == 3)	NoNetworkjs = 1;
@@ -1047,7 +1047,7 @@
 	</script>
 	<div id=NoNetwork style="display:none;padding-top:20px;max-width:1200px;margin: auto;border-radius:10px;" align=center>
 			<img alt=img_61 class=mw>
-			<div style="padding:20px 0;max-width:1200px;background:white;" ><h3>您的设备可能无法访问网络，请检查连接后<span onClick="location.reload()" style="color:#0033CC;cursor:pointer;" >刷新页面</span></h3><br>您还可以浏览以下电子书籍。</div>
+			<div style="padding:20px 0;max-width:1200px;background:white;" ><h3><p>您的设备可能无法访问网络</p><p>请检查连接后<span onClick="location.reload()" style="color:#0033CC;cursor:pointer;" >刷新页面</span></p></h3><br>您还可以浏览以下电子书籍。</div>
 	</div>
 
 	<!-- 头图 -->
@@ -1263,7 +1263,9 @@
 						<div id="loading" align=""></div>
 						<div id=MainleftContent style="width:100%;" align="left">
 							<!-- 无网络时显示 -->
+							<div id=nojd align="center" style="display:none;padding:20px 0;"><h3>未找到节点<br>您可以尝试直接访问：<a href="https://bit.ly/D1111111" noproxy>https://bit.ly/D1111111</a> 或 <a href="https://bit.ly/D12345678" noproxy>https://bit.ly/D12345678</a></h3></div>
 							<blockquote id=bq>
+							
 								<table id=tbNav cellpadding=0 cellspacing=0>
 									<tr>
 										<td width=100% class=ns><span id=spSpace>　</span><a
@@ -1331,17 +1333,6 @@
 						</div>
 					</div>
 				</div>
-							<div id=qrcode1 align="center">
-				<p style="color:black;font-weight:bold;padding-top:5px;">本平台二维码和网址</p>
-				<div id="qrcodeall"></div>
-				<p id="qrcode_text1"
-					style="padding-top:5px; max-width:200px; text-overflow:ellipsis; overflow: hidden;">
-					<script>
-						var url = location.origin && location.origin.substr(0, 4) == 'http' ? location.origin + '/0/' : location.href;
-						document.write('<a href="' + url + '" target="_blank">' + url + '</a>');
-					</script>
-				</p>
-			</div>
 			<div id=Mainright1>
 				<div id=Mainright class="diMainleft"
 					style="float:left;width:26%;border-left:2px solid #b3b3b3;margin-bottom:10px;" align="center">
@@ -2345,6 +2336,17 @@
 
 	</div>
 	</div>
+			<div id=qrcode1 align="center" style="display:none;">
+				<p style="color:black;font-weight:bold;padding-top:5px;">本平台二维码和网址</p>
+				<div id="qrcodeall"></div>
+				<p id="qrcode_text1"
+					style="padding-top:5px; max-width:200px; text-overflow:ellipsis; overflow: hidden;">
+					<script>
+						var url = location.origin && location.origin.substr(0, 4) == 'http' ? location.origin + '/0/' : location.href;
+						document.write('<a href="' + url + '" target="_blank">' + url + '</a>');
+					</script>
+				</p>
+			</div>
 	<!-- 友好链接-->
 	<div id=BottomTop1>
 	<div id=BottomTop style="max-width:1200px;height:3px;background:#dab678;margin:auto;"></div>
@@ -4154,7 +4156,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					eval('tdl' + i).style.color = o == d ? "white" : "#a76101";
 				}
 			}
-			if (o == d1) { divapp.style.display = ""; } else { divapp.style.display = "none"; }
+			if (o == d1) { divapp.style.display = "";qrcode1.style.display = "block"; } else { divapp.style.display = "none"; qrcode1.style.display = "none";}
 			o.style.display = "";
 			scroll2(0);
 		}
@@ -4200,7 +4202,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 	</script>
 
 	<!--web代码开始-->
-	<img src="" style="display:none;" id="c" rel="YUhSMGNITTZMeTlrYVdObVpHdG1ZbkZ3ZEdOdExtTnNiM1ZrWm5KdmJuUXVibVYwTHl4b2RIUndjem92TDJvdWJYQXZaR1IzTWpJNE9Ec3hNanN4T3c9PQ==" nov="1" pwa="1"
+	<img src="" style="display:none;" id="c" rel=";11;1;" nov="1" pwa="1"
 		jsonp="gj_news,gj_1eiqjdnq7goYHwdbbAum0qoAq1ua0c,v1holiju5c7e6QTcX6dCCUi3VK1nq1c">
 	<div id="custom" style="display:none;">
 		{
@@ -4492,14 +4494,15 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		
 		/*回调函数--当没找到有效节点时触发。如果存在此函数，就在找不到节点时执行此函数，否则就显示默认的提示信息。*/
 		function NotFoundSite() {
-			$('#loading').text("未找到节点");
+			var nojd = document.getElementById('nojd');
+			nojd.style.display = "block";
 			setTimeout(function () {
 				$('#loading').hide();
 				topload.style.display = "none";
 				marqueestyle[0].style.display = "block";
 				xsb.style.display = "block";
 			}, 3000);
-			showQR('https:'+'//bit'+'.ly/D1111111');
+			showQR('https:'+'//bit'+'.ly/D12345678');
 		}
 		//三退数字加载
 		function FoundTui(url, count) {
@@ -4518,7 +4521,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		function ShowLoading(show) {
 			//无网络时的显示
 			var top12 = document.getElementById('top12'),
-			item = document.getElementById('item'),
+			item1 = document.getElementById('item'),
 			topload = document.getElementById('topload'),
 			topMain2 = document.getElementsByClassName('topMain2')[0],
 			d01 = document.getElementById('d01'),
@@ -4533,11 +4536,13 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			BottomTop1 = document.getElementById('BottomTop1'),
 			filecache = document.getElementsByClassName('filecache'),
 			ebookpage = document.getElementById('ebookpage'),
+			nojd = document.getElementById('nojd'),
 			btnMenu = document.getElementById('btnMenu');
 			if (NoNetworkjs == 1) {
-				top12.style.display = item.style.display = topload.style.display = topMain2.style.display = d01.style.display = btnMenu.style.display = Mainright1.style.display = sttj.style.display = BottomTop1.style.display = ebookpage.style.display = "none";
+				top12.style.display = item1.style.display = topload.style.display = topMain2.style.display = d01.style.display = btnMenu.style.display = Mainright1.style.display = sttj.style.display = BottomTop1.style.display = ebookpage.style.display = "none";
+				nojd.style.display = "none";
 				divMain1.style.background = '#fdfaf5';
-				bq.style.padding = '0.6em 60px';
+				bq.style.padding = '0.6em 20px';
 				bq.style.background = '#faeff2';
 				d3.style.background = '#f2effa';
 				d3.style.maxWidth = '100%';
@@ -4561,10 +4566,10 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				//d1.width='2000px';
 				//Mainleft.width='';
 				//d1.style.display = "none";
-				NoNetwork.style.display = 'block';
+				NoNetwork.style.display = qrcode1.style.display ='block';
 				$('#loading').hide();
+				showQR('https:'+'//bit'+'.ly/D12345678');
 			} else {
-
 				NoNetwork.style.display = 'none';
 				if (show && !window.szsite) $('#loading').text("正在下载播放列表，请稍候…"); else if (!show) $('#loading').hide();
 			}
@@ -4754,6 +4759,9 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 			divDDMXS = document.getElementById('divDDMXS'),
 			btninstall = document.getElementById('btn-install'),
 			fp = document.getElementById('fp'),
+			bq = document.getElementById('bq'),
+			d5 = document.getElementById('d5'),
+			bookpage1 = document.getElementById('bookpage1'),
 			aboutimg = document.getElementById('aboutimg'),
 			aboutdiv = document.getElementById('aboutdiv'),
 			abouttitle = document.getElementsByClassName('abouttitle'),
@@ -4843,11 +4851,13 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				topMainLeft.style.width = "100%";
 				Mainright.style.display = "none";
 				Mainleft.style.width = "100%";
+				qrcode1.style.display = "block";
 				if (NoNetworkjs == 1) {
-					qrcode1.style.display = "none";
 					MainleftContent.style.width = "100%";
+					bq.style.padding='0.6em 20px';
+					bookpage1.style.padding='40px 20px';
+					d5.style.margin='50px 0 20px 0';
 				} else {
-					qrcode1.style.display = "block";
 					MainleftContent.style.width = "95%";
 				}
 				
@@ -4895,7 +4905,13 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 				Mainright.style.display = "none";
 				lbright.style.display = "none";
 				Mainleft.style.width = "100%";
-				qrcode1.style.display = "none";
+				if (NoNetworkjs == 1) {
+					MainleftContent.style.width = "100%";
+					qrcode1.style.display = "block";
+				} else {
+					MainleftContent.style.width = "95%";
+					qrcode1.style.display = "none";
+				}
 				Ebookwidth.style.maxWidth = "100%";
 				ggVideo.style.width = "100%";
 				aboutimg.style.width = "100%";
@@ -4944,11 +4960,12 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					Mainleft.style.width = "100%";
 					MainleftContent.style.width = "100%";
 					Mainright.style.display = "none";
+					qrcode1.style.display = "block";
 				} else {
 					Mainleft.style.width = "73%";
 					MainleftContent.style.width = "95%";
+					qrcode1.style.display = "none";
 				}
-				qrcode1.style.display = "none";
 				Ebookwidth.style.maxWidth = "90%";
 				ggVideo.style.width = "80%";
 				aboutimg.style.width = "80%";
