@@ -1034,24 +1034,16 @@
 	</div>
 	</div>
 	<!-- 无网络时加载 -->
-	<div style="display:none"><img  id=img1 onerror="offline();" noproxy/><img  id=img2 onerror="offline();" noproxy/><img  id=img3 onerror="offline();" noproxy/></div>
 	<script>
 
 
-// 修改路径和查询参数
-		//window.location.pathname = '/new-path';
-		var NoNetworkjs = 0,NNjs = 0;
-		var url = location.href; //把当前页面的地址赋给变量 url
-		var times = url.split("?"); //分切变量 url 分隔符号为 "?
-		
-		img1.src="https"+":"+"//w"+"ww"+".ba"+"idu."+"com/img/flex"+"ible/logo/pc/result.png?v=" + Math.random();
-		img2.src="https:"+"//img-prod-cms-rt"+"-microsoft-com.akama"+"ized."+"net/cms/api/am/imageFileData/RE1Mu3b?v=" + Math.random();
-		img3.src="https"+"://www.gstatic"+".com/marketing-cms/ass"+"ets/images/f5/d3/a7f9db7045429cb6dc6be56bdcbe/google-logo-about.svg?v=" + Math.random();
-		function offline()  {
-			NNjs += 1;
-			if (NNjs == 3 && sessionStorage.getItem('jdreset') != '1') NoNetworkjs = 1;
-		}
-		if (sessionStorage.getItem('jdreset') == '1') sessionStorage.removeItem('jdreset');
+//判断网络状态
+		var NoNetworkjs = 0;
+        if (navigator.onLine) {
+			NoNetworkjs = 0;
+        } else {
+			NoNetworkjs = 1;
+        }
 	</script>
 	<div id=NoNetwork style="display:none;padding-top:20px;max-width:1200px;margin: auto;border-radius:10px;" align=center>
 			<img alt=img_61 class=mw>
@@ -4268,6 +4260,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					var item2 = {
 						title: item1.title,
 						image: item1.poster_url,
+						avideo:  item1.video,
 						url: window.szsite + '/zh-CN/' + item1.type.toLowerCase() + '/' + item1.id,
 						created_at: item1.created_at,
 						channel_name: item1.channel.name,
@@ -4278,6 +4271,7 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 					lbspans[i].innerText = item2.title;
 					lbspans[i].title = item2.title;
 					linka[i].href = item2.url;
+					console.log(item2.avideo);
 					if (i == 0) {
 						lbimgs[list.length].src = item2.image;
 						lbspans[list.length].innerText = item2.title;
@@ -4469,7 +4463,6 @@ IED的声明说：『中国政府企图以诬陷法轮功残害生命破坏家�
 		function FoundSite(site) {
 			//如果没有网络后短时间又连上网，则刷新本页。
 			if (NoNetworkjs == 1) {
-				 sessionStorage.setItem('jdreset', '1');
 				window.location.reload(); //刷新页面
 			}
 			/* site形如 http://域名 或 https://域名，尾部不带/ */
