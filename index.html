@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -1012,6 +1012,38 @@
 </head>
 
 <body onLoad="initArticle();checkScreenWidth();">
+		<!-- 兼容安卓 4.4.4 -->
+<!-- 建议插入点：在 body 打开标签之后、任何用到诸如 top12/divDDMXS/d0 等 ID 的脚本之前 -->
+<script>
+(function exposeIdsToWindow(){
+  function expose(el){
+    var id = el && el.id;
+    if (id && !(id in window)) window[id] = el;
+  }
+  // 先挂载当前已有元素
+  var els = document.querySelectorAll('[id]');
+  for (var i = 0; i < els.length; i++) expose(els[i]);
+  // 监听后续新增节点（旧环境没有也无妨）
+  try {
+    new MutationObserver(function(muts){
+      for (var k = 0; k < muts.length; k++) {
+        var nodes = muts[k].addedNodes || [];
+        for (var j = 0; j < nodes.length; j++) {
+          var n = nodes[j];
+          if (n.nodeType === 1) {
+            expose(n);
+            if (n.querySelectorAll) {
+              var all = n.querySelectorAll('[id]');
+              for (var i2 = 0; i2 < all.length; i2++) expose(all[i2]);
+            }
+          }
+        }
+      }
+    }).observe(document.documentElement, {subtree:true, childList:true});
+  } catch (e) {}
+})();
+</script>
+
 	<div id=divTop
 		style="right:27%;width:44px;height:44px;position:fixed;bottom:0;cursor:pointer;z-index:10001;display:none;opacity:0.8"
 		onClick="scroll2(0);showTop(0);" onmouseenter="showTop(1);" onmouseleave="showTop(0);">
@@ -1033,36 +1065,7 @@
 		<div id=divapp><a id="btn-install" href="javascript:"></a></div>
 	</div>
 	</div>
-		<!-- 兼容安卓 4.4.4 -->
-	<script>
-(function exposeIdsToWindow(){
-  function expose(el){
-    var id = el && el.id;
-    if (id && !(id in window)) window[id] = el;
-  }
-  // 先挂载当前已有元素
-  var els = document.querySelectorAll('[id]');
-  for (var i = 0; i < els.length; i++) expose(els[i]);
-  // 监听后续新增节点
-  try {
-    new MutationObserver(function(muts){
-      for (var k = 0; k < muts.length; k++) {
-        var nodes = muts[k].addedNodes || [];
-        for (var j = 0; j < nodes.length; j++) {
-          var n = nodes[j];
-          if (n.nodeType === 1) {
-            expose(n);
-            if (n.querySelectorAll) {
-              var all = n.querySelectorAll('[id]');
-              for (var i2 = 0; i2 < all.length; i2++) expose(all[i2]);
-            }
-          }
-        }
-      }
-    }).observe(document.documentElement, {subtree:true, childList:true});
-  } catch (e) { /* 旧环境没有 MutationObserver 也没关系，前面已做一次性挂载 */ }
-})();
-</script>
+
 	<!-- 无网络时加载 -->
 	<script>
 
