@@ -1,0 +1,12 @@
+<div onclick="vppause();">≤‚ ‘</div>
+
+	<script>
+	function vppause() {
+	if (window.self !== window.top) {
+	
+		window.parent.vp.pause();
+		window.parent.cspause();
+		alert('aaa');
+	}
+	}
+</script>
