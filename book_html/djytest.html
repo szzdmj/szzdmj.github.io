@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主图代理隔离测试 / main-image proxy isolation</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 820px; margin: 0 auto; padding: 16px; }
+  .case { border: 1px solid #ccc; border-radius: 6px; margin: 18px 0; padding: 12px; }
+  .case h2 { font-size: 15px; margin: 0 0 4px; }
+  .case p  { font-size: 12px; color: #666; margin: 0 0 10px; word-break: break-all; }
+  .frame { min-height: 60px; background: #f2f2f2; }         /* 灰底:图没显示时能看出容器还在 */
+  .frame img { display: block; max-width: 100%; height: auto; }
+  /* 复刻源站主图 <img> 用到的关键类,排查是不是这些样式被代理后 CSS 改坏导致塌陷 */
+  .nimg { width: 100%; border-radius: 2px; background: #e5e7eb;
+          object-fit: cover; object-position: top; aspect-ratio: 3 / 2; color: transparent; }
+  code { background:#f6f6f6; padding:1px 3px; border-radius:3px; }
+</style>
+</head>
+<body>
+<h1>主图代理隔离测试</h1>
+<p style="font-size:13px;color:#555">
+  部署到能被 PHProxyPro 代理的源站,先直接打开确认 6 个变体全部显示,再通过代理打开,
+  记录<strong>哪几个变体的图消失/变占位</strong>。每个变体只隔离一个变量,消失的那个就是坏点。
+  图片用的是真实源站资源 <code>i.epochtimes.com/.../id14803048-GettyImages-2284098649.jpg</code>,
+  代理会按它处理真实页面的同样规则改写这些 URL。
+</p>
+
+<!-- 变体 1:完整 <picture>(与源站主图结构完全一致:webp source + jpeg source + img 兜底) -->
+<div class="case">
+  <h2>#1 完整 &lt;picture&gt;(与源站主图 1:1)</h2>
+  <p>webp source(/_next/image w=1200) + jpeg source(直连) + img 兜底(/_next/image w=1920)。浏览器通常选 webp source。</p>
+  <div class="frame">
+    <a href="https://i.epochtimes.com/assets/uploads/2026/07/id14803048-GettyImages-2284098649.jpg" data-thumbnail="true" target="_blank"><picture>
+      <source srcset="/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1200&amp;q=75" type="image/webp">
+      <source srcset="https://i.epochtimes.com/assets/uploads/2026/07/id14803048-GettyImages-2284098649.jpg" type="image/jpeg">
+      <img alt="主图" fetchpriority="high" width="720" height="480" decoding="async" class="nimg" style="color:transparent" src="https://www.epochtimes.com/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1920&amp;q=75">
+    </picture></a>
+  </div>
+</div>
+
+<!-- 变体 2:只有 webp source(/_next/image, 相对路径, w=1200)—— 就是浏览器实际显示的那个源 -->
+<div class="case">
+  <h2>#2 只 webp source(相对 /_next/image, w=1200)</h2>
+  <p>只保留浏览器实际会显示的那个源。若此变体消失,说明代理改写这个 <code>_next/image</code> 相对 URL 出了问题。</p>
+  <div class="frame">
+    <picture>
+      <source srcset="/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1200&amp;q=75" type="image/webp">
+      <img alt="主图" class="nimg" style="color:transparent" src="/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1200&amp;q=75">
+    </picture>
+  </div>
+</div>
+
+<!-- 变体 3:只有 <img>,相对 /_next/image, w=1200,不带 type=webp 的 source(排除 source type 声明的影响) -->
+<div class="case">
+  <h2>#3 裸 &lt;img src=/_next/image w=1200&gt;(无 picture/source)</h2>
+  <p>去掉 &lt;picture&gt; 和 &lt;source type=webp&gt;,只留一个 img。用来判断是不是 <code>&lt;source type="image/webp"&gt;</code> 声明为 webp、代理却返回 jpeg 的类型不匹配导致的。</p>
+  <div class="frame">
+    <img alt="主图" class="nimg" style="color:transparent" src="/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1200&amp;q=75">
+  </div>
+</div>
+
+<!-- 变体 4:只有直连 jpeg(源站 <source type=jpeg> 那个形式) -->
+<div class="case">
+  <h2>#4 直连原图 jpeg(绝对 i.epochtimes.com,非 _next/image)</h2>
+  <p>源站 jpeg source 的形式。代理会把它改写成 <code>/h1/&lt;blob&gt;/assets/...jpg</code> 直通路径。若只有这个消失,问题在直通图路径(DR/leak-fallback)那条线。</p>
+  <div class="frame">
+    <img alt="主图" class="nimg" style="color:transparent" src="https://i.epochtimes.com/assets/uploads/2026/07/id14803048-GettyImages-2284098649.jpg">
+  </div>
+</div>
+
+<!-- 变体 5:<img> src 指向绝对 www.epochtimes.com/_next/image(源站 img 兜底那个形式) -->
+<div class="case">
+  <h2>#5 绝对 www.epochtimes.com/_next/image(w=1920)</h2>
+  <p>源站 &lt;img&gt; 兜底那个 URL 形式(绝对 host + 内层 url 参数)。测代理对"绝对 _next/image URL"的改写。</p>
+  <div class="frame">
+    <img alt="主图" class="nimg" style="color:transparent" src="https://www.epochtimes.com/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1920&amp;q=75">
+  </div>
+</div>
+
+<!-- 变体 6:同 #3 但去掉所有 class/style,排除 CSS 塌陷 -->
+<div class="case">
+  <h2>#6 裸 img,无任何 class/style(排除 CSS 塌陷)</h2>
+  <p>与 #3 同一 URL,但去掉 <code>class</code>/<code>style</code>。若 #3 消失而 #6 正常 → 是代理后 CSS 把容器/图样式改坏了,不是图本身。</p>
+  <div class="frame">
+    <img alt="主图" src="/_next/image?url=https%3A%2F%2Fi.epochtimes.com%2Fassets%2Fuploads%2F2026%2F07%2Fid14803048-GettyImages-2284098649.jpg&amp;w=1200&amp;q=75">
+  </div>
+</div>
+
+<hr>
+<p style="font-size:12px;color:#888">
+  判读:#2/#3 消失 → _next/image 相对 URL 改写问题;#4 消失 → 直通图路径;#5 消失 → 绝对 _next/image 改写;
+  #3 消失但 #6 正常 → CSS 塌陷;#1 消失但 #2/#3/#4/#5 都正常 → &lt;picture&gt;/&lt;source&gt; 组合或 source 被 PHP 替换成占位。
+</p>
+</body>
+</html>
